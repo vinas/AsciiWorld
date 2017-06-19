@@ -8,6 +8,13 @@ function Game() {
         setup.loadLevelMap();
         setup.setCharman();
         events.loadEventHandlers();
+
+        gameLoop();
+    }
+
+    function gameLoop() {
+        display.moveCharman();
+        setTimeout(gameLoop, 50);
     }
 
 }
