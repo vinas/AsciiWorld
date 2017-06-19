@@ -1,8 +1,35 @@
 function Events()
 {
     this.loadEventHandlers = loadEventHandlers;
+    this.tapJump = tapJump;
+    this.tapMoveRight = tapMoveRight;
+    this.tapMoveLeft = tapMoveLeft;
+    this.tapStop = tapStop;
  
     return this;
+
+    function tapMoveRight() {
+        comands.left = false;
+        comands.right = true;
+    }
+
+    function tapMoveLeft() {
+        comands.right = false;
+        comands.left = true;
+    }
+
+    function tapStop() {
+        comands.left = false;
+        comands.right = false;
+    }
+
+    function tapJump() {
+        console.log('aqui');
+        comands.jump = true;
+        setTimeout(function () {
+            comands.jump = false;
+        }, 150);
+    }
 
     function loadEventHandlers() {
 

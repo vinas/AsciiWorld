@@ -6,6 +6,15 @@
     <div id="gameBrackground">
       <div id="charman"><img src="img/charman/charman-01.png" id="charmanImg" /></div>
     </div>
+    <div>
+      <div style="float: right; width: 40%; height: 100%; background-color: #ccc;" onmousedown="events.tapJump()"></div>
+      <div style="float: left; width: 25%; height: 100%; background-color: #FFC;"
+        onmousedown="events.tapMoveLeft()"
+        onmouseup="events.tapStop()"></div>
+      <div style="float: left; width: 25%; height: 100%; background-color: #cc3;"
+        onmousedown="events.tapMoveRight()"
+        onmouseup="events.tapStop()"></div>
+    </div>
   </body>
   <!-- game js files begin -->
   <script type="text/javascript" src="js/scripts/globals.js"></script>
