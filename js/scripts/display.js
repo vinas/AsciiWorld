@@ -16,6 +16,10 @@ function Display() {
 
         if (comands['jump'] && !comands['jumping']) {
             comands['jumping'] = true;
+            charmanImg.setAttribute('src', 'img/charman/charman-jump.gif');
+            setTimeout(function () {
+                charmanImg.setAttribute('src', 'img/charman/charman-01.png');
+            }, 800);
             jump();
         }
         
@@ -37,20 +41,20 @@ function Display() {
         jumping()
 
         function jumping() {
-            if (topPos <= -80)
+            if (topPos <= -60)
                 direction = 'down';
 
             if (direction == 'up') {
-                topPos -= 5;
+                topPos -= 2;
             } else {
-                topPos += 5;
+                topPos += 2;
             }
 
             if (topPos >= 0) {
                 topPos = 0;
                 comands['jumping'] = false;
             } else {
-                setTimeout(jumping, 20);
+                setTimeout(jumping, 10);
             }
 
             charman.style.top = topPos;
@@ -82,7 +86,7 @@ function Display() {
     }
 
     function handleRunninImg() {
-        if (charmanImg.getAttribute('src') != 'img/charman/charman-run.gif')
+        if (!comands['jumping'] && charmanImg.getAttribute('src') != 'img/charman/charman-run.gif')
             charmanImg.setAttribute('src', 'img/charman/charman-run.gif');
     }
 
