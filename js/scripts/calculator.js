@@ -1,0 +1,5 @@
+function Calculator() {
+
+    return this;
+    
+}
