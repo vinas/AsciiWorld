@@ -1,6 +1,8 @@
 var charman,
-    charmanImg;
+    charmanImg,
+    bkgLayer;
+    gameOn = true;
 
-var basicMovRate = 1.5,
-    background,
-    comands = {};
+var basicMovRate = 1.8,
+    comands = {},
+    currMap = 0;

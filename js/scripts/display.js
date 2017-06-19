@@ -3,11 +3,67 @@ function Display() {
     this.jump = jump;
     this.handleRunninImg = handleRunninImg;
     this.mirrorObj = mirrorObj;
+    this.shoot = shoot;
+    this.charmanIdle = charmanIdle;
+    this.setCharmanRight = setCharmanRight;
+    this.setCharmanLeft = setCharmanLeft;
+    this.clearBackground = clearBackground;
+    this.fall = fall;
 
     return this;
 
+    function fall() {
+        var char = document.getElementById('charman'),
+            topPos = calc.getCharmanCoord(char.style.top);
+
+            setTimeout(function () {
+                document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-hands-up.png');
+            }, 20);
+            
+        falling()
+
+        async function falling() {
+            if (topPos <= 500) {
+                topPos += 1.5;
+                char.style.top = topPos;
+                setTimeout(falling, 5);
+            }
+        }
+
+    }
+
+    function clearBackground(){
+        var elements = document.getElementsByClassName('floor');
+        while(elements.length > 0){
+            elements[0].parentNode.removeChild(elements[0]);
+        }
+    }
+
+    function setCharmanLeft() {
+            document.getElementById('charman').style.left = '-1%';
+    }
+
+    function setCharmanRight() {
+        document.getElementById('charman').style.left = '95%';
+    }
+
+    function charmanIdle() {
+        document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-01.png');
+    }
+
+    function shoot() {
+        document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-shoot.png');
+        setTimeout(function () {
+            if (gameOn) document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-01.png');
+        }, 200);
+    }
 
     function jump() {
+        document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-jump.gif');
+        setTimeout(function () {
+            if (gameOn) document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-01.png');
+        }, 800);
+
         var direction = 'up';
         var topPos = 0;
 
@@ -29,8 +85,7 @@ function Display() {
             } else {
                 setTimeout(jumping, 10);
             }
-
-            charman.style.top = topPos;
+            document.getElementById('charman').style.top = topPos;
         }
     }
 
@@ -45,8 +100,8 @@ function Display() {
     }
 
     function handleRunninImg() {
-        if (!comands['jumping'] && charmanImg.getAttribute('src') != 'img/charman/charman-run.gif')
-            charmanImg.setAttribute('src', 'img/charman/charman-run.gif');
+        if (!comands['jumping'] && document.getElementById('charmanImg').getAttribute('src') != 'img/charman/charman-run.gif')
+            document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-run.gif');
     }
 
 }

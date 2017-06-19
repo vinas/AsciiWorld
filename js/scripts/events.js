@@ -8,9 +8,13 @@ function Events()
 
         document.addEventListener('keydown', function(e) {
             if (e.which == 39) {
-                comands['right'] = true;
+                display.mirrorObj(document.getElementById('charmanImg'), 1);
+                comands.left = false;
+                comands.right = true;
             } else if (e.which == 37) {
-                comands['left'] = true;
+                display.mirrorObj(document.getElementById('charmanImg'), -1);
+                comands.right = false;
+                comands.left = true;
             } else if (e.which == 32) {
                 comands['fire'] = true;
             } else if (e.which == 17) {
@@ -23,9 +27,9 @@ function Events()
         document.addEventListener('keyup', function(e) {
             setTimeout(function() {
                 if (e.which == 39) {
-                    comands['right'] = false;
+                    comands.right = false;
                 } else if (e.which == 37) {
-                    comands['left'] = false;
+                    comands.left = false;
                 } else if (e.which == 32) {
                     comands['fire'] = false;
                 } else if (e.which == 17) {

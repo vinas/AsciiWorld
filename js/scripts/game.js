@@ -5,7 +5,8 @@ function Game() {
     return this;
 
     function init() {
-        setup.loadLevelMap();
+        bkgLayer = document.getElementById('gameBrackground');
+        setup.loadLevelMap(currMap);
         setup.setCharman();
         events.loadEventHandlers();
 
@@ -13,46 +14,84 @@ function Game() {
     }
 
     function gameLoop() {
-        handleFiring();
-        handleMovement();
-        handleJump();
-        handleIdle();
+        if (gameOn) {
+            handleCrossMargin();
+            handleFiring();
+            handleJump();
+            handleIdle();
+            handleMovement();
+        }
         setTimeout(gameLoop, 50);
     }
 
     function handleFiring() {
         if (comands['fire'] && !comands['firing']) {
             comands['firing'] = true;
-            charmanImg.setAttribute('src', 'img/charman/charman-shoot.png');
-            setTimeout(function () {
-                charmanImg.setAttribute('src', 'img/charman/charman-01.png');
-            }, 200);
+            display.shoot();
             return;
         }
         if (!comands['fire'] && comands['firing']) comands['firing'] = false;
     }
 
     function handleMovement() {
-        if ((comands['right'] || comands['left']) && !comands['firing']) {
+        var leftPos = document.getElementById('charman').style.left,
+            topPos = calc.getCharmanCoord(document.getElementById('charman').style.top),
+            floorIdx;
+            
+        if ((comands.right || comands.left) && !comands['firing']) {
             display.handleRunninImg();
-            charman.style.left = calc.setNewCoord(charman.style.left);
-            return;
+            leftPos = calc.setNewCoord(leftPos);
+            document.getElementById('charman').style.left = leftPos;
+        }
+
+        floorIdx = calc.getCurrentFloorIdx(leftPos);
+
+        if (
+            setup.loadMapArr()[currMap][floorIdx][2] == 'hole'
+            && (
+                topPos == ''
+                || topPos >= 0
+            )
+            && (
+                calc.isAllInHole(leftPos, floorIdx)
+            )
+        ) {
+            endGame('hole');
+        }
+    }
+
+    function endGame(reason) {
+        gameOn = false;
+        switch (reason) {
+            case 'hole':
+                display.fall();
+                break;
         }
     }
 
     function handleJump() {
         if (comands['jump'] && !comands['jumping']) {
             comands['jumping'] = true;
-            charmanImg.setAttribute('src', 'img/charman/charman-jump.gif');
-            setTimeout(function () {
-                charmanImg.setAttribute('src', 'img/charman/charman-01.png');
-            }, 800);
             display.jump();
         }
     }
 
     function handleIdle() {
-        if (!comands['right'] && !comands['left'] && !comands['firing']) charmanImg.setAttribute('src', 'img/charman/charman-01.png');
+        if (!comands.right && !comands.left && !comands['firing']) display.charmanIdle();
+    }
+
+    function handleCrossMargin() {
+        if (comands.right || comands.left) {
+            if (calc.getCharmanCoord(document.getElementById('charman').style.left) >= 95) {
+                currMap += 1;
+                setup.loadLevelMap();
+                display.setCharmanLeft();
+            } else if ((currMap != 0 ) && calc.getCharmanCoord(document.getElementById('charman').style.left) <= -3) {
+                currMap -= 1;
+                setup.loadLevelMap();
+                display.setCharmanRight();
+            }
+        }
     }
 
 }
