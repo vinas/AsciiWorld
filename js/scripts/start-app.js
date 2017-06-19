@@ -7,4 +7,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     game = Game();
 
     game.init();
+
 });

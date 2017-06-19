@@ -16,14 +16,12 @@ function Display() {
         left = parseFloat(left.match(regex).map(function(v) { return parseFloat(v); }));
         switch (direction) {
             case 39:
-                if (charmanImg.getAttribute('src') != 'img/charman/charman-run.gif')
-                    charmanImg.setAttribute('src', 'img/charman/charman-run.gif')
+                handleRunninImg();
                 mirrorObj(document.getElementById('charmanImg'), 1);
                 left += basicMovRate;
                 break;
             case 37:
-                if (charmanImg.getAttribute('src') != 'img/charman/charman-run.gif')
-                    charmanImg.setAttribute('src', 'img/charman/charman-run.gif')
+                handleRunninImg();
                 mirrorObj(document.getElementById('charmanImg'), -1);
                 left -= basicMovRate;
                 break;
@@ -40,6 +38,11 @@ function Display() {
         objeto.style.transform = "scaleX("+escala+")";
         objeto.style.msFilter = "fliph";
         objeto.style.filter = "fliph";
+    }
+
+    function handleRunninImg() {
+        if (charmanImg.getAttribute('src') != 'img/charman/charman-run.gif')
+            charmanImg.setAttribute('src', 'img/charman/charman-run.gif')
     }
 
 }
