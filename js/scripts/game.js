@@ -57,7 +57,7 @@ function Game() {
             setup.loadMapArr()[currMap][floorIdx][3] == 'hole'
             && (
                 topPos == ''
-                || topPos >= 41
+                || topPos >= CHARBASEFLOOR
             )
             && (
                 calc.isAllSection(leftPos, floorIdx)
