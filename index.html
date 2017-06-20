@@ -6,14 +6,25 @@
     <div id="gameBrackground">
       <div id="charman"><img src="img/charman/charman-01.png" id="charmanImg" /></div>
     </div>
-    <div>
-      <div style="float: right; width: 40%; height: 100%; background-color: #ccc;" onmousedown="events.tapJump()"></div>
-      <div style="float: left; width: 25%; height: 100%; background-color: #FFC;"
-        onmousedown="events.tapMoveLeft()"
-        onmouseup="events.tapStop()"></div>
-      <div style="float: left; width: 25%; height: 100%; background-color: #cc3;"
-        onmousedown="events.tapMoveRight()"
-        onmouseup="events.tapStop()"></div>
+    <div class="controller">
+      <div class="btn forceRight jump" ontouchstart="events.tapJump()">
+        <img src="img/controls/jump01.png" width="100%" height="100%" />
+      </div>
+      <div class="btn forceRight" ontouchstart="events.tapJump()">
+        <img src="img/controls/attack01.png" width="100%" height="100%" />
+      </div>
+      <div class="btn forceLeft moveLeft"
+        ontouchstart="events.tapMoveLeft()"
+        ontouchend="events.tapStop()"
+      >
+        <img src="img/controls/left01.png" width="100%" height="100%" />
+      </div>
+      <div class="btn forceLeft moveRight"
+        ontouchstart="events.tapMoveRight()"
+        ontouchend="events.tapStop()"
+      >
+        <img src="img/controls/right01.png" width="100%" height="100%" />
+      </div>
     </div>
   </body>
   <!-- game js files begin -->
