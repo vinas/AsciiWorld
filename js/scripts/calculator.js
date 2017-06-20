@@ -5,63 +5,50 @@ function Calculator() {
     this.getCurrentFloorIdx = getCurrentFloorIdx;
     this.isAllSection = isAllSection;
     this.isUserOnWater = isUserOnWater;
+    this.setBaseTop = setBaseTop;
 
     return this;
 
+    function setBaseTop() {
+
+    }
+
     function isUserOnWater(leftPos) {
-        floorIdx = calc.getCurrentFloorIdx(leftPos);
+        var floorIdx = getCurrentFloorIdx((leftPos == '') ? 0 : leftPos);
         return (
-                setup.loadMapArr()[currMap][floorIdx][2] == 'liquid'
+                setup.loadMapArr()[currMap][floorIdx][3] == 'liquid'
                 && (
                     isAllSection(leftPos, floorIdx)
                     || (setup.loadMapArr()[currMap][floorIdx+1]
-                        && setup.loadMapArr()[currMap][floorIdx+1][2] == 'liquid'
+                        && setup.loadMapArr()[currMap][floorIdx+1][3] == 'liquid'
                     )
                 )
             );
     }
 
     function isAllSection(leftPos, floorIdx) {
-        leftPos = getCharmanCoord(leftPos);
-        return (leftPos < (12.5 * (floorIdx+1) -5));
+        return (leftPos < mapIndexArray[floorIdx] - 5);
 
     }
 
     function getCurrentFloorIdx(pos) {
-        pos = getCharmanCoord(pos);
-        switch (true) {
-            case (pos < 12.5):
-                return 0;
-            case (pos < 25):
-                return 1
-            case (pos < 37.5):
-                return 2;
-            case (pos < 50):
-                return 3;
-            case (pos < 62.5):
-                return 4;
-            case (pos < 75):
-                return 5;
-            case (pos < 87.5):
-                return 6;
-            default:
-                return 7;
+        for (var i = 0; i < mapIndexArray.length; i++) {
+            if (pos < mapIndexArray[i]) return i;
         }
     }
 
     function setNewCoord(left) {
-        left = getCharmanCoord(left);
         if (comands.right) {
             left += basicMovRate;
         } else if (comands.left) {
             left -= basicMovRate;
         }
-        return left+'%';
+        return left;
     }
 
     function getCharmanCoord(coord) {
         var regex = /[+-]?\d+(\.\d+)?/g;
-        if (coord == '') return basicMovRate;
+        if (coord == '') return '';
         return parseFloat(coord.match(regex).map(function(v) { return parseFloat(v); }));
     }
 

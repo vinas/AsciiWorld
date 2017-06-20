@@ -11,6 +11,11 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .floor {
     padding-top: auto;
+    position: absolute;
+}
+
+.firstFloor {
+    top: 10%;
 }
 
 .single {
@@ -24,12 +29,18 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 #charman {
     width: 5%;
     height: 15%;
-    position: relative;
+    position: absolute;
+    top: 41%;
 }
 
 #charmanImg {
     width: 100%;
     height: 100%;
+}
+
+.controller {
+    margin-top: 10%;
+    position: relative;
 }
 
 .btn {

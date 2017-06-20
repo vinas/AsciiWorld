@@ -16,6 +16,7 @@ function Display() {
     function fall() {
         var char = document.getElementById('charman'),
             topPos = calc.getCharmanCoord(char.style.top);
+        if (topPos == '') topPos = CHARBASEFLOOR;
 
             setTimeout(function () {
                 document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-hands-up.png');
@@ -24,9 +25,9 @@ function Display() {
         falling()
 
         async function falling() {
-            if (topPos <= 500) {
-                topPos += 1.5;
-                char.style.top = topPos;
+            if (topPos <= 200) {
+                topPos += JUMPVARRATE;
+                char.style.top = topPos+'%';
                 setTimeout(falling, 5);
             }
         }
@@ -60,14 +61,15 @@ function Display() {
     }
 
     function jump() {
-        var charImg = document.getElementById('charmanImg');
+        var charImg = document.getElementById('charmanImg'),
+            charDiv = document.getElementById('charman');
         charImg.setAttribute('src', 'img/charman/charman-jump.gif');
         charImg.style.width = '100%';
         charImg.style.height = '100%';
         charImg.style.paddingTop = '0%';
         setTimeout(function () {
             if (gameOn) {
-                if (calc.isUserOnWater(document.getElementById('charman').style.left)) {
+                if (calc.isUserOnWater(calc.getCharmanCoord(charDiv.style.left))) {
                     handleSwimmingImg();
                     return;
                 }
@@ -76,27 +78,29 @@ function Display() {
         }, 800);
 
         var direction = 'up';
-        var topPos = 0;
+        var topPos = calc.getCharmanCoord(charDiv.style.top);
+        if (topPos == '') topPos = CHARBASEFLOOR;
+        
 
         jumping()
 
         function jumping() {
-            if (topPos <= -60)
+            if (topPos <= jumpTop)
                 direction = 'down';
 
             if (direction == 'up') {
-                topPos -= 2;
+                topPos -= JUMPVARRATE;
             } else {
-                topPos += 2;
+                topPos += JUMPVARRATE;
             }
 
-            if (topPos >= 0) {
-                topPos = 0;
+            if (topPos >= CHARBASEFLOOR) {
+                topPos = CHARBASEFLOOR;
                 comands['jumping'] = false;
             } else {
                 setTimeout(jumping, 10);
             }
-            document.getElementById('charman').style.top = topPos;
+            charDiv.style.top = topPos+'%';
         }
     }
 

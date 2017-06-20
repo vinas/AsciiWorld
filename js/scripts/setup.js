@@ -14,7 +14,10 @@ function Setup() {
 
     function loadLevelMap()
     {
-        var mapArr = loadMapArr()[currMap];
+        var mapArr = loadMapArr()[currMap],
+            leftPos = 0
+            cont = 0;
+        mapIndexArray = [];
 
         if (currMap % 2 == 0) {
             bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains01.png')";
@@ -28,7 +31,28 @@ function Setup() {
 
         function buildMap(mapItem)
         {
-            bkgLayer.innerHTML += '<img class="floor '+mapItem[1]+'" src="img/map/floor/'+mapItem[0]+'" />';
+            var topPos = 0;
+            switch (mapItem[2]) {
+                case 'baseFloor':
+                    topPos += BASEFLOOR;
+                    break;
+                case 'firstFloor':
+                    topPos += FIRSTFLLOR;
+                    break;
+                case 'scndFloor':
+                    topPos += SCNDFLOOR;
+                    break;
+            }
+            bkgLayer.innerHTML += '<img class="floor '+mapItem[1]+'" style="left: '+leftPos+'%; top: '+topPos+'%" src="img/map/floor/'+mapItem[0]+'" />';
+            switch (mapItem[1]) {
+                case 'single':
+                    leftPos += SINGLEBLOCK;
+                    break;
+                case 'double':
+                    leftPos += DOUBLEBLOCK;
+                    break;
+            }
+            mapIndexArray.push(leftPos);
         }
     }
 
@@ -37,64 +61,65 @@ function Setup() {
     {
         return [
             [
-                ['floor01.png', 'double', 'solid'],
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
-                ['floor01.png', 'double', 'solid']
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid']
             ],
             [
-                ['floor01.png', 'double', 'solid'],
-                ['water-01.gif', 'double', 'liquid'],
-                ['water-01.gif', 'double', 'liquid'],
-                ['water-01.gif', 'double', 'liquid'],
-                ['floor01.png', 'double', 'solid'],
-                ['water-01.gif', 'double', 'liquid'],
-                ['water-01.gif', 'double', 'liquid'],
-                ['floor01.png', 'double', 'solid']
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['water-01.gif', 'double', 'baseFloor', 'liquid'],
+                ['plataform01.png', 'single', 'firstFloor', 'solid'],
+                ['plataform01.png', 'single', 'firstFloor', 'solid'],
+                ['water-01.gif', 'double', 'baseFloor', 'liquid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['water-01.gif', 'double', 'baseFloor', 'liquid'],
+                ['water-01.gif', 'double', 'baseFloor', 'liquid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid']
             ],
             [
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole']
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole']
             ],
             [
-                ['floor01.png', 'double', 'solid'],
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
-                ['floor01.png', 'double', 'solid'],
-                ['floor01.png', 'double', 'solid'],
-                ['floor01.png', 'double', 'solid']
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid']
             ],
             [
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole']
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole']
             ],
             [
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
-                ['water-01.gif', 'double', 'liquid'],
-                ['water-01.gif', 'double', 'liquid'],
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid']
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['water-01.gif', 'double', 'baseFloor', 'liquid'],
+                ['water-01.gif', 'double', 'baseFloor', 'liquid'],
+                ['floor01.png', 'double', 'baseFloor', 'solid'],
+                ['hole01.png', 'double', 'baseFloor', 'hole'],
+                ['floor01.png', 'double', 'baseFloor', 'solid']
             ]
         ];
     }
