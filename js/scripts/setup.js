@@ -49,10 +49,10 @@ function Setup() {
             [
                 ['floor01.png', 'double', 'solid'],
                 ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
-                ['hole01.png', 'double', 'hole'],
-                ['floor01.png', 'double', 'solid'],
+                ['water-01.gif', 'double', 'liquid'],
+                ['water-01.gif', 'double', 'liquid'],
+                ['water-01.gif', 'double', 'liquid'],
+                ['water-01.gif', 'double', 'liquid'],
                 ['floor01.png', 'double', 'solid'],
                 ['floor01.png', 'double', 'solid']
             ],

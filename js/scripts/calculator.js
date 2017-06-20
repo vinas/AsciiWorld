@@ -3,11 +3,25 @@ function Calculator() {
     this.setNewCoord = setNewCoord;
     this.getCharmanCoord = getCharmanCoord;
     this.getCurrentFloorIdx = getCurrentFloorIdx;
-    this.isAllInHole = isAllInHole;
+    this.isAllSection = isAllSection;
+    this.isUserOnWater = isUserOnWater;
 
     return this;
 
-    function isAllInHole(leftPos, floorIdx) {
+    function isUserOnWater(leftPos) {
+        floorIdx = calc.getCurrentFloorIdx(leftPos);
+        return (
+                setup.loadMapArr()[currMap][floorIdx][2] == 'liquid'
+                && (
+                    isAllSection(leftPos, floorIdx)
+                    || (setup.loadMapArr()[currMap][floorIdx+1]
+                        && setup.loadMapArr()[currMap][floorIdx+1][2] == 'liquid'
+                    )
+                )
+            );
+    }
+
+    function isAllSection(leftPos, floorIdx) {
         leftPos = getCharmanCoord(leftPos);
         return (leftPos < (12.5 * (floorIdx+1) -5));
 

@@ -34,18 +34,25 @@ function Game() {
     }
 
     function handleMovement() {
-        var leftPos = document.getElementById('charman').style.left,
-            topPos = calc.getCharmanCoord(document.getElementById('charman').style.top),
-            floorIdx;
+        var leftPos = document.getElementById('charman').style.left;
+
             
         if ((comands.right || comands.left) && !comands['firing']) {
-            display.handleRunninImg();
+            if (calc.isUserOnWater(leftPos)) {
+                display.handleSwimmingImg();
+            } else {
+                display.handleRunninImg();
+            }
             leftPos = calc.setNewCoord(leftPos);
             document.getElementById('charman').style.left = leftPos;
         }
 
-        floorIdx = calc.getCurrentFloorIdx(leftPos);
+        checkIsHole(leftPos, calc.getCurrentFloorIdx(leftPos));
 
+    }
+
+    function checkIsHole(leftPos, floorIdx) {
+        var topPos = calc.getCharmanCoord(document.getElementById('charman').style.top);
         if (
             setup.loadMapArr()[currMap][floorIdx][2] == 'hole'
             && (
@@ -53,7 +60,7 @@ function Game() {
                 || topPos >= 0
             )
             && (
-                calc.isAllInHole(leftPos, floorIdx)
+                calc.isAllSection(leftPos, floorIdx)
             )
         ) {
             endGame('hole');
@@ -77,7 +84,8 @@ function Game() {
     }
 
     function handleIdle() {
-        if (!comands.right && !comands.left && !comands['firing']) display.charmanIdle();
+        if (calc.isUserOnWater(document.getElementById('charman').style.left)) display.handleSwimmingImg();
+        else if (!comands.right && !comands.left && !comands['firing']) display.charmanIdle();
     }
 
     function handleCrossMargin() {

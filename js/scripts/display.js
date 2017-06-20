@@ -9,6 +9,7 @@ function Display() {
     this.setCharmanLeft = setCharmanLeft;
     this.clearBackground = clearBackground;
     this.fall = fall;
+    this.handleSwimmingImg = handleSwimmingImg;
 
     return this;
 
@@ -59,9 +60,19 @@ function Display() {
     }
 
     function jump() {
-        document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-jump.gif');
+        var charImg = document.getElementById('charmanImg');
+        charImg.setAttribute('src', 'img/charman/charman-jump.gif');
+        charImg.style.width = '100%';
+        charImg.style.height = '100%';
+        charImg.style.paddingTop = '0%';
         setTimeout(function () {
-            if (gameOn) document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-01.png');
+            if (gameOn) {
+                if (calc.isUserOnWater(document.getElementById('charman').style.left)) {
+                    handleSwimmingImg();
+                    return;
+                }
+                charImg.setAttribute('src', 'img/charman/charman-01.png');
+            }
         }, 800);
 
         var direction = 'up';
@@ -100,8 +111,24 @@ function Display() {
     }
 
     function handleRunninImg() {
-        if (!comands['jumping'] && document.getElementById('charmanImg').getAttribute('src') != 'img/charman/charman-run.gif')
-            document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-run.gif');
+        var charImg = document.getElementById('charmanImg');
+        if (!comands['jumping'] && charImg.getAttribute('src') != 'img/charman/charman-run.gif') {
+            charImg.setAttribute('src', 'img/charman/charman-run.gif');
+            charImg.style.width = '100%';
+            charImg.style.height = '100%';
+            charImg.style.paddingTop = '0%';
+        }
+    }
+
+    function handleSwimmingImg() {
+        var charImg = document.getElementById('charmanImg');
+        if (!comands['jumping'] && charImg.getAttribute('src') != 'img/charman/charman-swim.gif') {
+            charImg.setAttribute('src', 'img/charman/charman-swim.gif');
+            charImg.style.width = '160%';
+            charImg.style.height = '60%';
+            charImg.style.paddingTop = '96%';
+
+        }
     }
 
 }

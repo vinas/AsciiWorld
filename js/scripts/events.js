@@ -30,7 +30,6 @@ function Events()
     }
 
     function tapJump() {
-        console.log('aqui');
         comands.jump = true;
         setTimeout(function () {
             comands.jump = false;
