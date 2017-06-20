@@ -40,7 +40,7 @@ function Display() {
     }
 
     function setCharmanLeft() {
-            document.getElementById('charman').style.left = '-1%';
+        document.getElementById('charman').style.left = '-1%';
     }
 
     function setCharmanRight() {
@@ -52,10 +52,10 @@ function Display() {
     }
 
     function shoot() {
-        document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-shoot.png');
+        document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-bow.gif');
         setTimeout(function () {
             if (gameOn) document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-01.png');
-        }, 200);
+        }, 300);
     }
 
     function jump() {

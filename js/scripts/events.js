@@ -5,17 +5,23 @@ function Events()
     this.tapMoveRight = tapMoveRight;
     this.tapMoveLeft = tapMoveLeft;
     this.tapStop = tapStop;
+    this.tapAttack = tapAttack;
  
     return this;
 
+    function tapAttack() {
+        comands.fire = true;
+        setTimeout(function () {
+            comands.fire = false;
+        }, 400);
+    }
+
     function tapMoveRight() {
-        comands.left = false;
-        comands.right = true;
+        setMovementRight();
     }
 
     function tapMoveLeft() {
-        comands.right = false;
-        comands.left = true;
+        setMovementLeft()
     }
 
     function tapStop() {
@@ -34,36 +40,53 @@ function Events()
     function loadEventHandlers() {
 
         document.addEventListener('keydown', function(e) {
-            if (e.which == 39) {
-                display.mirrorObj(document.getElementById('charmanImg'), 1);
-                comands.left = false;
-                comands.right = true;
-            } else if (e.which == 37) {
-                display.mirrorObj(document.getElementById('charmanImg'), -1);
-                comands.right = false;
-                comands.left = true;
-            } else if (e.which == 32) {
-                comands['fire'] = true;
-            } else if (e.which == 17) {
-                comands['jump'] = true;
+            switch (e.which) {
+                case 39:
+                    setMovementRight();
+                    break;
+                case 37:
+                    setMovementLeft();
+                    break;
+                case 32:
+                    comands.fire = true;
+                    break;
+                case 17:
+                    comands.jump = true;
             }
-
         });
 
 
         document.addEventListener('keyup', function(e) {
             setTimeout(function() {
-                if (e.which == 39) {
-                    comands.right = false;
-                } else if (e.which == 37) {
-                    comands.left = false;
-                } else if (e.which == 32) {
-                    comands['fire'] = false;
-                } else if (e.which == 17) {
-                    comands['jump'] = false;
+                switch (e.which) {
+                    case 39:
+                        comands.right = false;
+                        break;
+                    case 37:
+                        comands.left = false;
+                        break;
+                    case 32:
+                        comands.fire = false;
+                        break;
+                    case 17:
+                        comands.jump = false;
                 }
             }, 50);
         });
 
+        document.ondblclick = function(e) { e.preventDefault(); };
+
+    }
+
+    function setMovementRight() {
+        display.mirrorObj(document.getElementById('charmanImg'), 1);
+        comands.left = false;
+        comands.right = true;
+    }
+
+    function setMovementLeft() {
+        display.mirrorObj(document.getElementById('charmanImg'), -1);
+        comands.right = false;
+        comands.left = true;
     }
 }

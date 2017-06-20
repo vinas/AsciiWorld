@@ -33,11 +33,12 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 
 .btn {
-    padding-top: 2%;
+    margin-top: 2%;
     width: 20%;
     height: 20%;
     background-repeat: no-repeat;
-    background-position: 100%;
+    background-position: center;
+    background-size: 80% 100%;
 }
 
 .btnShoot {
@@ -56,6 +57,9 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     background-image: url('../img/controls/jump01.png');
 }
 
+.fire {
+    background-image: url('../img/controls/attack01.png');
+}
 
 .moveRight {
     background-image: url('../img/controls/right01.png');
