@@ -5,8 +5,25 @@ function Calculator() {
     this.setCurrentFloorIndex = setCurrentFloorIndex;
     this.isAllSection = isAllSection;
     this.isUserOnWater = isUserOnWater;
+    this.checkIsHole = checkIsHole;
     
     return this;
+
+    function checkIsHole() {
+        var topPos = calc.getCharmanCoord(charDiv.style.top);
+        if (
+            setup.loadMapArr()[currMap][floorIndex][3] == 'hole'
+            && (
+                topPos == ''
+                || topPos >= CHARBASEFLOOR
+            )
+            && (
+                calc.isAllSection(leftPos, floorIndex)
+            )
+        ) {
+            game.endGame('hole');
+        }
+    }
 
     function isUserOnWater() {
 
@@ -41,7 +58,7 @@ function Calculator() {
     function setNewCoord() {
         if (comands.right) {
             leftPos += basicMovRate;
-        } else if (comands.left) {
+        } else if (comands.left && !(parseFloat(leftPos) <= -.5 && currMap == 0)) {
             leftPos -= basicMovRate;
         }
     }

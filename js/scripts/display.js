@@ -14,12 +14,11 @@ function Display() {
     return this;
 
     function fall() {
-        var char = document.getElementById('charman'),
-            topPos = calc.getCharmanCoord(char.style.top);
+            topPos = calc.getCharmanCoord(charDiv.style.top);
         if (topPos == '') topPos = CHARBASEFLOOR;
 
             setTimeout(function () {
-                document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-hands-up.png');
+                charmanImg.setAttribute('src', 'img/charman/charman-hands-up.png');
             }, 20);
             
         falling()
@@ -27,7 +26,7 @@ function Display() {
         async function falling() {
             if (topPos <= 200) {
                 topPos += JUMPVARRATE;
-                char.style.top = topPos+'%';
+                charDiv.style.top = topPos+'%';
                 setTimeout(falling, 5);
             }
         }
@@ -42,40 +41,38 @@ function Display() {
     }
 
     function setCharmanLeft() {
-        document.getElementById('charman').style.left = '-1%';
-        leftPos = -1;
+        charDiv.style.left = '-3%';
+        leftPos = -3;
     }
 
     function setCharmanRight() {
-        document.getElementById('charman').style.left = '95%';
+        charDiv.style.left = '97%';
         leftPos = 95;
     }
 
     function charmanIdle() {
-        document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-01.png');
+        charmanImg.setAttribute('src', 'img/charman/charman-01.png');
     }
 
     function shoot() {
-        document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-bow.gif');
+        charmanImg.setAttribute('src', 'img/charman/charman-bow.gif');
         setTimeout(function () {
-            if (gameOn) document.getElementById('charmanImg').setAttribute('src', 'img/charman/charman-01.png');
+            if (gameOn) charmanImg.setAttribute('src', 'img/charman/charman-01.png');
         }, 300);
     }
 
     function jump() {
-        var charImg = document.getElementById('charmanImg'),
-            charDiv = document.getElementById('charman');
-        charImg.setAttribute('src', 'img/charman/charman-jump.gif');
-        charImg.style.width = '100%';
-        charImg.style.height = '100%';
-        charImg.style.paddingTop = '0%';
+        charmanImg.setAttribute('src', 'img/charman/charman-jump.gif');
+        charmanImg.style.width = '100%';
+        charmanImg.style.height = '100%';
+        charmanImg.style.paddingTop = '0%';
         setTimeout(function () {
             if (gameOn) {
-                if (calc.isUserOnWater(calc.getCharmanCoord(charDiv.style.left))) {
+                if (calc.isUserOnWater(leftPos)) {
                     handleSwimmingImg();
                     return;
                 }
-                charImg.setAttribute('src', 'img/charman/charman-01.png');
+                charmanImg.setAttribute('src', 'img/charman/charman-01.png');
             }
         }, 800);
 
@@ -98,7 +95,7 @@ function Display() {
 
             if (topPos >= CHARBASEFLOOR) {
                 topPos = CHARBASEFLOOR;
-                comands['jumping'] = false;
+                comands.jumping = false;
             } else {
                 setTimeout(jumping, 10);
             }
@@ -117,22 +114,20 @@ function Display() {
     }
 
     function handleRunninImg() {
-        var charImg = document.getElementById('charmanImg');
-        if (!comands['jumping'] && charImg.getAttribute('src') != 'img/charman/charman-run.gif') {
-            charImg.setAttribute('src', 'img/charman/charman-run.gif');
-            charImg.style.width = '100%';
-            charImg.style.height = '100%';
-            charImg.style.paddingTop = '0%';
+        if (!comands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-run.gif') {
+            charmanImg.setAttribute('src', 'img/charman/charman-run.gif');
+            charmanImg.style.width = '100%';
+            charmanImg.style.height = '100%';
+            charmanImg.style.paddingTop = '0%';
         }
     }
 
     function handleSwimmingImg() {
-        var charImg = document.getElementById('charmanImg');
-        if (!comands['jumping'] && charImg.getAttribute('src') != 'img/charman/charman-swim.gif') {
-            charImg.setAttribute('src', 'img/charman/charman-swim.gif');
-            charImg.style.width = '160%';
-            charImg.style.height = '60%';
-            charImg.style.paddingTop = '96%';
+        if (!comands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-swim.gif') {
+            charmanImg.setAttribute('src', 'img/charman/charman-swim.gif');
+            charmanImg.style.width = '160%';
+            charmanImg.style.height = '60%';
+            charmanImg.style.paddingTop = '96%';
 
         }
     }

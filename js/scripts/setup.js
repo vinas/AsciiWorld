@@ -1,36 +1,31 @@
 function Setup() {
 
-    this.setCharman = setCharman;
+    this.setCharmanElements = setCharmanElements;
     this.loadLevelMap = loadLevelMap;
     this.loadMapArr = loadMapArr;
 
     return this;
 
-    function setCharman()
-    {
-        charman = document.getElementById('charman');
+    function setCharmanElements() {
+        charDiv = document.getElementById('charman');
         charmanImg = document.getElementById('charmanImg');
+        bkgLayer = document.getElementById('gameBrackground');
     }
 
-    function loadLevelMap()
-    {
+    function loadLevelMap() {
         var mapArr = loadMapArr()[currMap],
             floorPos = 0
             cont = 0;
         mapIndexArray = [];
 
-        if (currMap % 2 == 0) {
-            bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains01.png')";
-        } else {
-            bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains02.png')";
-        }
+        setBackgroundImg();
         
         display.clearBackground();
 
         mapArr.forEach(buildMap);
+    }
 
-        function buildMap(mapItem)
-        {
+        function buildMap(mapItem) {
             var topPos = 0;
             switch (mapItem[2]) {
                 case 'baseFloor':
@@ -54,11 +49,16 @@ function Setup() {
             }
             mapIndexArray.push(floorPos);
         }
-    }
 
+    function setBackgroundImg() {
+        if (currMap % 2 == 0) {
+            bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains01.png')";
+        } else {
+            bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains02.png')";
+        }
+    }    
 
-    function loadMapArr()
-    {
+    function loadMapArr() {
         return [
             [
                 ['floor01.png', 'double', 'baseFloor', 'solid'],

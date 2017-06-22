@@ -1,13 +1,13 @@
 function Game() {
 
     this.init = init;
+    this.endGame = endGame;
 
     return this;
 
     function init() {
-        bkgLayer = document.getElementById('gameBrackground');
+        setup.setCharmanElements();
         setup.loadLevelMap(currMap);
-        setup.setCharman();
         events.loadEventHandlers();
 
         gameLoop();
@@ -25,19 +25,19 @@ function Game() {
     }
 
     function handleFiring() {
-        if (comands['fire'] && !comands['firing']) {
-            comands['firing'] = true;
+        if (comands.fire && !comands.firing) {
+            comands.firing = true;
             display.shoot();
             return;
         }
-        if (!comands['fire'] && comands['firing']) comands['firing'] = false;
+        if (!comands.fire && comands.firing) comands.firing = false;
     }
 
     function handleMovement() {
-        leftPos = calc.getCharmanCoord(document.getElementById('charman').style.left);
+        leftPos = calc.getCharmanCoord(charDiv.style.left);
         calc.setCurrentFloorIndex();
             
-        if ((comands.right || comands.left) && !comands['firing']) {
+        if ((comands.right || comands.left) && (comands.jumping || !comands.firing)) {
             if (calc.isUserOnWater()) {
                 display.handleSwimmingImg();
             } else {
@@ -45,25 +45,9 @@ function Game() {
             }
             calc.setNewCoord();
             
-            document.getElementById('charman').style.left = leftPos+'%';
+            charDiv.style.left = leftPos+'%';
         }
-        checkIsHole();
-    }
-
-    function checkIsHole() {
-        var topPos = calc.getCharmanCoord(document.getElementById('charman').style.top);
-        if (
-            setup.loadMapArr()[currMap][floorIndex][3] == 'hole'
-            && (
-                topPos == ''
-                || topPos >= CHARBASEFLOOR
-            )
-            && (
-                calc.isAllSection(leftPos, floorIndex)
-            )
-        ) {
-            endGame('hole');
-        }
+        calc.checkIsHole();
     }
 
     function endGame(reason) {
@@ -76,28 +60,26 @@ function Game() {
     }
 
     function handleJump() {
-        if (comands['jump'] && !comands['jumping']) {
-            comands['jumping'] = true;
+        if (comands.jump && !comands.jumping) {
+            comands.jumping = true;
             display.jump();
         }
     }
 
     function handleIdle() {
         if (calc.isUserOnWater(leftPos)) display.handleSwimmingImg();
-        else if (!comands.right && !comands.left && !comands['firing']) display.charmanIdle();
+        else if (!comands.right && !comands.left && !comands.firing) display.charmanIdle();
     }
 
     function handleCrossMargin() {
         if (comands.right || comands.left) {
-            if (leftPos >= 95) {
+            if (leftPos >= 98) {
                 display.setCharmanLeft();
-                console.log('cross right');
                 currMap += 1;
                 setup.loadLevelMap();
                 
             } else if ((currMap != 0 ) && leftPos <= -3) {
                 display.setCharmanRight();
-                console.log('cross left');
                 currMap -= 1;
                 setup.loadLevelMap();
             }

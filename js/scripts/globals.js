@@ -1,4 +1,4 @@
-var charman,
+var charDiv,
     charmanImg,
     bkgLayer;
     gameOn = true;
