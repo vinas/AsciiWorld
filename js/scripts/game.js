@@ -35,32 +35,31 @@ function Game() {
 
     function handleMovement() {
         var leftPos = calc.getCharmanCoord(document.getElementById('charman').style.left);
-
+        calc.setCurrentFloorIndex(leftPos);
             
         if ((comands.right || comands.left) && !comands['firing']) {
             if (calc.isUserOnWater(leftPos)) {
                 display.handleSwimmingImg();
             } else {
-                calc.setBaseTop();
                 display.handleRunninImg();
             }
             leftPos = calc.setNewCoord(leftPos);
+            
             document.getElementById('charman').style.left = leftPos+'%';
         }
-        checkIsHole(leftPos, calc.getCurrentFloorIdx(leftPos));
-
+        checkIsHole(leftPos);
     }
 
-    function checkIsHole(leftPos, floorIdx) {
+    function checkIsHole(leftPos) {
         var topPos = calc.getCharmanCoord(document.getElementById('charman').style.top);
         if (
-            setup.loadMapArr()[currMap][floorIdx][3] == 'hole'
+            setup.loadMapArr()[currMap][floorIndex][3] == 'hole'
             && (
                 topPos == ''
                 || topPos >= CHARBASEFLOOR
             )
             && (
-                calc.isAllSection(leftPos, floorIdx)
+                calc.isAllSection(leftPos, floorIndex)
             )
         ) {
             endGame('hole');

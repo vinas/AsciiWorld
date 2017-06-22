@@ -2,38 +2,35 @@ function Calculator() {
 
     this.setNewCoord = setNewCoord;
     this.getCharmanCoord = getCharmanCoord;
-    this.getCurrentFloorIdx = getCurrentFloorIdx;
+    this.setCurrentFloorIndex = setCurrentFloorIndex;
     this.isAllSection = isAllSection;
     this.isUserOnWater = isUserOnWater;
-    this.setBaseTop = setBaseTop;
-
+    
     return this;
 
-    function setBaseTop() {
-
-    }
-
     function isUserOnWater(leftPos) {
-        var floorIdx = getCurrentFloorIdx((leftPos == '') ? 0 : leftPos);
         return (
-                setup.loadMapArr()[currMap][floorIdx][3] == 'liquid'
+                setup.loadMapArr()[currMap][floorIndex][3] == 'liquid'
                 && (
-                    isAllSection(leftPos, floorIdx)
-                    || (setup.loadMapArr()[currMap][floorIdx+1]
-                        && setup.loadMapArr()[currMap][floorIdx+1][3] == 'liquid'
+                    isAllSection(leftPos, floorIndex)
+                    || (setup.loadMapArr()[currMap][floorIndex+1]
+                        && setup.loadMapArr()[currMap][floorIndex+1][3] == 'liquid'
                     )
                 )
             );
     }
 
-    function isAllSection(leftPos, floorIdx) {
-        return (leftPos < mapIndexArray[floorIdx] - 5);
+    function isAllSection(leftPos) {
+        return (leftPos < mapIndexArray[floorIndex] - 5);
 
     }
 
-    function getCurrentFloorIdx(pos) {
+    function setCurrentFloorIndex(pos) {
         for (var i = 0; i < mapIndexArray.length; i++) {
-            if (pos < mapIndexArray[i]) return i;
+            if (pos < mapIndexArray[i]) {
+                floorIndex = i;
+                return;
+            }
         }
     }
 
