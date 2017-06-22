@@ -43,10 +43,12 @@ function Display() {
 
     function setCharmanLeft() {
         document.getElementById('charman').style.left = '-1%';
+        leftPos = -1;
     }
 
     function setCharmanRight() {
         document.getElementById('charman').style.left = '95%';
+        leftPos = 95;
     }
 
     function charmanIdle() {

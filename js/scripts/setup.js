@@ -15,7 +15,7 @@ function Setup() {
     function loadLevelMap()
     {
         var mapArr = loadMapArr()[currMap],
-            leftPos = 0
+            floorPos = 0
             cont = 0;
         mapIndexArray = [];
 
@@ -43,16 +43,16 @@ function Setup() {
                     topPos += SCNDFLOOR;
                     break;
             }
-            bkgLayer.innerHTML += '<img class="floor '+mapItem[1]+'" style="left: '+leftPos+'%; top: '+topPos+'%" src="img/map/floor/'+mapItem[0]+'" />';
+            bkgLayer.innerHTML += '<img class="floor '+mapItem[1]+'" style="left: '+floorPos+'%; top: '+topPos+'%" src="img/map/floor/'+mapItem[0]+'" />';
             switch (mapItem[1]) {
                 case 'single':
-                    leftPos += SINGLEBLOCK;
+                    floorPos += SINGLEBLOCK;
                     break;
                 case 'double':
-                    leftPos += DOUBLEBLOCK;
+                    floorPos += DOUBLEBLOCK;
                     break;
             }
-            mapIndexArray.push(leftPos);
+            mapIndexArray.push(floorPos);
         }
     }
 

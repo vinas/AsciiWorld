@@ -8,7 +8,8 @@ var basicMovRate = .6,
     currMap = 0,
     jumpTop = 30,
     mapIndexArray = [],
-    floorIndex = 0;
+    floorIndex = 0,
+    leftPos = 0;
 
 var CHARBASEFLOOR = 51,
     BASEFLOOR = 66,

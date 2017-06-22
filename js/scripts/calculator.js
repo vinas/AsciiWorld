@@ -8,39 +8,42 @@ function Calculator() {
     
     return this;
 
-    function isUserOnWater(leftPos) {
-        return (
-                setup.loadMapArr()[currMap][floorIndex][3] == 'liquid'
-                && (
-                    isAllSection(leftPos, floorIndex)
-                    || (setup.loadMapArr()[currMap][floorIndex+1]
-                        && setup.loadMapArr()[currMap][floorIndex+1][3] == 'liquid'
+    function isUserOnWater() {
+
+        if (setup.loadMapArr()[currMap][floorIndex]) {
+            return (
+                    setup.loadMapArr()[currMap][floorIndex][3] == 'liquid'
+                    && (
+                        isAllSection(leftPos, floorIndex)
+                        || (setup.loadMapArr()[currMap][floorIndex+1]
+                            && setup.loadMapArr()[currMap][floorIndex+1][3] == 'liquid'
+                        )
                     )
-                )
-            );
+                );
+        }
+        return false;
     }
 
-    function isAllSection(leftPos) {
+    function isAllSection() {
         return (leftPos < mapIndexArray[floorIndex] - 5);
 
     }
 
-    function setCurrentFloorIndex(pos) {
+    function setCurrentFloorIndex() {
         for (var i = 0; i < mapIndexArray.length; i++) {
-            if (pos < mapIndexArray[i]) {
+            if (leftPos < mapIndexArray[i]) {
                 floorIndex = i;
                 return;
             }
         }
     }
 
-    function setNewCoord(left) {
+    function setNewCoord() {
         if (comands.right) {
-            left += basicMovRate;
+            leftPos += basicMovRate;
         } else if (comands.left) {
-            left -= basicMovRate;
+            leftPos -= basicMovRate;
         }
-        return left;
     }
 
     function getCharmanCoord(coord) {

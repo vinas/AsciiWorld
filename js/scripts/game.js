@@ -34,23 +34,23 @@ function Game() {
     }
 
     function handleMovement() {
-        var leftPos = calc.getCharmanCoord(document.getElementById('charman').style.left);
-        calc.setCurrentFloorIndex(leftPos);
+        leftPos = calc.getCharmanCoord(document.getElementById('charman').style.left);
+        calc.setCurrentFloorIndex();
             
         if ((comands.right || comands.left) && !comands['firing']) {
-            if (calc.isUserOnWater(leftPos)) {
+            if (calc.isUserOnWater()) {
                 display.handleSwimmingImg();
             } else {
                 display.handleRunninImg();
             }
-            leftPos = calc.setNewCoord(leftPos);
+            calc.setNewCoord();
             
             document.getElementById('charman').style.left = leftPos+'%';
         }
-        checkIsHole(leftPos);
+        checkIsHole();
     }
 
-    function checkIsHole(leftPos) {
+    function checkIsHole() {
         var topPos = calc.getCharmanCoord(document.getElementById('charman').style.top);
         if (
             setup.loadMapArr()[currMap][floorIndex][3] == 'hole'
@@ -83,20 +83,23 @@ function Game() {
     }
 
     function handleIdle() {
-        if (calc.isUserOnWater(calc.getCharmanCoord(document.getElementById('charman').style.left))) display.handleSwimmingImg();
+        if (calc.isUserOnWater(leftPos)) display.handleSwimmingImg();
         else if (!comands.right && !comands.left && !comands['firing']) display.charmanIdle();
     }
 
     function handleCrossMargin() {
         if (comands.right || comands.left) {
-            if (calc.getCharmanCoord(document.getElementById('charman').style.left) >= 95) {
+            if (leftPos >= 95) {
+                display.setCharmanLeft();
+                console.log('cross right');
                 currMap += 1;
                 setup.loadLevelMap();
-                display.setCharmanLeft();
-            } else if ((currMap != 0 ) && calc.getCharmanCoord(document.getElementById('charman').style.left) <= -3) {
+                
+            } else if ((currMap != 0 ) && leftPos <= -3) {
+                display.setCharmanRight();
+                console.log('cross left');
                 currMap -= 1;
                 setup.loadLevelMap();
-                display.setCharmanRight();
             }
         }
     }
