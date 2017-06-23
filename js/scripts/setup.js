@@ -11,6 +11,7 @@ function Setup() {
         charmanImg = document.getElementById('charmanImg');
         bkgLayer = document.getElementById('gameBrackground');
         charDiv.style.top = CHARBASEFLOOR+'%';
+        charDiv.style.left = '0%';
         commands.jumping = false;
         commands.firing = false;
         commands.swimming = false;

@@ -11,7 +11,6 @@ function Calculator() {
     return this;
 
     function isSteppingOnHole() {
-        var topPos = calc.getCharmanCoord(charDiv.style.top);
         return (
             setup.loadMapArr()[currMap][floorIndex][3] == 'hole'
             && (

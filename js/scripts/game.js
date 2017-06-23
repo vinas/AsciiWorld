@@ -48,6 +48,7 @@ function Game() {
 
     function setBasicInfo() {
         leftPos = calc.getCharmanCoord(charDiv.style.left);
+        topPos = calc.getCharmanCoord(charDiv.style.top);
         if (!commands.firing) calc.setNewCoord();
         charDiv.style.left = leftPos+'%';
         calc.setCurrentFloorIndex();

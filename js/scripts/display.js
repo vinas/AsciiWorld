@@ -27,9 +27,8 @@ function Display() {
     function fall(idx) {
         if (!commands.falling) {
             commands.falling = true;
-            var topPos = calc.getCharmanCoord(charDiv.style.top);
             if (!idx) idx = 0;
-            if (topPos == '') topPos = FLOORS[idx] - FLOORVERTTOLERANCE;
+            topPos = FLOORS[idx] - FLOORVERTTOLERANCE;
             var target = (idx == 0) ? 120 : FLOORS[setup.loadMapArr()[currMap][floorIndex][2]] - FLOORVERTTOLERANCE;
 
             setTimeout(function () {
@@ -81,7 +80,6 @@ function Display() {
 
     function jump() {
         var direction = 'up';
-        var topPos = calc.getCharmanCoord(charDiv.style.top);
         handleJumpingImg();
         jumping();
 

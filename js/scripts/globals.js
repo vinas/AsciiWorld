@@ -9,7 +9,8 @@ var basicMovRate = .6,
     jumpTop = 30,
     mapIndexArray = [],
     floorIndex = 0,
-    leftPos = 0;
+    leftPos = 0,
+    topPos;
 
 var CHARBASEFLOOR = 51,
     CHARFIRSTFLOOR = 39,
