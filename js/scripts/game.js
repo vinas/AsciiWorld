@@ -49,6 +49,7 @@ function Game() {
 
     function moveCharman() {
         if (!commands.firing) calc.setNewCoord();
+        if (calc.isSteppingOnHole()) endGame('hole');
         if (calc.shouldBeFalling()) display.handleMapFalling();
         charDiv.style.left = leftPos+'%';
     }

@@ -25,6 +25,8 @@ function Display() {
             if (!idx) idx = 0;
             var target = (idx == 0) ? 120 : FLOORS[setup.loadMapArr()[currMap][floorIndex][2]] - FLOORVERTTOLERANCE;
 
+            console.log('target - ', target);
+
             setTimeout(function () {
                 charmanImg.setAttribute('src', 'img/charman/charman-hands-up.png');
             }, 20);

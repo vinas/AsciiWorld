@@ -14,15 +14,15 @@ function Calculator() {
 
     function isSteppingOnHole() {
         return (
-            setup.loadMapArr()[currMap][floorIndex][3] == 'hole'
-            && (
-                topPos == ''
-                || topPos >= CHARBASEFLOOR
-            )
-            && (
-                isAllInSection(leftPos, floorIndex)
-            )
-        )
+                setup.loadMapArr()[currMap][floorIndex][3] == 'hole'
+                && (
+                    topPos == ''
+                    || topPos >= CHARBASEFLOOR
+                )
+                && (
+                    isAllInSection(leftPos, floorIndex)
+                )
+            );
     }
 
     function isUserOnWater() {
