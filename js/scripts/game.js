@@ -35,7 +35,8 @@ function Game() {
 
     function handleMovement() {
         setBasicInfo();
-        hadleGameEnds();
+        handleGameEnds();
+        moveCharman();
         commands.swimming = calc.isUserOnWater();
         if (commands.swimming) {
             display.handleSwimmingImg();
@@ -46,15 +47,19 @@ function Game() {
         }
     }
 
+    function moveCharman() {
+        if (!commands.firing) calc.setNewCoord();
+        if (calc.shouldBeFalling()) display.handleMapFalling();
+        charDiv.style.left = leftPos+'%';
+    }
+
     function setBasicInfo() {
         leftPos = calc.getCharmanCoord(charDiv.style.left);
         topPos = calc.getCharmanCoord(charDiv.style.top);
-        if (!commands.firing) calc.setNewCoord();
-        charDiv.style.left = leftPos+'%';
         calc.setCurrentFloorIndex();
     }
 
-    function hadleGameEnds() {
+    function handleGameEnds() {
         var ending = getEndingCause()
         if (ending) endGame(ending);
     }

@@ -8,7 +8,8 @@ function Calculator() {
     this.isSteppingOnHole = isSteppingOnHole;
     this.isRightFloorHigherThanCurrent = isRightFloorHigherThanCurrent;
     this.getFloorIndexForPos = getFloorIndexForPos;
-    
+    this.shouldBeFalling = shouldBeFalling;
+
     return this;
 
     function isSteppingOnHole() {
@@ -50,36 +51,21 @@ function Calculator() {
         }
     }
 
+    function shouldBeFalling() {
+        return !commands.falling
+            && !commands.swimming
+            && !commands.jumping
+            && isAllInSection(leftPos, getFloorIndexForPos(leftPos))
+            && calc.getCharmanCoord(charDiv.style.top) + FLOORVERTTOLERANCE < FLOORS[setup.loadMapArr()[currMap][getFloorIndexForPos(leftPos)][2]];
+    }
+
     function setNewCoord() {
         if (commands.right && canMoveRight()) {
             leftPos += basicMovRate;
-            if (!isNextRightStepOnSameFloorBase() && isRightFloorHigherThanCurrent() && leftPos > mapIndexArray[getFloorIndexForPos(leftPos)] - FLOORHORTOLERANCE) {
-                leftPos = mapIndexArray[getFloorIndexForPos(leftPos)] - FLOORHORTOLERANCE;
-            }
-            if (
-                !commands.falling
-                && !commands.swimming
-                && !commands.jumping
-                && isAllInSection(leftPos, getFloorIndexForPos(leftPos))
-                && calc.getCharmanCoord(charDiv.style.top) + FLOORVERTTOLERANCE < FLOORS[setup.loadMapArr()[currMap][getFloorIndexForPos(leftPos)][2]]
-            ) {
-                display.fall(getFloorIndexForPos(leftPos));
-            }
-        
+            restrainMovement('right');
         } else if (commands.left && canMoveLeft()) {
             leftPos -= basicMovRate;
-            if (!isNextLeftStepOnSameFloorBase() && !isLeftFloorNotHigherThanCurrent() && leftPos < mapIndexArray[getFloorIndexForPos(leftPos)]) {
-                leftPos = mapIndexArray[getFloorIndexForPos(leftPos)];
-            }
-            if (
-                !commands.falling
-                && !commands.swimming
-                && !commands.jumping
-                && isAllInSection(leftPos, getFloorIndexForPos(leftPos))
-                && calc.getCharmanCoord(charDiv.style.top) + FLOORVERTTOLERANCE < FLOORS[setup.loadMapArr()[currMap][getFloorIndexForPos(leftPos)][2]]
-            ) {
-                display.fall(getFloorIndexForPos(leftPos + FLOORHORTOLERANCE));
-            }
+            restrainMovement('left');
         }
     }
 
@@ -91,6 +77,20 @@ function Calculator() {
 
     function notCrossMappingToOblivion() {
         return !(leftPos <= -.5 && currMap == 0);
+    }
+
+    function restrainMovement(dir) {
+        switch (dir) {
+            case 'right':
+                if (!isNextRightStepOnSameFloorBase() && isRightFloorHigherThanCurrent() && leftPos > mapIndexArray[getFloorIndexForPos(leftPos)] - FLOORHORTOLERANCE) {
+                    leftPos = mapIndexArray[getFloorIndexForPos(leftPos)] - FLOORHORTOLERANCE;
+                }
+                break;
+            case 'left':
+                if (!isNextLeftStepOnSameFloorBase() && !isLeftFloorNotHigherThanCurrent() && leftPos < mapIndexArray[getFloorIndexForPos(leftPos)]) {
+                    leftPos = mapIndexArray[getFloorIndexForPos(leftPos)];
+                }
+        }
     }
 
     function canMoveRight() {

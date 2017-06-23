@@ -10,8 +10,14 @@ function Display() {
     this.clearBackground = clearBackground;
     this.fall = fall;
     this.handleSwimmingImg = handleSwimmingImg;
+    this.handleMapFalling = handleMapFalling;
 
     return this;
+
+    function handleMapFalling() {
+        if (commands.right) display.fall(getFloorIndexForPos(leftPos));
+        if (commands.left) display.fall(getFloorIndexForPos(leftPos + FLOORHORTOLERANCE));
+    }
 
     function fall(idx) {
         if (!commands.falling) {
