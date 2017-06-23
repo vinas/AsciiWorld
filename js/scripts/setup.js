@@ -55,19 +55,6 @@ function Setup() {
     function loadMapArr() {
         return [
             [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid']
-            ],
-            [
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['water-01.gif', 'double', 0, 'liquid'],
