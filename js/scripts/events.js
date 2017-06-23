@@ -10,12 +10,7 @@ function Events()
     return this;
 
     function tapAttack() {
-        if (!commands.fire) {
-            commands.fire = true;
-            setTimeout(function () {
-                commands.fire = false;
-            }, 400);
-        }
+        commands.fire = true;
     }
 
     function tapMoveRight() {

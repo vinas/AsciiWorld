@@ -5,14 +5,14 @@ function Calculator() {
     this.setCurrentFloorIndex = setCurrentFloorIndex;
     this.isAllInSection = isAllInSection;
     this.isUserOnWater = isUserOnWater;
-    this.checkIsHole = checkIsHole;
+    this.isSteppingOnHole = isSteppingOnHole;
     this.isRightFloorHigherThanCurrent = isRightFloorHigherThanCurrent;
     
     return this;
 
-    function checkIsHole() {
+    function isSteppingOnHole() {
         var topPos = calc.getCharmanCoord(charDiv.style.top);
-        if (
+        return (
             setup.loadMapArr()[currMap][floorIndex][3] == 'hole'
             && (
                 topPos == ''
@@ -21,25 +21,19 @@ function Calculator() {
             && (
                 isAllInSection(leftPos, floorIndex)
             )
-        ) {
-            game.endGame('hole');
-        }
+        )
     }
 
     function isUserOnWater() {
-
-        if (setup.loadMapArr()[currMap][floorIndex]) {
-            return (
-                    setup.loadMapArr()[currMap][floorIndex][3] == 'liquid'
-                    && (
-                        isAllInSection(leftPos, floorIndex)
-                        || (setup.loadMapArr()[currMap][floorIndex+1]
-                            && setup.loadMapArr()[currMap][floorIndex+1][3] == 'liquid'
-                        )
+        return (
+                setup.loadMapArr()[currMap][floorIndex][3] == 'liquid'
+                && (
+                    isAllInSection(leftPos, floorIndex)
+                    || (setup.loadMapArr()[currMap][floorIndex+1]
+                        && setup.loadMapArr()[currMap][floorIndex+1][3] == 'liquid'
                     )
-                );
-        }
-        return false;
+                )
+            );
     }
 
     function isAllInSection(pos, idx) {
@@ -139,7 +133,7 @@ function Calculator() {
     }
 
     function isRightFloorHigherThanCurrent() {
-        var currFloorBase = setup.loadMapArr()[currMap][floorIndex][2],
+        var currFloorBase = (setup.loadMapArr()[currMap][floorIndex]) ? setup.loadMapArr()[currMap][floorIndex][2] : 0,
             nextFloorBase = (leftPos < 95) ? setup.loadMapArr()[currMap][getFloorIndexForPos(leftPos + FLOORHORTOLERANCE)][2] : setup.loadMapArr()[currMap+1][0][2];
             return currFloorBase < nextFloorBase && getCharmanCoord(charDiv.style.top) + FLOORVERTTOLERANCE > FLOORS[nextFloorBase];
     }

@@ -10,8 +10,19 @@ function Display() {
     this.clearBackground = clearBackground;
     this.fall = fall;
     this.handleSwimmingImg = handleSwimmingImg;
+    this.swimming = swimming;
 
     return this;
+
+    function swimming() {
+        if (!commands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-swim.gif') {
+            charmanImg.setAttribute('src', 'img/charman/charman-swim.gif');
+            charmanImg.style.width = '160%';
+            charmanImg.style.height = '60%';
+            charmanImg.style.paddingTop = '96%';
+            commands.swimming = true;
+        }
+    }
 
     function fall(idx) {
         if (!commands.falling) {
@@ -61,10 +72,10 @@ function Display() {
         charmanImg.setAttribute('src', 'img/charman/charman-01.png');
     }
 
-    function shoot() {
+    function shoot(callback) {
         charmanImg.setAttribute('src', 'img/charman/charman-bow.gif');
         setTimeout(function () {
-            if (gameOn) charmanImg.setAttribute('src', 'img/charman/charman-01.png');
+            callback();
         }, 300);
     }
 
@@ -115,15 +126,19 @@ function Display() {
         charmanImg.style.height = '100%';
         charmanImg.style.paddingTop = '0%';
 
-        setTimeout(function () {
-            if (gameOn) {
+        setCharmanBackToIdle();
+
+        function setCharmanBackToIdle() {
+            if (gameOn && !commands.jumping) {
                 if (calc.isUserOnWater(leftPos)) {
                     handleSwimmingImg();
                     return;
                 }
                 charmanImg.setAttribute('src', 'img/charman/charman-01.png');
+                setTimeout(setCharmanBackToIdle, 50);
             }
-        }, 800);
+        }
+
     }
 
     function mirrorObj(objeto, escala)
@@ -138,7 +153,6 @@ function Display() {
 
     function handleRunninImg() {
         if (!commands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-run.gif') {
-            commands.swimming = false;
             charmanImg.setAttribute('src', 'img/charman/charman-run.gif');
             charmanImg.style.width = '100%';
             charmanImg.style.height = '100%';
@@ -148,7 +162,6 @@ function Display() {
 
     function handleSwimmingImg() {
         if (!commands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-swim.gif') {
-            commands.swimming = true;
             charmanImg.setAttribute('src', 'img/charman/charman-swim.gif');
             charmanImg.style.width = '160%';
             charmanImg.style.height = '60%';

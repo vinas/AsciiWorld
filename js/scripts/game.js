@@ -1,7 +1,6 @@
 function Game() {
 
     this.init = init;
-    this.endGame = endGame;
 
     return this;
 
@@ -18,7 +17,6 @@ function Game() {
             handleCrossMargin();
             handleFiring();
             handleJump();
-            handleIdle();
             handleMovement();
         }
         setTimeout(gameLoop, 15);
@@ -27,25 +25,42 @@ function Game() {
     function handleFiring() {
         if (commands.fire && !commands.firing) {
             commands.firing = true;
-            display.shoot();
+            display.shoot(function() {
+                commands.fire = false;
+                commands.firing = false;
+            });
             return;
         }
-        if (!commands.fire && commands.firing) commands.firing = false;
     }
 
     function handleMovement() {
-        leftPos = calc.getCharmanCoord(charDiv.style.left);
-        if ((commands.right || commands.left) && (commands.jumping || !commands.firing)) {
-            if (calc.isUserOnWater()) {
-                display.handleSwimmingImg();
-            } else {
-                display.handleRunninImg();
-            }
-            calc.setNewCoord();
-            charDiv.style.left = leftPos+'%';
-            calc.setCurrentFloorIndex();
+        setBasicInfo();
+        hadleGameEnds();
+        commands.swimming = calc.isUserOnWater();
+        if (commands.swimming) {
+            display.handleSwimmingImg();
+        } else if ((commands.right || commands.left) && (commands.jumping || !commands.firing)) {
+            display.handleRunninImg();
+        } else if (!commands.jumping && !commands.firing) {
+            display.charmanIdle();
         }
-        calc.checkIsHole();
+    }
+
+    function setBasicInfo() {
+        leftPos = calc.getCharmanCoord(charDiv.style.left);
+        if (!commands.firing) calc.setNewCoord();
+        charDiv.style.left = leftPos+'%';
+        calc.setCurrentFloorIndex();
+    }
+
+    function hadleGameEnds() {
+        var ending = getEndingCause()
+        if (ending) endGame(ending);
+    }
+
+    function getEndingCause() {
+        if (calc.isSteppingOnHole()) return 'hole'
+        return false;
     }
 
     function endGame(reason) {
@@ -62,11 +77,6 @@ function Game() {
             commands.jumping = true;
             display.jump();
         }
-    }
-
-    function handleIdle() {
-        if (calc.isUserOnWater(leftPos)) display.handleSwimmingImg();
-        else if (!commands.right && !commands.left && !commands.firing) display.charmanIdle();
     }
 
     function handleCrossMargin() {
