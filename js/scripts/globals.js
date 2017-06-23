@@ -4,7 +4,7 @@ var charDiv,
     gameOn = true;
 
 var basicMovRate = .6,
-    comands = {},
+    commands = {},
     currMap = 0,
     jumpTop = 30,
     mapIndexArray = [],
@@ -12,9 +12,10 @@ var basicMovRate = .6,
     leftPos = 0;
 
 var CHARBASEFLOOR = 51,
-    BASEFLOOR = 66,
-    FIRSTFLLOR = 58,
-    SCNDFLOOR = 25,
+    CHARFIRSTFLOOR = 39,
+    FLOORS = [66, 58, 25];
     SINGLEBLOCK = 6.25,
     DOUBLEBLOCK = SINGLEBLOCK * 2,
-    JUMPVARRATE = .7;
+    JUMPVARRATE = .7,
+    FLOORHORTOLERANCE = 5
+    FLOORVERTTOLERANCE = 15;

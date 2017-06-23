@@ -13,24 +13,31 @@ function Display() {
 
     return this;
 
-    function fall() {
-            topPos = calc.getCharmanCoord(charDiv.style.top);
-        if (topPos == '') topPos = CHARBASEFLOOR;
+    function fall(idx) {
+        if (!commands.falling) {
+            commands.falling = true;
+            var topPos = calc.getCharmanCoord(charDiv.style.top);
+            if (!idx) idx = 0;
+            if (topPos == '') topPos = FLOORS[idx] - FLOORVERTTOLERANCE;
+            var target = (idx == 0) ? 120 : FLOORS[setup.loadMapArr()[currMap][floorIndex][2]] - FLOORVERTTOLERANCE;
 
             setTimeout(function () {
                 charmanImg.setAttribute('src', 'img/charman/charman-hands-up.png');
             }, 20);
-            
-        falling()
 
-        async function falling() {
-            if (topPos <= 200) {
-                topPos += JUMPVARRATE;
-                charDiv.style.top = topPos+'%';
-                setTimeout(falling, 5);
+            falling();
+
+            function falling() {
+                if (topPos <= target) {
+                    topPos += JUMPVARRATE;
+                    charDiv.style.top = topPos+'%';
+                    setTimeout(falling, 5);
+                } else {
+                    charDiv.style.top = target+'%';
+                    commands.falling = false;
+                }
             }
         }
-
     }
 
     function clearBackground(){
@@ -62,10 +69,52 @@ function Display() {
     }
 
     function jump() {
+        var direction = 'up';
+        var topPos = calc.getCharmanCoord(charDiv.style.top);
+        handleJumpingImg();
+        jumping();
+
+        function jumping() {
+            if (topPos <= jumpTop)
+                direction = 'down';
+            topPos = getNewTopPosition(direction);
+            base = getFloorBase();
+            if (topPos >= base) {
+                topPos = base;
+                charDiv.style.top = topPos+'%';
+                commands.jumping = false;
+                return;
+            }
+            charDiv.style.top = topPos+'%';
+            
+            setTimeout(jumping, 10);
+        }
+
+        function getNewTopPosition(direction) {
+            if (direction == 'up') {
+                return topPos - JUMPVARRATE;
+            }
+            return topPos + JUMPVARRATE;
+        }
+
+        function getFloorBase() {
+            var idx;
+            if (!calc.isAllInSection(leftPos, floorIndex) && calc.isRightFloorHigherThanCurrent()) {
+                idx = floorIndex+1;
+            } else {
+                idx = floorIndex;
+            }
+            return FLOORS[setup.loadMapArr()[currMap][idx][2]] - FLOORVERTTOLERANCE;
+        }
+
+    }
+
+    function handleJumpingImg() {
         charmanImg.setAttribute('src', 'img/charman/charman-jump.gif');
         charmanImg.style.width = '100%';
         charmanImg.style.height = '100%';
         charmanImg.style.paddingTop = '0%';
+
         setTimeout(function () {
             if (gameOn) {
                 if (calc.isUserOnWater(leftPos)) {
@@ -75,32 +124,6 @@ function Display() {
                 charmanImg.setAttribute('src', 'img/charman/charman-01.png');
             }
         }, 800);
-
-        var direction = 'up';
-        var topPos = calc.getCharmanCoord(charDiv.style.top);
-        if (topPos == '') topPos = CHARBASEFLOOR;
-        
-
-        jumping()
-
-        function jumping() {
-            if (topPos <= jumpTop)
-                direction = 'down';
-
-            if (direction == 'up') {
-                topPos -= JUMPVARRATE;
-            } else {
-                topPos += JUMPVARRATE;
-            }
-
-            if (topPos >= CHARBASEFLOOR) {
-                topPos = CHARBASEFLOOR;
-                comands.jumping = false;
-            } else {
-                setTimeout(jumping, 10);
-            }
-            charDiv.style.top = topPos+'%';
-        }
     }
 
     function mirrorObj(objeto, escala)
@@ -114,7 +137,8 @@ function Display() {
     }
 
     function handleRunninImg() {
-        if (!comands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-run.gif') {
+        if (!commands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-run.gif') {
+            commands.swimming = false;
             charmanImg.setAttribute('src', 'img/charman/charman-run.gif');
             charmanImg.style.width = '100%';
             charmanImg.style.height = '100%';
@@ -123,7 +147,8 @@ function Display() {
     }
 
     function handleSwimmingImg() {
-        if (!comands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-swim.gif') {
+        if (!commands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-swim.gif') {
+            commands.swimming = true;
             charmanImg.setAttribute('src', 'img/charman/charman-swim.gif');
             charmanImg.style.width = '160%';
             charmanImg.style.height = '60%';

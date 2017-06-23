@@ -25,27 +25,25 @@ function Game() {
     }
 
     function handleFiring() {
-        if (comands.fire && !comands.firing) {
-            comands.firing = true;
+        if (commands.fire && !commands.firing) {
+            commands.firing = true;
             display.shoot();
             return;
         }
-        if (!comands.fire && comands.firing) comands.firing = false;
+        if (!commands.fire && commands.firing) commands.firing = false;
     }
 
     function handleMovement() {
         leftPos = calc.getCharmanCoord(charDiv.style.left);
-        calc.setCurrentFloorIndex();
-            
-        if ((comands.right || comands.left) && (comands.jumping || !comands.firing)) {
+        if ((commands.right || commands.left) && (commands.jumping || !commands.firing)) {
             if (calc.isUserOnWater()) {
                 display.handleSwimmingImg();
             } else {
                 display.handleRunninImg();
             }
             calc.setNewCoord();
-            
             charDiv.style.left = leftPos+'%';
+            calc.setCurrentFloorIndex();
         }
         calc.checkIsHole();
     }
@@ -60,24 +58,23 @@ function Game() {
     }
 
     function handleJump() {
-        if (comands.jump && !comands.jumping) {
-            comands.jumping = true;
+        if (commands.jump && !commands.jumping) {
+            commands.jumping = true;
             display.jump();
         }
     }
 
     function handleIdle() {
         if (calc.isUserOnWater(leftPos)) display.handleSwimmingImg();
-        else if (!comands.right && !comands.left && !comands.firing) display.charmanIdle();
+        else if (!commands.right && !commands.left && !commands.firing) display.charmanIdle();
     }
 
     function handleCrossMargin() {
-        if (comands.right || comands.left) {
+        if (commands.right || commands.left) {
             if (leftPos >= 98) {
                 display.setCharmanLeft();
                 currMap += 1;
                 setup.loadLevelMap();
-                
             } else if ((currMap != 0 ) && leftPos <= -3) {
                 display.setCharmanRight();
                 currMap -= 1;

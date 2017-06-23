@@ -10,10 +10,10 @@ function Events()
     return this;
 
     function tapAttack() {
-        if (!comands.fire) {
-            comands.fire = true;
+        if (!commands.fire) {
+            commands.fire = true;
             setTimeout(function () {
-                comands.fire = false;
+                commands.fire = false;
             }, 400);
         }
     }
@@ -27,15 +27,17 @@ function Events()
     }
 
     function tapStop() {
-        comands.left = false;
-        comands.right = false;
+        commands.left = false;
+        commands.right = false;
     }
 
     function tapJump() {
-        comands.jump = true;
-        setTimeout(function () {
-            comands.jump = false;
-        }, 150);
+        if (!commands.swimming) {
+            commands.jump = true;
+            setTimeout(function () {
+                commands.jump = false;
+            }, 150);
+        }
     }
 
     function loadEventHandlers() {
@@ -60,10 +62,10 @@ function Events()
             setTimeout(function() {
                 switch (e.which) {
                     case 39:
-                        comands.right = false;
+                        commands.right = false;
                         break;
                     case 37:
-                        comands.left = false;
+                        commands.left = false;
                 }
             }, 50);
         });
@@ -74,13 +76,13 @@ function Events()
 
     function setMovementRight() {
         display.mirrorObj(charmanImg, 1);
-        comands.left = false;
-        comands.right = true;
+        commands.left = false;
+        commands.right = true;
     }
 
     function setMovementLeft() {
         display.mirrorObj(charmanImg, -1);
-        comands.right = false;
-        comands.left = true;
+        commands.right = false;
+        commands.left = true;
     }
 }
