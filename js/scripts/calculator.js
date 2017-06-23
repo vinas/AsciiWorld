@@ -7,6 +7,7 @@ function Calculator() {
     this.isUserOnWater = isUserOnWater;
     this.isSteppingOnHole = isSteppingOnHole;
     this.isRightFloorHigherThanCurrent = isRightFloorHigherThanCurrent;
+    this.getFloorIndexForPos = getFloorIndexForPos;
     
     return this;
 
@@ -57,6 +58,7 @@ function Calculator() {
             }
             if (
                 !commands.falling
+                && !commands.swimming
                 && !commands.jumping
                 && isAllInSection(leftPos, getFloorIndexForPos(leftPos))
                 && calc.getCharmanCoord(charDiv.style.top) + FLOORVERTTOLERANCE < FLOORS[setup.loadMapArr()[currMap][getFloorIndexForPos(leftPos)][2]]
@@ -71,6 +73,7 @@ function Calculator() {
             }
             if (
                 !commands.falling
+                && !commands.swimming
                 && !commands.jumping
                 && isAllInSection(leftPos, getFloorIndexForPos(leftPos))
                 && calc.getCharmanCoord(charDiv.style.top) + FLOORVERTTOLERANCE < FLOORS[setup.loadMapArr()[currMap][getFloorIndexForPos(leftPos)][2]]

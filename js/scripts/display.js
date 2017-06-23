@@ -10,25 +10,13 @@ function Display() {
     this.clearBackground = clearBackground;
     this.fall = fall;
     this.handleSwimmingImg = handleSwimmingImg;
-    this.swimming = swimming;
 
     return this;
-
-    function swimming() {
-        if (!commands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-swim.gif') {
-            charmanImg.setAttribute('src', 'img/charman/charman-swim.gif');
-            charmanImg.style.width = '160%';
-            charmanImg.style.height = '60%';
-            charmanImg.style.paddingTop = '96%';
-            commands.swimming = true;
-        }
-    }
 
     function fall(idx) {
         if (!commands.falling) {
             commands.falling = true;
             if (!idx) idx = 0;
-            topPos = FLOORS[idx] - FLOORVERTTOLERANCE;
             var target = (idx == 0) ? 120 : FLOORS[setup.loadMapArr()[currMap][floorIndex][2]] - FLOORVERTTOLERANCE;
 
             setTimeout(function () {
@@ -79,7 +67,9 @@ function Display() {
     }
 
     function jump() {
-        var direction = 'up';
+        var direction = 'up',
+            jumpTop = FLOORS[setup.loadMapArr()[currMap][calc.getFloorIndexForPos(leftPos)][2]] - FLOORVERTTOLERANCE - JUMPHIGH;
+
         handleJumpingImg();
         jumping();
 
@@ -163,7 +153,7 @@ function Display() {
             charmanImg.setAttribute('src', 'img/charman/charman-swim.gif');
             charmanImg.style.width = '160%';
             charmanImg.style.height = '60%';
-            charmanImg.style.paddingTop = '96%';
+            charmanImg.style.paddingTop = '85%';
 
         }
     }

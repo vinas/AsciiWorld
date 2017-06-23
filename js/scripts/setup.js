@@ -31,7 +31,7 @@ function Setup() {
         mapArr.forEach(buildMap);
 
         function buildMap(mapItem) {
-            var topPos = FLOORS[mapItem[2]];
+            topPos = FLOORS[mapItem[2]];
             bkgLayer.innerHTML += '<img class="floor '+mapItem[1]+'" style="left: '+floorPos+'%; top: '+topPos+'%" src="img/map/floor/'+mapItem[0]+'" />';
             switch (mapItem[1]) {
                 case 'single':
@@ -71,8 +71,8 @@ function Setup() {
                 ['floor01.png', 'double', 0, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
