@@ -1,30 +1,31 @@
 function Display() {
 
     this.jump = jump;
-    this.handleRunninImg = handleRunninImg;
     this.mirrorObj = mirrorObj;
     this.shoot = shoot;
-    this.charmanIdle = charmanIdle;
     this.setCharmanRight = setCharmanRight;
     this.setCharmanLeft = setCharmanLeft;
     this.clearBackground = clearBackground;
     this.fall = fall;
-    this.handleSwimmingImg = handleSwimmingImg;
-    this.handleMapFalling = handleMapFalling;
     this.setBackgroundImg = setBackgroundImg;
+    this.handleCharmanImg = handleCharmanImg;
 
     return this;
 
-    function handleMapFalling() {
-        if (commands.right) display.fall(getFloorIndexForPos(leftPos));
-        if (commands.left) display.fall(getFloorIndexForPos(leftPos + FLOORHORTOLERANCE));
+    function handleCharmanImg() {
+        if (commands.swimming) {
+            handleSwimmingImg();
+        } else if (!commands.falling && (commands.right || commands.left) && (commands.jumping || !commands.firing)) {
+            handleRunninImg();
+        } else if (!commands.jumping && !commands.firing && !commands.falling) {
+            charmanIdle();
+        }
     }
 
-    function fall(idx) {
+    function fall() {
         if (!commands.falling) {
             commands.falling = true;
-            if (!idx) idx = 0;
-            var target = (idx == 0) ? 120 : FLOORS[mapArr[floorIndex][2]] - FLOORVERTTOLERANCE;
+            var target = mapArr[floorIndex][3] != 'hole' ? FLOORS[mapArr[floorIndex][2]] - FLOORVERTTOLERANCE : 120;
 
             setTimeout(function () {
                 charmanImg.setAttribute('src', 'img/charman/charman-hands-up.png');
@@ -83,7 +84,7 @@ function Display() {
 
     function jump() {
         var direction = 'up',
-            jumpTop = FLOORS[mapArr[calc.getFloorIndexForPos(leftPos)][2]] - FLOORVERTTOLERANCE - JUMPHIGH;
+            jumpTop = calc.jumpTop();
 
         handleJumpingImg();
         jumping();
@@ -92,7 +93,7 @@ function Display() {
             if (topPos <= jumpTop)
                 direction = 'down';
             topPos = getNewTopPosition(direction);
-            base = getFloorBase();
+            base = calc.jumpFloorBase();
             if (topPos >= base) {
                 topPos = base;
                 charDiv.style.top = topPos+'%';
@@ -109,16 +110,6 @@ function Display() {
                 return topPos - JUMPVARRATE;
             }
             return topPos + JUMPVARRATE;
-        }
-
-        function getFloorBase() {
-            var idx;
-            if (!calc.isAllInSection() && calc.isRightFloorHigherThanCurrent()) {
-                idx = floorIndex+1;
-            } else {
-                idx = floorIndex;
-            }
-            return FLOORS[mapArr[idx][2]] - FLOORVERTTOLERANCE;
         }
 
     }

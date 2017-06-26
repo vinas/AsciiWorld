@@ -38,18 +38,12 @@ function Game() {
         handleGameEnds();
         moveCharman();
         commands.swimming = calc.isUserOnWater();
-        if (commands.swimming) {
-            display.handleSwimmingImg();
-        } else if ((commands.right || commands.left) && (commands.jumping || !commands.firing)) {
-            display.handleRunninImg();
-        } else if (!commands.jumping && !commands.firing) {
-            display.charmanIdle();
-        }
+        display.handleCharmanImg();
     }
 
     function moveCharman() {
         if (!commands.firing) calc.setNewCoord();
-        if (calc.shouldBeFalling()) display.handleMapFalling();
+        if (calc.shouldBeFalling()) display.fall();
         charDiv.style.left = leftPos+'%';
     }
 

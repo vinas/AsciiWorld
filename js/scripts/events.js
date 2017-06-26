@@ -10,7 +10,7 @@ function Events()
     return this;
 
     function tapAttack() {
-        commands.fire = true;
+        if (!commands.swimming) commands.fire = true;
     }
 
     function tapMoveRight() {
@@ -27,7 +27,7 @@ function Events()
     }
 
     function tapJump() {
-        if (!commands.swimming && !commands.jumping) {
+        if (!commands.swimming && !commands.falling && !commands.jumping) {
             commands.jump = true;
             setTimeout(function () {
                 commands.jump = false;

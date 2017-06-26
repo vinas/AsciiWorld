@@ -61,8 +61,9 @@ function Setup() {
             ],
             [
                 ['floor01.png', 'double', 0, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
                 ['plataform02.png', 'single', 2, 'solid'],
                 ['plataform02.png', 'single', 2, 'solid'],
                 ['hole01.png', 'double', 0, 'hole'],
