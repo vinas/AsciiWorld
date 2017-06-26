@@ -12,33 +12,41 @@ function Calculator() {
 
     return this;
 
+    function setNewCoord() {
+        if (commands.right && canMoveRight()) {
+            leftPos += basicMovRate;
+            restrainMovement('right');
+        } else if (commands.left && canMoveLeft()) {
+            leftPos -= basicMovRate;
+            restrainMovement('left');
+        }
+    }
+
     function isSteppingOnHole() {
         return (
-                setup.loadMapArr()[currMap][floorIndex][3] == 'hole'
+                mapArr[floorIndex][3] == 'hole'
+                && topPos >= CHARBASEFLOOR
                 && (
-                    topPos == ''
-                    || topPos >= CHARBASEFLOOR
-                )
-                && (
-                    isAllInSection(leftPos, floorIndex)
+                    isAllInSection()
+                    || mapArr[floorIndex+1][3] == 'hole'
                 )
             );
     }
 
     function isUserOnWater() {
         return (
-                setup.loadMapArr()[currMap][floorIndex][3] == 'liquid'
+                mapArr[floorIndex][3] == 'liquid'
                 && (
-                    isAllInSection(leftPos, floorIndex)
-                    || (setup.loadMapArr()[currMap][floorIndex+1]
-                        && setup.loadMapArr()[currMap][floorIndex+1][3] == 'liquid'
+                    isAllInSection()
+                    || (mapArr[floorIndex+1]
+                        && mapArr[floorIndex+1][3] == 'liquid'
                     )
                 )
             );
     }
 
-    function isAllInSection(pos, idx) {
-        return (pos <= mapIndexArray[idx] - FLOORHORTOLERANCE);
+    function isAllInSection() {
+        return (leftPos <= mapIndexArray[floorIndex] - FLOORHORTOLERANCE);
 
     }
 
@@ -55,18 +63,8 @@ function Calculator() {
         return !commands.falling
             && !commands.swimming
             && !commands.jumping
-            && isAllInSection(leftPos, getFloorIndexForPos(leftPos))
-            && calc.getCharmanCoord(charDiv.style.top) + FLOORVERTTOLERANCE < FLOORS[setup.loadMapArr()[currMap][getFloorIndexForPos(leftPos)][2]];
-    }
-
-    function setNewCoord() {
-        if (commands.right && canMoveRight()) {
-            leftPos += basicMovRate;
-            restrainMovement('right');
-        } else if (commands.left && canMoveLeft()) {
-            leftPos -= basicMovRate;
-            restrainMovement('left');
-        }
+            && isAllInSection()
+            && topPos + FLOORVERTTOLERANCE < FLOORS[mapArr[getFloorIndexForPos(leftPos)][2]];
     }
 
     function getCharmanCoord(coord) {
@@ -87,28 +85,28 @@ function Calculator() {
                 }
                 break;
             case 'left':
-                if (!isNextLeftStepOnSameFloorBase() && !isLeftFloorNotHigherThanCurrent() && leftPos < mapIndexArray[getFloorIndexForPos(leftPos)]) {
+                if (!isNextLeftStepOnSameFloorBase() && isLeftFloorHigherThanCurrent() && leftPos < mapIndexArray[getFloorIndexForPos(leftPos)]) {
                     leftPos = mapIndexArray[getFloorIndexForPos(leftPos)];
                 }
         }
     }
 
     function canMoveRight() {
-        return commands.jumping || isNextRightStepOnSameFloorBase() || !isRightFloorHigherThanCurrent();
+        return isNextRightStepOnSameFloorBase() || !isRightFloorHigherThanCurrent();
     }
 
     function isCurrFloorLower() {
         var lastFloorIdx = getFloorIndexForPos(leftPos - FLOORHORTOLERANCE),
-            currFloorBase = setup.loadMapArr()[currMap][floorIndex][2];
+            currFloorBase = mapArr[floorIndex][2];
             if (floorIndex == 0 && currMap == 0) {
                 lastFloorBase = 0;
-            } else if (floorIndex == 0) lastFloorBase = setup.loadMapArr()[currMap-1][7][2];
-            else lastFloorBase = setup.loadMapArr()[currMap][lastFloorIdx][2];
+            } else if (floorIndex == 0) lastFloorBase = mapArr[currMap-1][7][2];
+            else lastFloorBase = mapArr[lastFloorIdx][2];
             return currFloorBase < lastFloorBase;
     }
 
     function canMoveLeft() {
-        return notCrossMappingToOblivion() && (isNextLeftStepOnSameFloorBase() || isLeftFloorNotHigherThanCurrent());
+        return notCrossMappingToOblivion() && (isNextLeftStepOnSameFloorBase() || !isLeftFloorHigherThanCurrent());
     }
 
     function isNextRightStepOnSameFloorBase() {
@@ -128,22 +126,30 @@ function Calculator() {
         return -1;
     }
 
-    function isLeftFloorNotHigherThanCurrent() {
-        var currFloorBase = setup.loadMapArr()[currMap][floorIndex][2],
-            nextFloorBase = setup.loadMapArr()[currMap][getFloorIndexForPos(leftPos)][2];
-            return currFloorBase > nextFloorBase || getCharmanCoord(charDiv.style.top) + FLOORVERTTOLERANCE <= FLOORS[nextFloorBase];
+    function isLeftFloorHigherThanCurrent() {
+        var currFloorBase = mapArr[floorIndex][2],
+            nextFloorBase = mapArr[getFloorIndexForPos(leftPos)][2];
+            return currFloorBase < nextFloorBase && isCharmanHigherThanNextFloor(nextFloorBase);
     }
 
     function isRightFloorHigherThanCurrent() {
-        var currFloorBase = (setup.loadMapArr()[currMap][floorIndex]) ? setup.loadMapArr()[currMap][floorIndex][2] : 0,
-            nextFloorBase = (leftPos < 95) ? setup.loadMapArr()[currMap][getFloorIndexForPos(leftPos + FLOORHORTOLERANCE)][2] : setup.loadMapArr()[currMap+1][0][2];
-            return currFloorBase < nextFloorBase && getCharmanCoord(charDiv.style.top) + FLOORVERTTOLERANCE > FLOORS[nextFloorBase];
+        var currFloorBase = (mapArr[floorIndex]) ? mapArr[floorIndex][2] : 0,
+            nextFloorBase = (leftPos < 95) ? mapArr[getFloorIndexForPos(leftPos + FLOORHORTOLERANCE)][2] : mapArr[currMap+1][0][2];
+            return currFloorBase < nextFloorBase && isCharmanHigherThanNextFloor(nextFloorBase);
     }
 
     function isCurrFloorLowerThanLast() {
-        var currFloorBase = setup.loadMapArr()[currMap][getFloorIndexForPos(leftPos + FLOORHORTOLERANCE)][2],
-            nextFloorBase = setup.loadMapArr()[currMap][floorIndex][2];
+        var currFloorBase = mapArr[getFloorIndexForPos(leftPos + FLOORHORTOLERANCE)][2],
+            nextFloorBase = mapArr[floorIndex][2];
             return currFloorBase < nextFloorBase;
+    }
+
+    function isCharmanHigherThanNextFloor(nextFloorBase) {
+        return topPos + FLOORVERTTOLERANCE > FLOORS[nextFloorBase]
+    }
+
+    function isNextSectionHole() {
+        return mapArr[floorIndex+1][3] == 'hole';
     }
 
 }

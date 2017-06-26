@@ -11,6 +11,7 @@ function Display() {
     this.fall = fall;
     this.handleSwimmingImg = handleSwimmingImg;
     this.handleMapFalling = handleMapFalling;
+    this.setBackgroundImg = setBackgroundImg;
 
     return this;
 
@@ -23,7 +24,7 @@ function Display() {
         if (!commands.falling) {
             commands.falling = true;
             if (!idx) idx = 0;
-            var target = (idx == 0) ? 120 : FLOORS[setup.loadMapArr()[currMap][floorIndex][2]] - FLOORVERTTOLERANCE;
+            var target = (idx == 0) ? 120 : FLOORS[mapArr[floorIndex][2]] - FLOORVERTTOLERANCE;
 
             setTimeout(function () {
                 charmanImg.setAttribute('src', 'img/charman/charman-hands-up.png');
@@ -43,6 +44,14 @@ function Display() {
             }
         }
     }
+
+    function setBackgroundImg() {
+        if (currMap % 2 == 0) {
+            bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains01.png')";
+        } else {
+            bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains02.png')";
+        }
+    }    
 
     function clearBackground(){
         var elements = document.getElementsByClassName('floor');
@@ -74,7 +83,7 @@ function Display() {
 
     function jump() {
         var direction = 'up',
-            jumpTop = FLOORS[setup.loadMapArr()[currMap][calc.getFloorIndexForPos(leftPos)][2]] - FLOORVERTTOLERANCE - JUMPHIGH;
+            jumpTop = FLOORS[mapArr[calc.getFloorIndexForPos(leftPos)][2]] - FLOORVERTTOLERANCE - JUMPHIGH;
 
         handleJumpingImg();
         jumping();
@@ -104,12 +113,12 @@ function Display() {
 
         function getFloorBase() {
             var idx;
-            if (!calc.isAllInSection(leftPos, floorIndex) && calc.isRightFloorHigherThanCurrent()) {
+            if (!calc.isAllInSection() && calc.isRightFloorHigherThanCurrent()) {
                 idx = floorIndex+1;
             } else {
                 idx = floorIndex;
             }
-            return FLOORS[setup.loadMapArr()[currMap][idx][2]] - FLOORVERTTOLERANCE;
+            return FLOORS[mapArr[idx][2]] - FLOORVERTTOLERANCE;
         }
 
     }

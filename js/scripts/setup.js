@@ -10,8 +10,10 @@ function Setup() {
         charDiv = document.getElementById('charman');
         charmanImg = document.getElementById('charmanImg');
         bkgLayer = document.getElementById('gameBrackground');
-        charDiv.style.top = CHARBASEFLOOR+'%';
-        charDiv.style.left = '0%';
+        topPos = CHARBASEFLOOR;
+        leftPos = 0;
+        charDiv.style.top = topPos+'%';
+        charDiv.style.left = leftPos+'%';
         commands.jumping = false;
         commands.firing = false;
         commands.swimming = false;
@@ -19,20 +21,20 @@ function Setup() {
     }
 
     function loadLevelMap() {
-        var mapArr = loadMapArr()[currMap],
-            floorPos = 0
-            cont = 0;
-        mapIndexArray = [];
+        var floorPos = 0,
+            floorTopPos;
 
-        setBackgroundImg();
-        
+        mapIndexArray = [];
+        mapArr = loadMapArr()[currMap];
+
+        display.setBackgroundImg();
         display.clearBackground();
 
         mapArr.forEach(buildMap);
 
         function buildMap(mapItem) {
-            topPos = FLOORS[mapItem[2]];
-            bkgLayer.innerHTML += '<img class="floor '+mapItem[1]+'" style="left: '+floorPos+'%; top: '+topPos+'%" src="img/map/floor/'+mapItem[0]+'" />';
+            floorTopPos = FLOORS[mapItem[2]];
+            bkgLayer.innerHTML += '<img class="floor '+mapItem[1]+'" style="left: '+floorPos+'%; top: '+floorTopPos+'%" src="img/map/floor/'+mapItem[0]+'" />';
             switch (mapItem[1]) {
                 case 'single':
                     floorPos += SINGLEBLOCK;
@@ -45,14 +47,6 @@ function Setup() {
         }
     }
 
-    function setBackgroundImg() {
-        if (currMap % 2 == 0) {
-            bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains01.png')";
-        } else {
-            bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains02.png')";
-        }
-    }    
-
     function loadMapArr() {
         return [
             [
@@ -63,6 +57,30 @@ function Setup() {
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid']
+            ],
+            [
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['hole01.png', 'single', 0, 'hole'],
+                ['floor02.png', 'single', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid']
+            ],
+            [
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
             ],
             [
@@ -87,18 +105,6 @@ function Setup() {
                 ['hole01.png', 'double', 0, 'hole'],
                 ['floor01.png', 'double', 0, 'solid'],
                 ['hole01.png', 'double', 0, 'hole']
-            ],
-            [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['floor01.png', 'double', 0, 'solid']
             ],
             [
                 ['floor01.png', 'double', 0, 'solid'],

@@ -27,7 +27,7 @@ function Events()
     }
 
     function tapJump() {
-        if (!commands.swimming) {
+        if (!commands.swimming && !commands.jumping) {
             commands.jump = true;
             setTimeout(function () {
                 commands.jump = false;

@@ -6,7 +6,7 @@ function Game() {
 
     function init() {
         setup.setCharmanElements();
-        setup.loadLevelMap(currMap);
+        setup.loadLevelMap();
         events.loadEventHandlers();
 
         gameLoop();
@@ -34,7 +34,7 @@ function Game() {
     }
 
     function handleMovement() {
-        setBasicInfo();
+        calc.setCurrentFloorIndex();
         handleGameEnds();
         moveCharman();
         commands.swimming = calc.isUserOnWater();
@@ -49,15 +49,8 @@ function Game() {
 
     function moveCharman() {
         if (!commands.firing) calc.setNewCoord();
-        if (calc.isSteppingOnHole()) endGame('hole');
         if (calc.shouldBeFalling()) display.handleMapFalling();
         charDiv.style.left = leftPos+'%';
-    }
-
-    function setBasicInfo() {
-        leftPos = calc.getCharmanCoord(charDiv.style.left);
-        topPos = calc.getCharmanCoord(charDiv.style.top);
-        calc.setCurrentFloorIndex();
     }
 
     function handleGameEnds() {
