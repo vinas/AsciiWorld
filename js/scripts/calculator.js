@@ -7,8 +7,15 @@ function Calculator() {
     this.shouldBeFalling = shouldBeFalling;
     this.jumpTop = jumpTop;
     this.jumpFloorBase = jumpFloorBase;
+    this.getCoord = getCoord;
 
     return this;
+
+    function getCoord(coord) {
+        var regex = /[+-]?\d+(\.\d+)?/g;
+        if (coord == '') return 0;
+        return parseFloat(coord.match(regex).map(function(v) { return parseFloat(v); }));
+    }
 
     function jumpFloorBase() {
         var idx = (!isAllInSection() && isRightFloorHigherThanCurrent()) ? floorIndex+1 : floorIndex;
@@ -67,9 +74,9 @@ function Calculator() {
     }
 
     function shouldBeFalling() {
-        return !commands.falling
-            && !commands.swimming
-            && !commands.jumping
+        return !actions.falling
+            && !actions.swimming
+            && !actions.jumping
             && isAllInSection()
             && topPos + FLOORVERTTOLERANCE < FLOORS[mapArr[floorIndex][2]];
     }
@@ -85,11 +92,11 @@ function Calculator() {
     }
 
     function canMoveRight() {
-        return !commands.falling && (!isAllInSection() && !isRightFloorHigherThanCharTop()) || (isNextRightStepOnSameFloorBase() || !isRightFloorHigherThanCharTop());
+        return !actions.falling && (!isAllInSection() && !isRightFloorHigherThanCharTop()) || (isNextRightStepOnSameFloorBase() || !isRightFloorHigherThanCharTop());
     }
 
     function canMoveLeft() {
-        return !commands.falling && notCrossMappingToOblivion() && (isNextLeftStepOnSameFloorBase() || !isLeftFloorHigherThanCharTop());
+        return !actions.falling && notCrossMappingToOblivion() && (isNextLeftStepOnSameFloorBase() || !isLeftFloorHigherThanCharTop());
     }
 
     function isNextRightStepOnSameFloorBase() {

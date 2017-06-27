@@ -5,6 +5,7 @@ var charDiv,
 
 var basicMovRate = .6,
     commands = {},
+    actions = {},
     currMap = 0,
     jumpTop,
     mapIndexArray = [],

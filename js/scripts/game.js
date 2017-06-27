@@ -23,26 +23,34 @@ function Game() {
     }
 
     function handleFiring() {
-        if (commands.fire && !commands.firing) {
-            commands.firing = true;
+        if (commands.fire && !actions.firing) {
+            actions.firing = true;
             display.shoot(function() {
                 commands.fire = false;
-                commands.firing = false;
+                actions.firing = false;
             });
             return;
         }
     }
 
     function handleMovement() {
+        charmanMovement();
+        enemiesMovement();
+    }
+
+    function charmanMovement() {
         calc.setCurrentFloorIndex();
         handleGameEnds();
         moveCharman();
-        commands.swimming = calc.isUserOnWater();
+        actions.swimming = calc.isUserOnWater();
         display.handleCharmanImg();
     }
 
+    function enemiesMovement() {
+    }
+
     function moveCharman() {
-        if (!commands.firing) calc.setNewCoord();
+        if (!actions.firing) calc.setNewCoord();
         if (calc.shouldBeFalling()) display.fall();
         charDiv.style.left = leftPos+'%';
     }
@@ -67,8 +75,8 @@ function Game() {
     }
 
     function handleJump() {
-        if (commands.jump && !commands.jumping) {
-            commands.jumping = true;
+        if (commands.jump && !actions.jumping) {
+            actions.jumping = true;
             display.jump();
         }
     }

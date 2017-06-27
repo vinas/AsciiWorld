@@ -13,18 +13,18 @@ function Display() {
     return this;
 
     function handleCharmanImg() {
-        if (commands.swimming) {
+        if (actions.swimming) {
             handleSwimmingImg();
-        } else if (!commands.falling && (commands.right || commands.left) && (commands.jumping || !commands.firing)) {
+        } else if (!actions.falling && (commands.right || commands.left) && (actions.jumping || !actions.firing)) {
             handleRunninImg();
-        } else if (!commands.jumping && !commands.firing && !commands.falling) {
+        } else if (!actions.jumping && !actions.firing && !actions.falling) {
             charmanIdle();
         }
     }
 
     function fall() {
-        if (!commands.falling) {
-            commands.falling = true;
+        if (!actions.falling) {
+            actions.falling = true;
             var target = mapArr[floorIndex][3] != 'hole' ? FLOORS[mapArr[floorIndex][2]] - FLOORVERTTOLERANCE : 120;
 
             setTimeout(function () {
@@ -40,7 +40,7 @@ function Display() {
                     setTimeout(falling, 5);
                 } else {
                     charDiv.style.top = target+'%';
-                    commands.falling = false;
+                    actions.falling = false;
                 }
             }
         }
@@ -97,7 +97,7 @@ function Display() {
             if (topPos >= base) {
                 topPos = base;
                 charDiv.style.top = topPos+'%';
-                commands.jumping = false;
+                actions.jumping = false;
                 return;
             }
             charDiv.style.top = topPos+'%';
@@ -123,7 +123,7 @@ function Display() {
         setCharmanBackToIdle();
 
         function setCharmanBackToIdle() {
-            if (gameOn && !commands.jumping) {
+            if (gameOn && !actions.jumping) {
                 if (calc.isUserOnWater(leftPos)) {
                     handleSwimmingImg();
                     return;
@@ -146,7 +146,7 @@ function Display() {
     }
 
     function handleRunninImg() {
-        if (!commands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-run.gif') {
+        if (!actions.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-run.gif') {
             charmanImg.setAttribute('src', 'img/charman/charman-run.gif');
             charmanImg.style.width = '100%';
             charmanImg.style.height = '100%';
@@ -155,7 +155,7 @@ function Display() {
     }
 
     function handleSwimmingImg() {
-        if (!commands.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-swim.gif') {
+        if (!actions.jumping && charmanImg.getAttribute('src') != 'img/charman/charman-swim.gif') {
             charmanImg.setAttribute('src', 'img/charman/charman-swim.gif');
             charmanImg.style.width = '160%';
             charmanImg.style.height = '60%';

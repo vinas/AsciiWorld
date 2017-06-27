@@ -14,10 +14,10 @@ function Setup() {
         leftPos = 0;
         charDiv.style.top = topPos+'%';
         charDiv.style.left = leftPos+'%';
-        commands.jumping = false;
-        commands.firing = false;
-        commands.swimming = false;
-        commands.falling = false;
+        actions.jumping = false;
+        actions.firing = false;
+        actions.swimming = false;
+        actions.falling = false;
     }
 
     function loadLevelMap() {
