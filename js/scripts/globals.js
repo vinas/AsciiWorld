@@ -10,6 +10,7 @@ var basicMovRate = .6,
     jumpTop,
     mapIndexArray = [],
     mapArr = [],
+    levelTriggers = [],
     floorIndex = 0,
     leftPos = 0,
     topPos;

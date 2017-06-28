@@ -35,18 +35,25 @@ function Game() {
 
     function handleMovement() {
         charmanMovement();
-        enemiesMovement();
     }
 
     function charmanMovement() {
         calc.setCurrentFloorIndex();
         handleGameEnds();
         moveCharman();
+        handleTriggers();
         actions.swimming = calc.isUserOnWater();
         display.handleCharmanImg();
     }
 
-    function enemiesMovement() {
+    function handleTriggers() {
+        var trigger = levelTriggers[currMap][Math.floor(leftPos)+FLOORHORTOLERANCE];
+        if (commands.right && trigger) {
+            if (!trigger.triggered) {
+                console.log('\n** triggered - leftPos: '+(Math.floor(leftPos)+FLOORHORTOLERANCE)+' **');
+                trigger.triggered = true;
+            }
+        }
     }
 
     function moveCharman() {

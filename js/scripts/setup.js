@@ -18,6 +18,7 @@ function Setup() {
         actions.firing = false;
         actions.swimming = false;
         actions.falling = false;
+        levelTriggers = loadLevelTriggers();
     }
 
     function loadLevelMap() {
@@ -236,7 +237,96 @@ function Setup() {
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
+            ],
+            [
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid']
+            ],
+            [
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid']
+            ],
+            [
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid']
             ]
+        ];
+    }
+
+    function loadLevelTriggers() {
+        return [
+            {
+                25: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        'action 25 1',
+                        'action 25 2'
+                    ]
+                },
+                50: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        'action 50 1',
+                        'action 25 2'
+                    ]
+                }
+            },
+            {
+                25: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        'action 25 1',
+                        'action 25 2'
+                    ]
+                },
+                50: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        'action 50 1',
+                        'action 25 2'
+                    ]
+                }
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
         ];
     }
 }
