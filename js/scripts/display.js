@@ -9,8 +9,13 @@ function Display() {
     this.fall = fall;
     this.setBackgroundImg = setBackgroundImg;
     this.handleCharmanImg = handleCharmanImg;
+    this.showResetButton = showResetButton;
 
     return this;
+
+    function showResetButton() {
+        document.getElementById('gameOver').style.display = 'block';
+    }
 
     function handleCharmanImg() {
         if (actions.swimming) {
@@ -22,7 +27,7 @@ function Display() {
         }
     }
 
-    function fall() {
+    function fall(callback) {
         if (!actions.falling) {
             actions.falling = true;
             var target = mapArr[floorIndex][3] != 'hole' ? FLOORS[mapArr[floorIndex][2]] - FLOORVERTTOLERANCE : 120;
@@ -41,6 +46,7 @@ function Display() {
                 } else {
                     charDiv.style.top = target+'%';
                     actions.falling = false;
+                    if (callback) callback();
                 }
             }
         }

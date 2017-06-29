@@ -3,8 +3,14 @@ function Setup() {
     this.setCharmanElements = setCharmanElements;
     this.loadLevelMap = loadLevelMap;
     this.loadMapArr = loadMapArr;
+    this.resetGame = resetGame;
 
     return this;
+
+    function resetGame() {
+        setCharmanElements();
+        loadLevelMap();
+    }
 
     function setCharmanElements() {
         charDiv = document.getElementById('charman');
@@ -62,6 +68,16 @@ function Setup() {
             ],
             [
                 ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole']
+            ],
+            [
+                ['floor01.png', 'double', 0, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
@@ -97,16 +113,6 @@ function Setup() {
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
-            ],
-            [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole']
             ],
             [
                 ['floor01.png', 'double', 0, 'solid'],

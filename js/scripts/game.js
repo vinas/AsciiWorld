@@ -5,10 +5,8 @@ function Game() {
     return this;
 
     function init() {
-        setup.setCharmanElements();
-        setup.loadLevelMap();
         events.loadEventHandlers();
-
+        setup.resetGame();
         gameLoop();
     }
 
@@ -73,12 +71,14 @@ function Game() {
     }
 
     function endGame(reason) {
+
         gameOn = false;
         switch (reason) {
             case 'hole':
-                display.fall();
+                display.fall(display.showResetButton);
                 break;
         }
+
     }
 
     function handleJump() {
@@ -100,6 +100,12 @@ function Game() {
                 setup.loadLevelMap();
             }
         }
+    }
+
+    function resetGame() {
+        setup.setCharmanElements();
+        setup.loadLevelMap();
+        events.loadEventHandlers();
     }
 
 }

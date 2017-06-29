@@ -6,8 +6,15 @@ function Events()
     this.tapMoveLeft = tapMoveLeft;
     this.tapStop = tapStop;
     this.tapAttack = tapAttack;
+    this.reset = reset;
  
     return this;
+
+    function reset() {
+        setup.resetGame();
+        gameOn = true;
+        document.getElementById('gameOver').style.display = 'none';
+    }
 
     function tapAttack() {
         if (!actions.swimming) commands.fire = true;
