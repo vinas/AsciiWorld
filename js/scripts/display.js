@@ -10,8 +10,48 @@ function Display() {
     this.setBackgroundImg = setBackgroundImg;
     this.handleCharmanImg = handleCharmanImg;
     this.showResetButton = showResetButton;
+    this.ufo = ufo;
+    this.hideUfo = hideUfo;
 
     return this;
+
+    function ufo(pos) {
+        var ufo = document.getElementById('ufo'),
+            top = -20;
+
+        ufo.style.display = 'block';
+        ufo.style.top = top+'%';
+        ufo.style.left = pos.left+'%';
+
+        landing();
+
+        function landing() {
+            if (top <= pos.top) {
+                top += basicMovRate;
+                ufo.style.top = top+'%';
+                setTimeout(landing, 5);
+            } else {
+                ufo.style.top = pos.top+'%';
+            }
+        }
+    }
+
+    function hideUfo() {
+        var ufo = document.getElementById('ufo'),
+            top = calc.getCoord(ufo.style.top);
+
+        leaving();
+
+        function leaving() {
+            if (top > -20) {
+                top -= basicMovRate;
+                ufo.style.top = top+'%';
+                setTimeout(leaving, 5);
+            } else {
+                ufo.style.display = 'none';
+            }
+        }
+    }
 
     function showResetButton() {
         document.getElementById('gameOver').style.display = 'block';

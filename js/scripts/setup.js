@@ -284,34 +284,48 @@ function Setup() {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
-                        'action 25 1',
-                        'action 25 2'
+                        display.ufo
+                    ],
+                    params: [
+                        {
+                            left: 70,
+                            top: 20
+                        }
                     ]
                 },
-                50: {
-                    onlyOnce: true,
+                70: {
+                    onlyOnce: false,
                     triggered: false,
                     actions: [
-                        'action 50 1',
-                        'action 25 2'
+                        display.hideUfo
+                    ],
+                    params: [
+                        {}
                     ]
                 }
             },
             {
-                25: {
+                2: {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
-                        'action 25 1',
-                        'action 25 2'
+                        display.ufo
+                    ],
+                    params: [
+                        {
+                            left: 72,
+                            top: 46
+                        }
                     ]
                 },
-                50: {
-                    onlyOnce: true,
+                63: {
+                    onlyOnce: false,
                     triggered: false,
                     actions: [
-                        'action 50 1',
-                        'action 25 2'
+                        display.hideUfo
+                    ],
+                    params: [
+                        {}
                     ]
                 }
             },

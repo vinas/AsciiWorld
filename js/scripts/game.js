@@ -48,7 +48,13 @@ function Game() {
         var trigger = levelTriggers[currMap][Math.floor(leftPos)+FLOORHORTOLERANCE];
         if (commands.right && trigger) {
             if (!trigger.triggered) {
-                console.log('\n** triggered - leftPos: '+(Math.floor(leftPos)+FLOORHORTOLERANCE)+' **');
+                trigger.actions.forEach(function(action, idx) {
+                    if (trigger.params[idx]) {
+                        action(trigger.params[idx]);
+                    } else {
+                        action();
+                    }
+                });
                 trigger.triggered = true;
             }
         }
