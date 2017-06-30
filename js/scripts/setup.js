@@ -4,10 +4,13 @@ function Setup() {
     this.loadLevelMap = loadLevelMap;
     this.loadMapArr = loadMapArr;
     this.resetGame = resetGame;
+    this.hideHidables = hideHidables;
 
     return this;
 
     function resetGame() {
+        currMap = 0;
+        hideHidables();
         setCharmanElements();
         loadLevelMap();
     }
@@ -24,6 +27,7 @@ function Setup() {
         actions.firing = false;
         actions.swimming = false;
         actions.falling = false;
+        actions.cancelShot = false;
         levelTriggers = loadLevelTriggers();
     }
 
@@ -53,6 +57,20 @@ function Setup() {
             mapIndexArray.push(floorPos);
         }
     }
+
+    function hideHidables() {
+        setClassProp('hidable', 'display', 'none');
+    }
+
+    function setClassProp(className, prop, value)
+    {
+        var els = document.getElementsByClassName(className),
+            i;
+        for (i = 0; i < els.length; i++) {
+            els[i].style[prop] = value;
+        }
+    }
+
 
     function loadMapArr() {
         return [
@@ -284,7 +302,7 @@ function Setup() {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
-                        display.ufo
+                        display.ufoIn
                     ],
                     params: [
                         {
@@ -297,7 +315,7 @@ function Setup() {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
-                        display.hideUfo
+                        display.ufoOut
                     ],
                     params: [
                         {}
@@ -309,7 +327,7 @@ function Setup() {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
-                        display.ufo
+                        display.ufoAttack01
                     ],
                     params: [
                         {
@@ -322,14 +340,28 @@ function Setup() {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
-                        display.hideUfo
+                        display.ufoOut
                     ],
                     params: [
                         {}
                     ]
                 }
             },
-            {},
+            {
+                2: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoAttack01
+                    ],
+                    params: [
+                        {
+                            left: 35,
+                            top: 35
+                        }
+                    ]
+                }
+            },
             {},
             {},
             {},

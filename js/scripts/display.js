@@ -10,12 +10,50 @@ function Display() {
     this.setBackgroundImg = setBackgroundImg;
     this.handleCharmanImg = handleCharmanImg;
     this.showResetButton = showResetButton;
-    this.ufo = ufo;
-    this.hideUfo = hideUfo;
+    this.ufoIn = ufoIn;
+    this.ufoOut = ufoOut;
+    this.ufoAttack01 = ufoAttack01;
 
     return this;
 
-    function ufo(pos) {
+    function ufoAttack01(pos) {
+        ufoIn(pos, ufoShot);
+    }
+
+    function ufoShot() {
+        var ufo = document.getElementById('ufo'),
+            shot = document.getElementById('ufoShot'),
+            left = calc.getCoord(ufo.style.left) - 2,
+            top = calc.getCoord(ufo.style.top) + 10;
+
+        shot.style.left = left+'%';
+        shot.style.top = top+'%';
+        shot.style.display = 'block';
+
+        setTimeout(ufoOut, 300);
+
+        moveLeft();
+
+        function moveLeft() {
+            if (actions.cancelShot) {
+                shot.style.display = 'none';
+                return;
+            }
+            if (calc.hit(left, top)) {
+                game.endGame('hit');
+                return;
+            }
+            if (left >= -2) {
+                left -= (basicMovRate *.6);
+                shot.style.left = left+'%';
+                setTimeout(moveLeft, 5);
+            } else {
+                shot.style.display = 'none';
+            }
+        }
+    }
+
+    function ufoIn(pos, callback) {
         var ufo = document.getElementById('ufo'),
             top = -20;
 
@@ -32,11 +70,12 @@ function Display() {
                 setTimeout(landing, 5);
             } else {
                 ufo.style.top = pos.top+'%';
+                if (callback) callback();
             }
         }
     }
 
-    function hideUfo() {
+    function ufoOut() {
         var ufo = document.getElementById('ufo'),
             top = calc.getCoord(ufo.style.top);
 

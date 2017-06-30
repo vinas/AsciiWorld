@@ -1,6 +1,7 @@
 function Game() {
 
     this.init = init;
+    this.endGame = endGame;
 
     return this;
 
@@ -77,11 +78,13 @@ function Game() {
     }
 
     function endGame(reason) {
-
         gameOn = false;
         switch (reason) {
             case 'hole':
                 display.fall(display.showResetButton);
+                break;
+            case 'hit':
+                display.showResetButton();
                 break;
         }
 
@@ -97,13 +100,19 @@ function Game() {
     function handleCrossMargin() {
         if (commands.right || commands.left) {
             if (leftPos >= 98) {
+                actions.cancelShot = true;
+                setup.hideHidables();
                 display.setCharmanLeft();
                 currMap += 1;
                 setup.loadLevelMap();
+                setTimeout(function() { actions.cancelShot = false; }, 20);
             } else if ((currMap != 0 ) && leftPos <= -3) {
+                actions.cancelShot = true;
+                setup.hideHidables();
                 display.setCharmanRight();
                 currMap -= 1;
                 setup.loadLevelMap();
+                setTimeout(function() { actions.cancelShot = false; }, 20);
             }
         }
     }

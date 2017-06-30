@@ -8,8 +8,16 @@ function Calculator() {
     this.jumpTop = jumpTop;
     this.jumpFloorBase = jumpFloorBase;
     this.getCoord = getCoord;
+    this.hit = hit;
 
     return this;
+
+    function hit(left, top) {
+        return left < leftPos + FLOORHORTOLERANCE - 1
+            && left > leftPos - 1
+            && top >= topPos
+            && top < topPos + FLOORVERTTOLERANCE;
+    }
 
     function getCoord(coord) {
         var regex = /[+-]?\d+(\.\d+)?/g;

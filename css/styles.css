@@ -36,6 +36,14 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     height: 100%;
 }
 
+.ufoShot {
+    display: none;
+    position: absolute;
+    width: 2%;
+    height: 1%;
+    background-color: #000;
+}
+
 .floor {
     padding-top: auto;
     position: absolute;
