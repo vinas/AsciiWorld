@@ -77,12 +77,14 @@ function Events()
     }
 
     function setMovementRight() {
+        actions.lastDirection = 'right';
         display.mirrorObj(charmanImg, 1);
         commands.left = false;
         commands.right = true;
     }
 
     function setMovementLeft() {
+        actions.lastDirection = 'left';
         display.mirrorObj(charmanImg, -1);
         commands.right = false;
         commands.left = true;

@@ -44,6 +44,14 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     background-color: #000;
 }
 
+.charShot {
+    display: none;
+    position: absolute;
+    width: 1.5%;
+    height: .3%;
+    background-color: #000;
+}
+
 .floor {
     padding-top: auto;
     position: absolute;

@@ -28,6 +28,8 @@ function Setup() {
         actions.swimming = false;
         actions.falling = false;
         actions.cancelShot = false;
+        actions.shooting = false;
+        actions.lastDirection = 'right';
         levelTriggers = loadLevelTriggers();
     }
 

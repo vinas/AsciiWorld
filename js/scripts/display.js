@@ -13,8 +13,55 @@ function Display() {
     this.ufoIn = ufoIn;
     this.ufoOut = ufoOut;
     this.ufoAttack01 = ufoAttack01;
+    this.charShot = charShot;
 
     return this;
+
+    function charShot() {
+        if (!actions.shooting) {
+            var ufo = document.getElementById('ufo'),
+                shot = document.getElementById('charShot'),
+                direction = actions.lastDirection,
+                left = (direction == 'right') ? leftPos + 5 : leftPos - 1.5,
+                top = topPos + 5;
+
+            shot.style.left = left+'%';
+            shot.style.top = top+'%';
+            shot.style.display = 'block';
+            actions.shooting = true;
+
+            moveLeft();
+
+            function moveLeft() {
+                if (actions.cancelShot) {
+                    shot.style.display = 'none';
+                    actions.shooting = false;
+                    return;
+                }
+                /*if (calc.hit(left, top)) {
+                    game.endGame('hit');
+                    return;
+                }*/
+                if (direction == 'right' && left <= 100) {
+                    console.log('AAAAAA');
+                    left += (basicMovRate *.6);
+                    shot.style.left = left+'%';
+                    setTimeout(moveLeft, 5);
+                } else if (direction == 'left' && left >= -2) {
+                    console.log('BBBB');
+                    left -= (basicMovRate *.6);
+                    shot.style.left = left+'%';
+                    setTimeout(moveLeft, 5);
+                } else {
+                    console.log('CCCCCCCCCCCCCCCCCCCC');
+                    shot.style.display = 'none';
+                    actions.shooting = false;
+                    return;
+                }
+            }
+
+        }
+    }
 
     function ufoAttack01(pos) {
         ufoIn(pos, ufoShot);

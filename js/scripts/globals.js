@@ -13,7 +13,8 @@ var basicMovRate = .6,
     levelTriggers = [],
     floorIndex = 0,
     leftPos = 0,
-    topPos;
+    topPos,
+    lastDirection = 'right';
 
 var CHARBASEFLOOR = 52,
     CHARFIRSTFLOOR = 39,

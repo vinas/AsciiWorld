@@ -27,6 +27,7 @@ function Game() {
             display.shoot(function() {
                 commands.fire = false;
                 actions.firing = false;
+                display.charShot();
             });
             return;
         }
