@@ -43,17 +43,14 @@ function Display() {
                     return;
                 }*/
                 if (direction == 'right' && left <= 100) {
-                    console.log('AAAAAA');
                     left += (basicMovRate *.6);
                     shot.style.left = left+'%';
                     setTimeout(moveLeft, 5);
                 } else if (direction == 'left' && left >= -2) {
-                    console.log('BBBB');
                     left -= (basicMovRate *.6);
                     shot.style.left = left+'%';
                     setTimeout(moveLeft, 5);
                 } else {
-                    console.log('CCCCCCCCCCCCCCCCCCCC');
                     shot.style.display = 'none';
                     actions.shooting = false;
                     return;
