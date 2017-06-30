@@ -23,7 +23,7 @@ function Display() {
                 shot = document.getElementById('charShot'),
                 direction = actions.lastDirection,
                 left = (direction == 'right') ? leftPos + 5 : leftPos - 1.5,
-                top = topPos + 5;
+                top = topPos + 6;
 
             shot.style.left = left+'%';
             shot.style.top = top+'%';
