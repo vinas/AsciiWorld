@@ -121,78 +121,6 @@ function Setup() {
                 ['floor01.png', 'double', 0, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['floor01.png', 'double', 0, 'solid']
-            ],
-            [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform02.png', 'single', 2, 'solid'],
-                ['plataform02.png', 'single', 2, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid']
-            ],
-            [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole']
-            ],
-            [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'single', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'single', 0, 'hole'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid']
-            ],
-            [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid']
-            ],
-            [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['hole01.png', 'double', 0, 'hole'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['floor01.png', 'double', 0, 'solid']
-            ],
-            [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'single', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'single', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'single', 0, 'hole'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['hole01.png', 'single', 0, 'hole'],
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
             ],
@@ -204,18 +132,103 @@ function Setup() {
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['plataform02.png', 'single', 2, 'solid'],
                 ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid']
+            ],
+            [
+                ['floor02.png', 'single', 0, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['floor02.png', 'single', 0, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['floor02.png', 'single', 0, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+            ],
+            [
+                ['floor02.png', 'single', 0, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['floor02.png', 'single', 0, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['floor02.png', 'single', 0, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['floor02.png', 'single', 0, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['floor02.png', 'single', 0, 'solid']
+            ],
+            [
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'single', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'single', 0, 'hole'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
                 ['hole01.png', 'double', 0, 'hole'],
-                ['hole01.png', 'double', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
             ],
             [
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid']
+            ],
+            [
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['floor01.png', 'double', 0, 'solid']
+            ],
+            [
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'single', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'single', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'single', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'single', 0, 'hole'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid']
+            ],
+            [
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['hole01.png', 'double', 0, 'hole'],
                 ['floor01.png', 'double', 0, 'solid']
             ],
             [
@@ -329,7 +342,154 @@ function Setup() {
                 }
             },
             {
+                70: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoIn
+                    ],
+                    params: [
+                        {
+                            left: 10,
+                            top: 5
+                        }
+                    ]
+                },
+                90: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoOut
+                    ],
+                    params: [
+                        {}
+                    ]
+                }
+            },
+            {
                 2: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoAttack01
+                    ],
+                    params: [
+                        {
+                            left: 72,
+                            top: 46
+                        }
+                    ]
+                },
+                70: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoIn
+                    ],
+                    params: [
+                        {
+                            left: 10,
+                            top: 5
+                        }
+                    ]
+                },
+                90: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoOut
+                    ],
+                    params: [
+                        {}
+                    ]
+                }            },
+            {
+                2: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoAttack01
+                    ],
+                    params: [
+                        {
+                            left: 35,
+                            top: 35
+                        }
+                    ]
+                },
+                50: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoAttack01
+                    ],
+                    params: [
+                        {
+                            left: 75,
+                            top: 46
+                        }
+                    ]
+                }
+            },
+            {},
+            {
+                2: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoAttack01
+                    ],
+                    params: [
+                        {
+                            left: 72,
+                            top: 30
+                        }
+                    ]
+                },
+                55: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoAttack01
+                    ],
+                    params: [
+                        {
+                            left: 72,
+                            top: 35
+                        }
+                    ]
+                }
+            },
+            {
+                2: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoAttack01
+                    ],
+                    params: [
+                        {
+                            left: 72,
+                            top: 30
+                        }
+                    ]
+                },
+                55: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoAttack01
+                    ],
+                    params: [
+                        {
+                            left: 72,
+                            top: 35
+                        }
+                    ]
+                }
+            },
+            {
+                10: {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
@@ -344,7 +504,7 @@ function Setup() {
                 }
             },
             {
-                2: {
+                15: {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
@@ -352,19 +512,25 @@ function Setup() {
                     ],
                     params: [
                         {
-                            left: 35,
-                            top: 35
+                            left: 72,
+                            top: 46
                         }
                     ]
-                }
+                },
+                60: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoAttack01
+                    ],
+                    params: [
+                        {
+                            left: 72,
+                            top: 46
+                        }
+                    ]
+                },
             },
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},

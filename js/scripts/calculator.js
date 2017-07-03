@@ -13,26 +13,8 @@ function Calculator() {
 
     return this;
 
-    function getEnemies() {
-        enemies.forEach(function(enemy) {
-            if (isEnemyVisible(enemy)) {
-
-            }
-        });
-        var els = document.getElementsByClassName(className),
-            i;
-        for (i = 0; i < els.length; i++) {
-            els[i].style[prop] = value;
-        }
-    }
-
-    function isEnemyVisible(enemy) {
-        return enemy && enemy.style.display == 'block';
-    }
-
     function hitEnemy(left, top) {
         var hit = false;
-
         enemies.forEach(function(enemy) {
             if (isEnemyVisible(enemy)) {
                 enemyLeft = getCoord(enemy.style.left);
@@ -49,7 +31,6 @@ function Calculator() {
             }
         });
         return hit;
-
     }
 
     function hitCharman(left, top) {
@@ -188,6 +169,10 @@ function Calculator() {
 
     function isNextSectionHole() {
         return mapArr[floorIndex+1][3] == 'hole';
+    }
+
+    function isEnemyVisible(enemy) {
+        return enemy && enemy.style.display == 'block';
     }
 
 }
