@@ -8,11 +8,51 @@ function Calculator() {
     this.jumpTop = jumpTop;
     this.jumpFloorBase = jumpFloorBase;
     this.getCoord = getCoord;
-    this.hit = hit;
+    this.hitCharman = hitCharman;
+    this.hitEnemy = hitEnemy;
 
     return this;
 
-    function hit(left, top) {
+    function getEnemies() {
+        enemies.forEach(function(enemy) {
+            if (isEnemyVisible(enemy)) {
+
+            }
+        });
+        var els = document.getElementsByClassName(className),
+            i;
+        for (i = 0; i < els.length; i++) {
+            els[i].style[prop] = value;
+        }
+    }
+
+    function isEnemyVisible(enemy) {
+        return enemy && enemy.style.display == 'block';
+    }
+
+    function hitEnemy(left, top) {
+        var hit = false;
+
+        enemies.forEach(function(enemy) {
+            if (isEnemyVisible(enemy)) {
+                enemyLeft = getCoord(enemy.style.left);
+                enemyTop = getCoord(enemy.style.top);
+                if (
+                    left + CHARSHOTWIDTH >= enemyLeft
+                    && left <= enemyLeft + getCoord(enemy.style.width)
+                    && top >= enemyTop
+                    && top <= enemyTop + getCoord(enemy.style.height)
+                ) {
+                    hit = enemy;
+                    return true;
+                }
+            }
+        });
+        return hit;
+
+    }
+
+    function hitCharman(left, top) {
         return left < leftPos + FLOORHORTOLERANCE - 1
             && left > leftPos - 1
             && top >= topPos

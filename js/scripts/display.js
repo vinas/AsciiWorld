@@ -1,5 +1,7 @@
 function Display() {
 
+    var ufo = document.getElementById('ufo');
+
     this.jump = jump;
     this.mirrorObj = mirrorObj;
     this.shoot = shoot;
@@ -15,14 +17,21 @@ function Display() {
     this.ufoAttack01 = ufoAttack01;
     this.charShot = charShot;
 
+    init();
+
     return this;
 
+    function init() {
+        ufo.style.width = 20+'%';
+        ufo.style.height = 20+'%';
+    }
+
     function charShot() {
+        var hit = false;
         if (!actions.shooting) {
-            var ufo = document.getElementById('ufo'),
-                shot = document.getElementById('charShot'),
+            var shot = document.getElementById('charShot'),
                 direction = actions.lastDirection,
-                left = (direction == 'right') ? leftPos + 5 : leftPos - 1.5,
+                left = (direction == 'right') ? leftPos + FLOORHORTOLERANCE : leftPos - CHARSHOTWIDTH,
                 top = topPos + 6;
 
             shot.style.left = left+'%';
@@ -38,16 +47,18 @@ function Display() {
                     actions.shooting = false;
                     return;
                 }
-                /*if (calc.hit(left, top)) {
-                    game.endGame('hit');
+                if (hit = calc.hitEnemy(left, top)) {
+                    hide(hit.id);
+                    shot.style.display = 'none';
+                    actions.shooting = false;
                     return;
-                }*/
+                }
                 if (direction == 'right' && left <= 100) {
-                    left += (basicMovRate *.6);
+                    left += (basicMovRate * 2);
                     shot.style.left = left+'%';
                     setTimeout(moveLeft, 5);
                 } else if (direction == 'left' && left >= -2) {
-                    left -= (basicMovRate *.6);
+                    left -= (basicMovRate * 2);
                     shot.style.left = left+'%';
                     setTimeout(moveLeft, 5);
                 } else {
@@ -65,8 +76,7 @@ function Display() {
     }
 
     function ufoShot() {
-        var ufo = document.getElementById('ufo'),
-            shot = document.getElementById('ufoShot'),
+        var shot = document.getElementById('ufoShot'),
             left = calc.getCoord(ufo.style.left) - 2,
             top = calc.getCoord(ufo.style.top) + 10;
 
@@ -83,7 +93,7 @@ function Display() {
                 shot.style.display = 'none';
                 return;
             }
-            if (calc.hit(left, top)) {
+            if (calc.hitCharman(left, top)) {
                 game.endGame('hit');
                 return;
             }
@@ -98,12 +108,9 @@ function Display() {
     }
 
     function ufoIn(pos, callback) {
-        var ufo = document.getElementById('ufo'),
-            top = -20;
+        var top = -20;
 
-        ufo.style.display = 'block';
-        ufo.style.top = top+'%';
-        ufo.style.left = pos.left+'%';
+        showUfo(pos.left, top);
 
         landing();
 
@@ -120,8 +127,7 @@ function Display() {
     }
 
     function ufoOut() {
-        var ufo = document.getElementById('ufo'),
-            top = calc.getCoord(ufo.style.top);
+        var top = calc.getCoord(ufo.style.top);
 
         leaving();
 
@@ -131,7 +137,7 @@ function Display() {
                 ufo.style.top = top+'%';
                 setTimeout(leaving, 5);
             } else {
-                ufo.style.display = 'none';
+                hide('ufo');
             }
         }
     }
@@ -251,17 +257,6 @@ function Display() {
 
         setCharmanBackToIdle();
 
-        function setCharmanBackToIdle() {
-            if (gameOn && !actions.jumping) {
-                if (calc.isUserOnWater(leftPos)) {
-                    handleSwimmingImg();
-                    return;
-                }
-                charmanImg.setAttribute('src', 'img/charman/charman-01.png');
-                setTimeout(setCharmanBackToIdle, 50);
-            }
-        }
-
     }
 
     function mirrorObj(objeto, escala)
@@ -272,6 +267,17 @@ function Display() {
         objeto.style.transform = 'scaleX('+escala+')';
         objeto.style.msFilter = 'fliph';
         objeto.style.filter = 'fliph';
+    }
+
+    function setCharmanBackToIdle() {
+        if (gameOn && !actions.jumping) {
+            if (calc.isUserOnWater(leftPos)) {
+                handleSwimmingImg();
+                return;
+            }
+            charmanImg.setAttribute('src', 'img/charman/charman-01.png');
+            setTimeout(setCharmanBackToIdle, 50);
+        }
     }
 
     function handleRunninImg() {
@@ -291,6 +297,16 @@ function Display() {
             charmanImg.style.paddingTop = '85%';
 
         }
+    }
+
+    function showUfo(left, top) {
+        ufo.style.display = 'block';
+        ufo.style.top = top+'%';
+        ufo.style.left = left+'%';
+    }
+
+    function hide(elemId) {
+        document.getElementById(elemId).style.display = 'none';
     }
 
 }

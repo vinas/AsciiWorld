@@ -31,6 +31,10 @@ function Setup() {
         actions.shooting = false;
         actions.lastDirection = 'right';
         levelTriggers = loadLevelTriggers();
+        enemies = [
+            document.getElementById('ufo'),
+            document.getElementById('pig')
+        ];
     }
 
     function loadLevelMap() {
@@ -336,16 +340,6 @@ function Setup() {
                             left: 72,
                             top: 46
                         }
-                    ]
-                },
-                63: {
-                    onlyOnce: false,
-                    triggered: false,
-                    actions: [
-                        display.ufoOut
-                    ],
-                    params: [
-                        {}
                     ]
                 }
             },

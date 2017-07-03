@@ -17,7 +17,7 @@ function Events()
     }
 
     function tapAttack() {
-        if (!actions.swimming) commands.fire = true;
+        if (!actions.swimming && !actions.shooting) commands.fire = true;
     }
 
     function tapMoveRight() {

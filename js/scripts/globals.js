@@ -11,6 +11,7 @@ var basicMovRate = .6,
     mapIndexArray = [],
     mapArr = [],
     levelTriggers = [],
+    enemies = [],
     floorIndex = 0,
     leftPos = 0,
     topPos,
@@ -24,4 +25,8 @@ var CHARBASEFLOOR = 52,
     JUMPVARRATE = .7,
     FLOORHORTOLERANCE = 5
     FLOORVERTTOLERANCE = 14,
-    JUMPHIGH = 21;
+    JUMPHIGH = 21,
+    UFOSHOTWIDTH = 2,
+    UFOSHOTHEIGHT = 1,
+    CHARSHOTWIDTH = 1.5;
+    CHARSHOTHEIGHT = 1;

@@ -63,7 +63,7 @@ function Game() {
     }
 
     function moveCharman() {
-        if (!actions.firing) calc.setNewCoord();
+        calc.setNewCoord();
         if (calc.shouldBeFalling()) display.fall();
         charDiv.style.left = leftPos+'%';
     }
