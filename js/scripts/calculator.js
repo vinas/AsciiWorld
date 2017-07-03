@@ -153,13 +153,13 @@ function Calculator() {
 
     function isRightFloorHigherThanCharTop() {
         var currFloorBase = (mapArr[floorIndex]) ? mapArr[floorIndex][2] : 0,
-            nextFloorBase = (leftPos < 95) ? mapArr[getFloorIndexForPos(leftPos + FLOORHORTOLERANCE)][2] : mapArr[currMap+1][0][2];
+            nextFloorBase = (leftPos < 95) ? mapArr[getFloorIndexForPos(leftPos + FLOORHORTOLERANCE)][2] : currFloorBase;
             return currFloorBase < nextFloorBase && isCharmanHigherThanNextFloor(nextFloorBase);
     }
 
     function isRightFloorHigherThanCurrent() {
         var currFloorBase = (mapArr[floorIndex]) ? mapArr[floorIndex][2] : 0,
-            nextFloorBase = (leftPos < 95) ? mapArr[floorIndex+1][2] : mapArr[currMap+1][0][2];
+            nextFloorBase = (leftPos < 95) ? mapArr[floorIndex+1][2] : currFloorBase;
             return currFloorBase < nextFloorBase;
     }
 

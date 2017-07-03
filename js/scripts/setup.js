@@ -30,6 +30,7 @@ function Setup() {
         actions.cancelShot = false;
         actions.shooting = false;
         actions.lastDirection = 'right';
+        actions.abduction = false;
         levelTriggers = loadLevelTriggers();
         enemies = [
             document.getElementById('ufo'),
@@ -80,7 +81,7 @@ function Setup() {
 
     function loadMapArr() {
         return [
-            [
+            /*[
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['water-01.gif', 'double', 0, 'liquid'],
@@ -255,7 +256,7 @@ function Setup() {
                 ['plataform02.png', 'single', 2, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
-            ],
+            ],*/
             [
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
@@ -271,7 +272,7 @@ function Setup() {
 
     function loadLevelTriggers() {
         return [
-            {
+            /*{
                 25: {
                     onlyOnce: false,
                     triggered: false,
@@ -582,8 +583,19 @@ function Setup() {
                         }
                     ]
                 }
-            },
-            {}
+            },*/
+            {
+                65: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        game.endGame
+                    ],
+                    params: [
+                        'abducted'
+                    ]
+                }
+            }
         ];
     }
 }

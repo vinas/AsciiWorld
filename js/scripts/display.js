@@ -16,6 +16,7 @@ function Display() {
     this.ufoOut = ufoOut;
     this.ufoAttack01 = ufoAttack01;
     this.charShot = charShot;
+    this.abduction = abduction;
 
     init();
 
@@ -24,6 +25,36 @@ function Display() {
     function init() {
         ufo.style.width = 20+'%';
         ufo.style.height = 20+'%';
+    }
+
+    function abduction() {
+        var pos = {};
+        pos.left = leftPos - (calc.getCoord(ufo.style.width) / 2) + (FLOORHORTOLERANCE / 2);
+        pos.top = 20;
+        charmanImg.setAttribute('src', 'img/charman/charman-hands-up.png');
+        ufoIn(pos, abduct);
+
+        function abduct() {
+            var abductionRay = document.getElementById('abduction');
+                abductionRay.style.top = (pos.top + calc.getCoord(ufo.style.height)) + '%';
+                abductionRay.style.left = (pos.left + 2.5) + '%';
+                abductionRay.style.display = 'block';
+                charDiv.style.opacity = 1;
+            fadeChar();
+        }
+
+        function fadeChar() {
+            var opacity = charDiv.style.opacity - .02;
+            if (opacity >= 0) {
+                charDiv.style.opacity = opacity;
+                setTimeout(fadeChar, 20);
+                return;
+            }
+
+            document.getElementById('abduction').style.display = 'none';
+            setTimeout(ufoOut, 100);
+            setTimeout(showResetButton, 1500);
+        }
     }
 
     function charShot() {

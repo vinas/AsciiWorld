@@ -74,7 +74,7 @@ function Game() {
     }
 
     function getEndingCause() {
-        if (calc.isSteppingOnHole()) return 'hole'
+        if (calc.isSteppingOnHole()) return 'hole';
         return false;
     }
 
@@ -87,8 +87,10 @@ function Game() {
             case 'hit':
                 display.showResetButton();
                 break;
+            case 'abducted':
+                display.abduction();
+                break;
         }
-
     }
 
     function handleJump() {
