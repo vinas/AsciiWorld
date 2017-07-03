@@ -91,6 +91,7 @@ function Game() {
         var finalTime = +new Date();
         gameTime = finalTime - time;
         gameOn = false;
+        timer = 0;
         switch (reason) {
             case 'hole':
                 display.fall(display.showResetButton);

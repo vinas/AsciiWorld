@@ -182,7 +182,7 @@ function Display() {
         document.getElementById('gameOver').style.display = 'block';
         document.getElementById('gameTime').innerHTML = millisToMinutesAndSeconds(gameTime);
         document.getElementById('lastStage').innerHTML = currMap+1;
-        
+        display.updateTime();
     }
 
     function handleCharmanImg() {
