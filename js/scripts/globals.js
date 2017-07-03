@@ -15,7 +15,9 @@ var basicMovRate = .6,
     floorIndex = 0,
     leftPos = 0,
     topPos,
-    lastDirection = 'right';
+    lastDirection = 'right',
+    time = 0,
+    gameTime = 0;
 
 var CHARBASEFLOOR = 52,
     CHARFIRSTFLOOR = 39,

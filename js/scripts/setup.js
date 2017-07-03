@@ -13,6 +13,8 @@ function Setup() {
         hideHidables();
         setCharmanElements();
         loadLevelMap();
+        gameTime = 0;
+        time = +new Date();
     }
 
     function setCharmanElements() {

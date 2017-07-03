@@ -175,6 +175,9 @@ function Display() {
 
     function showResetButton() {
         document.getElementById('gameOver').style.display = 'block';
+        document.getElementById('gameTime').innerHTML = millisToMinutesAndSeconds(gameTime);
+        document.getElementById('lastStage').innerHTML = currMap+1;
+        
     }
 
     function handleCharmanImg() {
@@ -338,6 +341,18 @@ function Display() {
 
     function hide(elemId) {
         document.getElementById(elemId).style.display = 'none';
+    }
+
+    function millisToMinutesAndSeconds(millis) {
+        var date = new Date(millis);
+        return date.getUTCMinutes() + ':' + addZero(date.getUTCSeconds(), 2) + ':' + date.getUTCMilliseconds();
+    }
+
+    function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
     }
 
 }

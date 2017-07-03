@@ -30,7 +30,12 @@
                 ontouchend="events.tapStop()">
             </div>
         </div>
-        <div id="gameOver" onclick="events.reset()"></div>
+        <div id="gameOver" onclick="events.reset()">
+            <label>Stage Reached: </label>
+            <label id="lastStage"></label><br/>
+            <label>Total Time: </label>
+            <label id="gameTime"></label>
+        </div>
     </body>
     <!-- game js files begin -->
     <script type="text/javascript" src="js/scripts/globals.js"></script>

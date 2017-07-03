@@ -9,6 +9,7 @@ function Game() {
         events.loadEventHandlers();
         setup.resetGame();
         gameLoop();
+        gameClock();
     }
 
     function gameLoop() {
@@ -19,6 +20,13 @@ function Game() {
             handleMovement();
         }
         setTimeout(gameLoop, 15);
+    }
+
+    function gameClock() {
+        if (gameOn) {
+            time += 1;
+        }
+        setTimeout(gameClock, 1000);
     }
 
     function handleFiring() {
@@ -79,6 +87,8 @@ function Game() {
     }
 
     function endGame(reason) {
+        var finalTime = +new Date();
+        gameTime = finalTime - time;
         gameOn = false;
         switch (reason) {
             case 'hole':

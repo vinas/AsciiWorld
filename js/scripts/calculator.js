@@ -13,6 +13,7 @@ function Calculator() {
 
     return this;
 
+
     function hitEnemy(left, top) {
         var hit = false;
         enemies.forEach(function(enemy) {
