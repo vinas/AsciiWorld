@@ -107,14 +107,15 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 
 .controller {
-    margin-top: 10%;
-    position: relative;
+    position: absolute;
+    height: 25%;
+    width: 100%;
+    top: 72%;
 }
 
 .btn {
-    margin-top: 2%;
     width: 20%;
-    height: 20%;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 80% 100%;

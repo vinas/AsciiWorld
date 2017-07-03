@@ -21,6 +21,7 @@ function Setup() {
         bkgLayer = document.getElementById('gameBrackground');
         topPos = CHARBASEFLOOR;
         leftPos = 0;
+        charDiv.style.opacity = 1;
         charDiv.style.top = topPos+'%';
         charDiv.style.left = leftPos+'%';
         actions.jumping = false;
@@ -81,7 +82,7 @@ function Setup() {
 
     function loadMapArr() {
         return [
-            /*[
+            [
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['water-01.gif', 'double', 0, 'liquid'],
@@ -256,7 +257,7 @@ function Setup() {
                 ['plataform02.png', 'single', 2, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
-            ],*/
+            ],
             [
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
@@ -272,7 +273,7 @@ function Setup() {
 
     function loadLevelTriggers() {
         return [
-            /*{
+            {
                 25: {
                     onlyOnce: false,
                     triggered: false,
@@ -583,7 +584,7 @@ function Setup() {
                         }
                     ]
                 }
-            },*/
+            },
             {
                 65: {
                     onlyOnce: false,
