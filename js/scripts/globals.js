@@ -17,6 +17,7 @@ var basicMovRate = .6,
     topPos,
     lastDirection = 'right',
     time = 0,
+    timer = 0,
     gameTime = 0;
 
 var CHARBASEFLOOR = 52,

@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+        <meta charset="UTF-8">
         <title>The Charman adventures</title>
         <meta content='width=100%, user-scalable=no, initial-scale=1.0' name='viewport' />
 
@@ -9,6 +10,12 @@
     <body>
         <div id="gameBrackground"></div>
         <div id="gameElements">
+            <div id="timer">
+                <label>Tempo: </label>
+                <label id="time"></label><br/:
+                <label>Estágio: </label>
+                <label id="stage"></label><br/>
+            </div>
             <div id="ufo" class="hidable enemy"><img src="img/enemies/ufo01.gif" id="ufoImg" /></div>
             <div id="abduction" class="hidable"><img src="img/enemies/abduction01.gif" id="abductionImg" /></div>
             <div id="pig" class="hidable enemy"><img src="img/enemies/pig01.png" id="pigImg" /></div>
@@ -31,9 +38,9 @@
             </div>
         </div>
         <div id="gameOver" onclick="events.reset()">
-            <label>Stage Reached: </label>
+            <label>Estágio alcançado: </label>
             <label id="lastStage"></label><br/>
-            <label>Total Time: </label>
+            <label>Tempo Total: </label>
             <label id="gameTime"></label>
         </div>
     </body>

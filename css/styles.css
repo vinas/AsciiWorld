@@ -1,4 +1,9 @@
-html, body {margin: 0; height: 100%; overflow: hidden}
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: consolas, verdana;
+}
 
 #gameBrackground {
     padding-top: 25%;
@@ -106,6 +111,11 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     height: 100%;
 }
 
+#timer {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+}
 .controller {
     position: absolute;
     height: 25%;

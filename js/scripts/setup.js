@@ -14,6 +14,7 @@ function Setup() {
         setCharmanElements();
         loadLevelMap();
         gameTime = 0;
+        timer = 0;
         time = +new Date();
     }
 
@@ -44,6 +45,8 @@ function Setup() {
     function loadLevelMap() {
         var floorPos = 0,
             floorTopPos;
+
+        document.getElementById('stage').innerHTML = (currMap + 1) + ' / ' + loadMapArr().length;
 
         mapIndexArray = [];
         mapArr = loadMapArr()[currMap];

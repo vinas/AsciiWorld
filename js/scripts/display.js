@@ -17,6 +17,7 @@ function Display() {
     this.ufoAttack01 = ufoAttack01;
     this.charShot = charShot;
     this.abduction = abduction;
+    this.updateTime = updateTime;
 
     init();
 
@@ -25,6 +26,10 @@ function Display() {
     function init() {
         ufo.style.width = 20+'%';
         ufo.style.height = 20+'%';
+    }
+
+    function updateTime() {
+        document.getElementById('time').innerHTML = timer + ' segs.';
     }
 
     function abduction() {

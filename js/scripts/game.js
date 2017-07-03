@@ -24,7 +24,8 @@ function Game() {
 
     function gameClock() {
         if (gameOn) {
-            time += 1;
+            display.updateTime();
+            timer += 1;
         }
         setTimeout(gameClock, 1000);
     }
