@@ -189,33 +189,39 @@ function Display() {
     }
 
     function ufoShot() {
-        var shot = document.getElementById('ufoShot'),
-            left = calc.getCoord(ufo.style.left) - 2,
-            top = calc.getCoord(ufo.style.top) + 10;
+        if (ufo.style.display = 'block') {
+            var shot = document.getElementById('ufoShot'),
+                left = calc.getCoord(ufo.style.left) - 2,
+                top = calc.getCoord(ufo.style.top) + 10;
 
-        shot.style.left = left+'%';
-        shot.style.top = top+'%';
-        shot.style.display = 'block';
+            shot.style.left = left+'%';
+            shot.style.top = top+'%';
+            shot.style.display = 'block';
 
-        setTimeout(ufoOut, 300);
+            setTimeout(ufoOut, 300);
 
-        moveLeft();
+            moveLeft();
 
-        function moveLeft() {
-            if (actions.cancelShot) {
-                shot.style.display = 'none';
-                return;
-            }
-            if (calc.hitCharman(left, top)) {
-                game.endGame('hit');
-                return;
-            }
-            if (left >= -2) {
-                left -= (basicMovRate *.6);
-                shot.style.left = left+'%';
-                setTimeout(moveLeft, 5);
-            } else {
-                shot.style.display = 'none';
+            function moveLeft() {
+                if (ufo.style.display == 'block') {
+                    if (actions.cancelShot) {
+                        shot.style.display = 'none';
+                        return;
+                    }
+                    if (calc.hitCharman(left, top)) {
+                        game.endGame('hit');
+                        return;
+                    }
+                    if (left >= -2) {
+                        left -= (basicMovRate *.6);
+                        shot.style.left = left+'%';
+                        setTimeout(moveLeft, 5);
+                    } else {
+                        shot.style.display = 'none';
+                    }
+                } else {
+                    shot.style.display = 'none';
+                }
             }
         }
     }

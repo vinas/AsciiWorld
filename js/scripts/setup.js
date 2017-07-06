@@ -397,20 +397,7 @@ function Setup() {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
-                        display.ufoIn
-                    ],
-                    params: [
-                        {
-                            left: 80,
-                            top: 46
-                        }
-                    ]
-                },
-                60: {
-                    onlyOnce: false,
-                    triggered: false,
-                    actions: [
-                        display.ufoOut
+                        display.ufoAttack01
                     ],
                     params: [
                         {
@@ -421,7 +408,7 @@ function Setup() {
                 }
             },
             {
-                8: {
+                2: {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
@@ -432,6 +419,29 @@ function Setup() {
                             left: 52,
                             top: 44
                         }
+                    ]
+                },
+                50: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.ufoIn
+                    ],
+                    params: [
+                        {
+                            left: 25,
+                            top: 10
+                        }
+                    ]
+                },
+                90: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.ufoOut
+                    ],
+                    params: [
+                        {}
                     ]
                 }
             },
@@ -465,6 +475,19 @@ function Setup() {
             },
             {
                 2: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.jumpingPig
+                    ],
+                    params: [
+                        {
+                            left: 37,
+                            top: 44
+                        }
+                    ]
+                },
+                3: {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
@@ -535,7 +558,7 @@ function Setup() {
                 },
             },
             {
-                8: {
+                2: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [
@@ -549,7 +572,7 @@ function Setup() {
                     ]
                 },
                 25: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.abductPig
@@ -614,7 +637,7 @@ function Setup() {
                 }
             },
             {
-                8: {
+                2: {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
