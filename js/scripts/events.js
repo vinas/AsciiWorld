@@ -21,11 +21,17 @@ function Events()
     }
 
     function tapMoveRight() {
-        setMovementRight();
+        actions.lastDirection = 'right';
+        display.mirrorObj(charmanImg, 1);
+        commands.left = false;
+        commands.right = true;
     }
 
     function tapMoveLeft() {
-        setMovementLeft()
+        actions.lastDirection = 'left';
+        display.mirrorObj(charmanImg, -1);
+        commands.right = false;
+        commands.left = true;
     }
 
     function tapStop() {
@@ -47,10 +53,10 @@ function Events()
         document.addEventListener('keydown', function(e) {
             switch (e.which) {
                 case 39:
-                    setMovementRight();
+                    tapMoveRight();
                     break;
                 case 37:
-                    setMovementLeft();
+                    tapMoveLeft();
                     break;
                 case 32:
                     tapAttack();
@@ -76,17 +82,4 @@ function Events()
 
     }
 
-    function setMovementRight() {
-        actions.lastDirection = 'right';
-        display.mirrorObj(charmanImg, 1);
-        commands.left = false;
-        commands.right = true;
-    }
-
-    function setMovementLeft() {
-        actions.lastDirection = 'left';
-        display.mirrorObj(charmanImg, -1);
-        commands.right = false;
-        commands.left = true;
-    }
 }
