@@ -58,7 +58,7 @@ function Game() {
     function handleTriggers() {
         var trigger = levelTriggers[currMap][Math.floor(leftPos)+FLOORHORTOLERANCE];
         if (commands.right && trigger) {
-            if (!trigger.triggered) {
+            if (!trigger.onlyOnce || !trigger.triggered) {
                 trigger.actions.forEach(function(action, idx) {
                     if (trigger.params[idx]) {
                         action(trigger.params[idx]);
@@ -74,6 +74,7 @@ function Game() {
     function moveCharman() {
         calc.setNewCoord();
         if (calc.shouldBeFalling()) display.fall();
+        if (calc.touchedEnemy()) endGame('touched');
         charDiv.style.left = leftPos+'%';
     }
 
@@ -97,6 +98,7 @@ function Game() {
                 display.fall(display.showResetButton);
                 break;
             case 'hit':
+            case 'touched':
                 display.showResetButton();
                 break;
             case 'abducted':

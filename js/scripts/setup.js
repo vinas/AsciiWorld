@@ -280,7 +280,7 @@ function Setup() {
         return [
             {
                 25: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.ufoIn
@@ -293,32 +293,7 @@ function Setup() {
                     ]
                 },
                 70: {
-                    onlyOnce: false,
-                    triggered: false,
-                    actions: [
-                        display.ufoOut
-                    ],
-                    params: [
-                        {}
-                    ]
-                }
-            },
-            {
-                70: {
-                    onlyOnce: false,
-                    triggered: false,
-                    actions: [
-                        display.ufoIn
-                    ],
-                    params: [
-                        {
-                            left: 10,
-                            top: 5
-                        }
-                    ]
-                },
-                90: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.ufoOut
@@ -333,68 +308,133 @@ function Setup() {
                     onlyOnce: false,
                     triggered: false,
                     actions: [
-                        display.ufoAttack01
-                    ],
-                    params: [
-                        {
-                            left: 72,
-                            top: 46
-                        }
-                    ]
-                },
-                70: {
-                    onlyOnce: false,
-                    triggered: false,
-                    actions: [
-                        display.ufoIn
-                    ],
-                    params: [
-                        {
-                            left: 10,
-                            top: 5
-                        }
-                    ]
-                },
-                90: {
-                    onlyOnce: false,
-                    triggered: false,
-                    actions: [
-                        display.ufoOut
-                    ],
-                    params: [
-                        {}
-                    ]
-                }
-            },
-            {
-                2: {
-                    onlyOnce: false,
-                    triggered: false,
-                    actions: [
-                        display.ufoAttack01
-                    ],
-                    params: [
-                        {
-                            left: 35,
-                            top: 35
-                        }
-                    ]
-                },
-                50: {
-                    onlyOnce: false,
-                    triggered: false,
-                    actions: [
-                        display.ufoAttack01
+                        display.standingPig
                     ],
                     params: [
                         {
                             left: 75,
+                            top: 56
+                        }
+                    ]
+                },
+                50: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.ufoIn
+                    ],
+                    params: [
+                        {
+                            left: 25,
+                            top: 10
+                        }
+                    ]
+                },
+                90: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.ufoOut
+                    ],
+                    params: [
+                        {}
+                    ]
+                }
+            },
+            {
+                2: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.jumpingPig
+                    ],
+                    params: [
+                        {
+                            left: 27,
+                            top: 56
+                        }
+                    ]
+                },
+                55: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.ufoIn
+                    ],
+                    params: [
+                        {
+                            left: 34,
+                            top: 34
+                        }
+                    ]
+                },
+                85: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.ufoOut
+                    ],
+                    params: [
+                        {}
+                    ]
+                }
+            },
+            {
+                2: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.jumpingPig
+                    ],
+                    params: [
+                        {
+                            left: 15,
+                            top: 56
+                        }
+                    ]
+                },
+                30: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoIn
+                    ],
+                    params: [
+                        {
+                            left: 80,
+                            top: 46
+                        }
+                    ]
+                },
+                60: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.ufoOut
+                    ],
+                    params: [
+                        {
+                            left: 80,
                             top: 46
                         }
                     ]
                 }
             },
-            {},
+            {
+                8: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.standingPig
+                    ],
+                    params: [
+                        {
+                            left: 52,
+                            top: 44
+                        }
+                    ]
+                }
+            },
             {
                 2: {
                     onlyOnce: false,
@@ -494,7 +534,31 @@ function Setup() {
                     ]
                 },
             },
-            {},
+            {
+                8: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.standingPig
+                    ],
+                    params: [
+                        {
+                            left: 75,
+                            top: 50
+                        }
+                    ]
+                },
+                25: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.abductPig
+                    ],
+                    params: [
+                        {}
+                    ]
+                }
+            },
             {
                 10: {
                     onlyOnce: false,
@@ -534,7 +598,7 @@ function Setup() {
                     params: [
                         {
                             left: 80,
-                            top: 25
+                            top: 23
                         }
                     ]
                 },
@@ -550,6 +614,19 @@ function Setup() {
                 }
             },
             {
+                8: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.jumpingPig
+                    ],
+                    params: [
+                        {
+                            left: 43,
+                            top: 44
+                        }
+                    ]
+                },
                 15: {
                     onlyOnce: false,
                     triggered: false,
@@ -570,14 +647,11 @@ function Setup() {
                         display.ufoOut
                     ],
                     params: [
-                        {
-                            left: 75,
-                            top: 20
-                        }
+                        {}
                     ]
                 },
                 50: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.ufoAttack01

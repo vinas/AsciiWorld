@@ -10,16 +10,36 @@ function Calculator() {
     this.getCoord = getCoord;
     this.hitCharman = hitCharman;
     this.hitEnemy = hitEnemy;
+    this.touchedEnemy = touchedEnemy;
 
     return this;
 
+    function touchedEnemy() {
+        var touched = false;
+        enemies.forEach(function(enemy) {
+            if (isEnemyVisible(enemy)) {
+                var enemyLeft = getCoord(enemy.style.left),
+                    enemyTop = getCoord(enemy.style.top);
+                if (
+                    leftPos + FLOORHORTOLERANCE - 2 >= enemyLeft
+                    && leftPos <= enemyLeft + getCoord(enemy.style.width) - 2
+                    && topPos + FLOORVERTTOLERANCE - 2 >= enemyTop
+                    && topPos <= enemyTop + getCoord(enemy.style.height) - 2
+                ) {
+                    touched = true;
+                    return true;
+                }
+            }
+        });
+        return touched;
+    }
 
     function hitEnemy(left, top) {
         var hit = false;
         enemies.forEach(function(enemy) {
             if (isEnemyVisible(enemy)) {
-                enemyLeft = getCoord(enemy.style.left);
-                enemyTop = getCoord(enemy.style.top);
+                var enemyLeft = getCoord(enemy.style.left),
+                    enemyTop = getCoord(enemy.style.top);
                 if (
                     left + CHARSHOTWIDTH >= enemyLeft
                     && left <= enemyLeft + getCoord(enemy.style.width)

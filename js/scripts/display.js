@@ -1,6 +1,7 @@
 function Display() {
 
-    var ufo = document.getElementById('ufo');
+    var ufo = document.getElementById('ufo'),
+        pig = document.getElementById('pig');
 
     this.jump = jump;
     this.mirrorObj = mirrorObj;
@@ -18,14 +19,90 @@ function Display() {
     this.charShot = charShot;
     this.abduction = abduction;
     this.updateTime = updateTime;
+    this.jumpingPig = jumpingPig;
+    this.standingPig = standingPig;
+    this.abductPig = abductPig;
 
     init();
 
     return this;
 
+    function abductPig() {
+        var pos = {};
+        pos.left = calc.getCoord(pig.style.left) - (calc.getCoord(ufo.style.width) / 2) + (FLOORHORTOLERANCE / 2);
+        pos.top = 10;
+        ufoIn(pos, abduct);
+
+        function abduct() {
+            var abductionRay = document.getElementById('abduction');
+                abductionRay.style.top = (pos.top + calc.getCoord(ufo.style.height)) + '%';
+                abductionRay.style.left = (pos.left + 2.5) + '%';
+                abductionRay.style.display = 'block';
+                pig.style.opacity = 1;
+            fadePig();
+        }
+
+        function fadePig() {
+            var opacity = pig.style.opacity - .02;
+            if (opacity >= 0) {
+                pig.style.opacity = opacity;
+                setTimeout(fadePig, 20);
+                return;
+            }
+
+            document.getElementById('abduction').style.display = 'none';
+            setTimeout(function() {
+                ufoOut();
+                pig.style.display = 'none'
+
+            }, 100);
+        }
+    }
+
+    function standingPig(pos) {
+        showPig(pos.left, pos.top);
+    }
+
     function init() {
         ufo.style.width = 20+'%';
         ufo.style.height = 20+'%';
+
+        pig.style.width = 8+'%';
+        pig.style.height = 10+'%';
+    }
+
+    function jumpingPig(pos) {
+        var base = pos.top,
+            top = base,
+            jumpTop = base - 30,
+            dir  = 'up';
+
+        showPig(pos.left, pos.top);
+
+        jumping();
+
+        function jumping() {
+            if (top < jumpTop) {
+                dir = 'down';
+            } else if (top >= base) {
+                dir = 'up';
+            }
+
+            switch (dir) {
+                case 'up':
+                    top -= JUMPVARRATE;
+                    break;
+                default:
+                    top += JUMPVARRATE;
+            }
+
+            if (pig.style.display == 'block') {
+                pig.style.top = top+'%';
+                setTimeout(jumping, 10);
+            }
+
+        }
+
     }
 
     function updateTime() {
@@ -342,6 +419,13 @@ function Display() {
         ufo.style.display = 'block';
         ufo.style.top = top+'%';
         ufo.style.left = left+'%';
+    }
+
+    function showPig(left, top) {
+        pig.style.opacity = 1;
+        pig.style.top = top+'%';
+        pig.style.left = left+'%';
+        pig.style.display = 'block';
     }
 
     function hide(elemId) {
