@@ -567,7 +567,7 @@ function Setup() {
                         }
                     ]
                 },
-                55: {
+                50: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [
