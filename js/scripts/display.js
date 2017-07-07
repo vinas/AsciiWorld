@@ -231,7 +231,7 @@ function Display() {
 
         function landing() {
             if (top <= pos.top) {
-                top += basicMovRate;
+                top += basicMovRate * 1.5;
                 ufo.style.top = top+'%';
                 setTimeout(landing, 5);
             } else {
@@ -248,7 +248,7 @@ function Display() {
 
         function leaving() {
             if (top > -20) {
-                top -= basicMovRate;
+                top -= basicMovRate * 2;
                 ufo.style.top = top+'%';
                 setTimeout(leaving, 5);
             } else {
