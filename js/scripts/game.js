@@ -117,21 +117,29 @@ function Game() {
     function handleCrossMargin() {
         if (commands.right || commands.left) {
             if (leftPos >= 98) {
-                actions.cancelShot = true;
-                setup.hideHidables();
-                display.setCharmanLeft();
-                currMap += 1;
-                setup.loadLevelMap();
-                setTimeout(function() { actions.cancelShot = false; }, 20);
+                handleCrossRight();
             } else if ((currMap != 0 ) && leftPos <= -3) {
-                actions.cancelShot = true;
-                setup.hideHidables();
-                display.setCharmanRight();
-                currMap -= 1;
-                setup.loadLevelMap();
-                setTimeout(function() { actions.cancelShot = false; }, 20);
+                handleCrossLeft();
             }
         }
+    }
+
+    function handleCrossRight() {
+        actions.cancelShot = true;
+        setup.hideHidables();
+        display.setCharmanLeft();
+        currMap += 1;
+        setup.loadLevelMap();
+        setTimeout(function() { actions.cancelShot = false; }, 20);
+    }
+
+    function handleCrossLeft() {
+        actions.cancelShot = true;
+        setup.hideHidables();
+        display.setCharmanRight();
+        currMap -= 1;
+        setup.loadLevelMap();
+        setTimeout(function() { actions.cancelShot = false; }, 20);
     }
 
     function resetGame() {
