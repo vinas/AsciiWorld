@@ -189,7 +189,7 @@ function Display() {
     }
 
     function ufoShot() {
-        if (ufo.style.display = 'block') {
+        if (ufo.style.duisplay = 'block') {
             var shot = document.getElementById('ufoShot'),
                 left = calc.getCoord(ufo.style.left) - 2,
                 top = calc.getCoord(ufo.style.top) + 10;
@@ -203,22 +203,18 @@ function Display() {
             moveLeft();
 
             function moveLeft() {
-                if (ufo.style.display == 'block') {
-                    if (actions.cancelShot) {
-                        shot.style.display = 'none';
-                        return;
-                    }
-                    if (calc.hitCharman(left, top)) {
-                        game.endGame('hit');
-                        return;
-                    }
-                    if (left >= -2) {
-                        left -= (basicMovRate *.6);
-                        shot.style.left = left+'%';
-                        setTimeout(moveLeft, 5);
-                    } else {
-                        shot.style.display = 'none';
-                    }
+                if (actions.cancelShot) {
+                    shot.style.display = 'none';
+                    return;
+                }
+                if (calc.hitCharman(left, top)) {
+                    game.endGame('hit');
+                    return;
+                }
+                if (left >= -2) {
+                    left -= (basicMovRate *.6);
+                    shot.style.left = left+'%';
+                    setTimeout(moveLeft, 5);
                 } else {
                     shot.style.display = 'none';
                 }
