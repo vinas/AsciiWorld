@@ -3,7 +3,8 @@ function Display() {
     var ufo = document.getElementById('ufo'),
         pig = document.getElementById('pig'),
         bullet = document.getElementById('charShot'),
-        ufoBullet = document.getElementById('ufoShot');
+        ufoBullet = document.getElementById('ufoShot'),
+        abductionRay = document.getElementById('abduction');
 
     this.jump = jump;
     this.mirrorObj = mirrorObj;
@@ -29,42 +30,6 @@ function Display() {
 
     return this;
 
-    function abductPig() {
-        var pos = {};
-        pos.left = calc.getCoord(pig.style.left) - (calc.getCoord(ufo.style.width) / 2) + (FLOORHORTOLERANCE / 2);
-        pos.top = 10;
-        ufoIn(pos, abduct);
-
-        function abduct() {
-            var abductionRay = document.getElementById('abduction');
-                abductionRay.style.top = (pos.top + calc.getCoord(ufo.style.height)) + '%';
-                abductionRay.style.left = (pos.left + 2.5) + '%';
-                abductionRay.style.display = 'block';
-                pig.style.opacity = 1;
-            fadePig();
-        }
-
-        function fadePig() {
-            var opacity = pig.style.opacity - .02;
-            if (opacity >= 0) {
-                pig.style.opacity = opacity;
-                setTimeout(fadePig, 20);
-                return;
-            }
-
-            document.getElementById('abduction').style.display = 'none';
-            setTimeout(function() {
-                ufoOut();
-                pig.style.display = 'none'
-
-            }, 100);
-        }
-    }
-
-    function standingPig(pos) {
-        showPig(pos.left, pos.top);
-    }
-
     function init() {
         charDiv = document.getElementById('charman');
         charmanImg = document.getElementById('charmanImg');
@@ -84,6 +49,43 @@ function Display() {
 
         pig.style.width = 8+'%';
         pig.style.height = 10+'%';
+    }
+
+    function abductPig() {
+        var pos = {};
+        pos.left = calc.getCoord(pig.style.left) - (calc.getCoord(ufo.style.width) / 2) + (FLOORHORTOLERANCE / 2);
+        pos.top = 10;
+        ufoIn(pos, abduct, pig);
+    }
+
+    function abduct(abductee) {
+        abductionRay.style.top = (calc.getCoord(ufo.style.top) + calc.getCoord(ufo.style.height)) + '%';
+        abductionRay.style.left = (calc.getCoord(ufo.style.left) + 2.5) + '%';
+        abductionRay.style.display = 'block';
+        fade(abductee, abducted);
+    }
+
+    function fade(el, callback) {
+        var opacity = el.style.opacity - .02;
+        if (opacity >= 0) {
+            el.style.opacity = opacity;
+            setTimeout(function() { fade(el, callback) }, 20);
+            return;
+        }
+        if (callback) callback(el);
+    }
+
+    function abducted(el) {
+        abductionRay.style.display = 'none';
+        setTimeout(function() {
+            ufoOut();
+            el.style.display = 'none';
+            if (el.id == 'charman') setTimeout(showResetButton, 1500);
+        }, 100);
+    }
+
+    function standingPig(pos) {
+        showPig(pos.left, pos.top);
     }
 
     function jumpingPig(pos) {
@@ -129,29 +131,7 @@ function Display() {
         pos.left = leftPos - (calc.getCoord(ufo.style.width) / 2) + (FLOORHORTOLERANCE / 2);
         pos.top = 20;
         charmanImg.setAttribute('src', 'img/charman/charman-hands-up.png');
-        ufoIn(pos, abduct);
-
-        function abduct() {
-            var abductionRay = document.getElementById('abduction');
-                abductionRay.style.top = (pos.top + calc.getCoord(ufo.style.height)) + '%';
-                abductionRay.style.left = (pos.left + 2.5) + '%';
-                abductionRay.style.display = 'block';
-                charDiv.style.opacity = 1;
-            fadeChar();
-        }
-
-        function fadeChar() {
-            var opacity = charDiv.style.opacity - .02;
-            if (opacity >= 0) {
-                charDiv.style.opacity = opacity;
-                setTimeout(fadeChar, 20);
-                return;
-            }
-
-            document.getElementById('abduction').style.display = 'none';
-            setTimeout(ufoOut, 100);
-            setTimeout(showResetButton, 1500);
-        }
+        ufoIn(pos, abduct, charDiv);
     }
 
     function charShot() {
@@ -235,7 +215,7 @@ function Display() {
         }
     }
 
-    function ufoIn(pos, callback) {
+    function ufoIn(pos, callback, args) {
         var top = -20;
 
         showUfo(pos.left, top);
@@ -249,7 +229,7 @@ function Display() {
                 setTimeout(landing, 5);
             } else {
                 ufo.style.top = pos.top+'%';
-                if (callback) callback();
+                if (callback) callback(args);
             }
         }
     }
@@ -343,9 +323,11 @@ function Display() {
 
     function shoot(callback) {
         charmanImg.setAttribute('src', 'img/charman/charman-bow.gif');
-        setTimeout(function () {
-            callback();
-        }, 300);
+        if (callback) {
+            setTimeout(function () {
+                callback();
+            }, 300);
+        }
     }
 
     function jump() {
