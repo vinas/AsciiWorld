@@ -93,34 +93,27 @@ function Display() {
     function jumpingPig(pos) {
         var base = pos.top,
             top = base,
-            jumpTop = base - 30,
-            dir  = 'up';
-
+            jumpTop = base - 20,
+            dir = 'up';
         at(pig, pos.left, pos.top);
-
         jumping();
-
         function jumping() {
-            if (top <= jumpTop) {
+            if (top < jumpTop) {
                 dir = 'down';
             } else if (top >= base) {
                 dir = 'up';
             }
-
-            switch (dir) {
-                case 'up':
-                    top -= JUMPVARRATE;
-                    break;
-                default:
-                    top += JUMPVARRATE;
+            if (dir == 'up') {
+                top -= JUMPVARRATE;
+            } else {
+                top += JUMPVARRATE;
             }
-
-            if (pig.style.display == 'block') {
-                pig.style.top = top+'%';
+            if (calc.isVisible(pig)) {
+                moveVertically(pig, top);
                 setTimeout(jumping, 10);
             }
-
         }
+
     }
 
     function jump() {
@@ -131,17 +124,16 @@ function Display() {
         jumping();
 
         function jumping() {
+            var base = calc.jumpFloorBase();
             if (topPos <= jumpTop) direction = 'down';
             topPos = getNewTopPosition(direction);
-            base = calc.jumpFloorBase();
             if (topPos >= base) {
                 topPos = base;
-                charDiv.style.top = topPos+'%';
+                moveVertically(charDiv, topPos);
                 actions.jumping = false;
                 return;
             }
-            charDiv.style.top = topPos+'%';
-            
+            moveVertically(charDiv, topPos);
             setTimeout(jumping, 10);
         }
 
@@ -171,7 +163,6 @@ function Display() {
             var direction = actions.lastDirection,
                 left = (direction == 'right') ? leftPos + FLOORHORTOLERANCE : leftPos - CHARSHOTWIDTH,
                 top = topPos + 6;
-
             at(bullet, left, top);
             actions.shooting = true;
 
@@ -179,14 +170,12 @@ function Display() {
 
             function moveBullet() {
                 if (actions.cancelShot) {
-                    bullet.style.display = 'none';
-                    actions.shooting = false;
+                    cancelShooting();
                     return;
                 }
                 if (hit = calc.hitEnemy(bullet)) {
                     hide(hit.id);
-                    bullet.style.display = 'none';
-                    actions.shooting = false;
+                    cancelShooting();
                     return;
                 }
                 if (direction == 'right' && left <= 100) {
@@ -198,13 +187,16 @@ function Display() {
                     bullet.style.left = left+'%';
                     setTimeout(moveBullet, 5);
                 } else {
-                    bullet.style.display = 'none';
-                    actions.shooting = false;
+                    cancelShooting();
                     return;
                 }
             }
-
         }
+    }
+
+    function cancelShooting() {
+        bullet.style.display = 'none';
+        actions.shooting = false;
     }
 
     function ufoAttack01(pos) {
@@ -297,20 +289,17 @@ function Display() {
         if (!actions.falling) {
             actions.falling = true;
             var target = mapArr[floorIndex][3] != 'hole' ? FLOORS[mapArr[floorIndex][2]] - FLOORVERTTOLERANCE : 120;
-
             setTimeout(function () {
                 charmanImg.setAttribute('src', 'img/charman/charman-hands-up.png');
             }, 20);
-
             falling();
-
             function falling() {
                 if (topPos <= target) {
                     topPos += JUMPVARRATE;
-                    charDiv.style.top = topPos+'%';
+                    moveVertically(charDiv, topPos);
                     setTimeout(falling, 5);
                 } else {
-                    charDiv.style.top = target+'%';
+                    moveVertically(charDiv, target);
                     actions.falling = false;
                     if (callback) callback();
                 }
@@ -362,13 +351,10 @@ function Display() {
         charmanImg.style.width = '100%';
         charmanImg.style.height = '100%';
         charmanImg.style.paddingTop = '0%';
-
         setCharmanBackToIdle();
-
     }
 
-    function mirrorObj(objeto, escala)
-    {
+    function mirrorObj(objeto, escala) {
         objeto.style.MozTransform = 'scaleX('+escala+')';
         objeto.style.webkitTransform = 'scaleX('+escala+')';
         objeto.style.OTransform = 'scaleX('+escala+')';
@@ -430,6 +416,10 @@ function Display() {
             if (top) el.style.top = top+'%';
             el.style.display = 'block';
         }
+    }
+
+    function moveVertically(el, top) {
+        if (el && top) el.style.top = top+'%';
     }
 
 }

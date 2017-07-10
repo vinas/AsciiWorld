@@ -12,6 +12,7 @@ function Calculator() {
     this.touchedEnemy = touchedEnemy;
     this.setGameEndingTime = setGameEndingTime;
     this.areTouching = areTouching;
+    this.isVisible = isVisible;
 
     return this;
 

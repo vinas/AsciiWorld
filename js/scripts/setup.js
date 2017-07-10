@@ -249,7 +249,7 @@ function Setup() {
                 ['hole01.png', 'double', 0, 'hole'],
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
-            ],*/
+            ],
             // #9
             [
                 ['floor01.png', 'double', 0, 'solid'],
@@ -302,7 +302,7 @@ function Setup() {
                 ['hole01.png', 'double', 0, 'hole'],
                 ['plataform02.png', 'single', 2, 'solid'],
                 ['floor02.png', 'single', 0, 'solid']
-            ],
+            ],*/
             // #13
             [
                 ['floor01.png', 'double', 0, 'solid'],
@@ -603,7 +603,7 @@ function Setup() {
                             }
                         ]
                     }
-                },*/
+                },
                 // #9
                 {
                     15: {
@@ -689,7 +689,7 @@ function Setup() {
                     }
                 },
                 // #12
-                {},
+                {},*/
                 // #13
                 {
                     63: {
