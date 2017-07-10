@@ -59,9 +59,11 @@ function Display() {
     }
 
     function abduct(abductee) {
-        abductionRay.style.top = (calc.getCoord(ufo.style.top) + calc.getCoord(ufo.style.height)) + '%';
-        abductionRay.style.left = (calc.getCoord(ufo.style.left) + 2.5) + '%';
-        abductionRay.style.display = 'block';
+        at(
+            abductionRay,
+            calc.getCoord(ufo.style.left) + 2.5,
+            calc.getCoord(ufo.style.top) + calc.getCoord(ufo.style.height)
+        );
         fade(abductee, abducted);
     }
 
@@ -85,7 +87,7 @@ function Display() {
     }
 
     function standingPig(pos) {
-        showPig(pos.left, pos.top);
+        at(pig, pos.left, pos.top);
     }
 
     function jumpingPig(pos) {
@@ -94,12 +96,12 @@ function Display() {
             jumpTop = base - 30,
             dir  = 'up';
 
-        showPig(pos.left, pos.top);
+        at(pig, pos.left, pos.top);
 
         jumping();
 
         function jumping() {
-            if (top < jumpTop) {
+            if (top <= jumpTop) {
                 dir = 'down';
             } else if (top >= base) {
                 dir = 'up';
@@ -119,9 +121,38 @@ function Display() {
             }
 
         }
-
     }
 
+    function jump() {
+        var direction = 'up',
+            jumpTop = calc.jumpTop();
+
+        handleJumpingImg();
+        jumping();
+
+        function jumping() {
+            if (topPos <= jumpTop) direction = 'down';
+            topPos = getNewTopPosition(direction);
+            base = calc.jumpFloorBase();
+            if (topPos >= base) {
+                topPos = base;
+                charDiv.style.top = topPos+'%';
+                actions.jumping = false;
+                return;
+            }
+            charDiv.style.top = topPos+'%';
+            
+            setTimeout(jumping, 10);
+        }
+
+        function getNewTopPosition(direction) {
+            if (direction == 'up') {
+                return topPos - JUMPVARRATE;
+            }
+            return topPos + JUMPVARRATE;
+        }
+
+    }
     function updateTime() {
         document.getElementById('time').innerHTML = timer + ' segs.';
     }
@@ -141,9 +172,7 @@ function Display() {
                 left = (direction == 'right') ? leftPos + FLOORHORTOLERANCE : leftPos - CHARSHOTWIDTH,
                 top = topPos + 6;
 
-            bullet.style.left = left+'%';
-            bullet.style.top = top+'%';
-            bullet.style.display = 'block';
+            at(bullet, left, top);
             actions.shooting = true;
 
             moveBullet();
@@ -184,12 +213,9 @@ function Display() {
 
     function ufoShot() {
         if (ufo.style.duisplay = 'block') {
-            var left = calc.getCoord(ufo.style.left) - 2,
-                top = calc.getCoord(ufo.style.top) + 10;
+            var left = calc.getCoord(ufo.style.left) - 2;
 
-            ufoBullet.style.left = left+'%';
-            ufoBullet.style.top = top+'%';
-            ufoBullet.style.display = 'block';
+            at(ufoBullet, left, calc.getCoord(ufo.style.top) + 10);
 
             setTimeout(ufoOut, 300);
 
@@ -218,7 +244,7 @@ function Display() {
     function ufoIn(pos, callback, args) {
         var top = -20;
 
-        showUfo(pos.left, top);
+        at(ufo, pos.left, top);
 
         landing();
 
@@ -330,37 +356,6 @@ function Display() {
         }
     }
 
-    function jump() {
-        var direction = 'up',
-            jumpTop = calc.jumpTop();
-
-        handleJumpingImg();
-        jumping();
-
-        function jumping() {
-            if (topPos <= jumpTop)
-                direction = 'down';
-            topPos = getNewTopPosition(direction);
-            base = calc.jumpFloorBase();
-            if (topPos >= base) {
-                topPos = base;
-                charDiv.style.top = topPos+'%';
-                actions.jumping = false;
-                return;
-            }
-            charDiv.style.top = topPos+'%';
-            
-            setTimeout(jumping, 10);
-        }
-
-        function getNewTopPosition(direction) {
-            if (direction == 'up') {
-                return topPos - JUMPVARRATE;
-            }
-            return topPos + JUMPVARRATE;
-        }
-
-    }
 
     function handleJumpingImg() {
         charmanImg.setAttribute('src', 'img/charman/charman-jump.gif');
@@ -412,19 +407,6 @@ function Display() {
         }
     }
 
-    function showUfo(left, top) {
-        ufo.style.display = 'block';
-        ufo.style.top = top+'%';
-        ufo.style.left = left+'%';
-    }
-
-    function showPig(left, top) {
-        pig.style.opacity = 1;
-        pig.style.top = top+'%';
-        pig.style.left = left+'%';
-        pig.style.display = 'block';
-    }
-
     function hide(elemId) {
         document.getElementById(elemId).style.display = 'none';
     }
@@ -439,6 +421,15 @@ function Display() {
             i = "0" + i;
         }
         return i;
+    }
+
+    function at(el, left, top) {
+        if (el) {
+            el.style.opacity = 1;
+            if (left) el.style.left = left+'%';
+            if (top) el.style.top = top+'%';
+            el.style.display = 'block';
+        }
     }
 
 }
