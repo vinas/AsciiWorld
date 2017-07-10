@@ -8,57 +8,40 @@ function Calculator() {
     this.jumpTop = jumpTop;
     this.jumpFloorBase = jumpFloorBase;
     this.getCoord = getCoord;
-    this.hitCharman = hitCharman;
     this.hitEnemy = hitEnemy;
     this.touchedEnemy = touchedEnemy;
+    this.setGameEndingTime = setGameEndingTime;
+    this.areTouching = areTouching;
 
     return this;
+
+    function setGameEndingTime() {
+        var finalTime = +new Date();
+        gameTime = finalTime - time;
+        timer = 0;
+    }
 
     function touchedEnemy() {
         var touched = false;
         enemies.forEach(function(enemy) {
-            if (isEnemyVisible(enemy)) {
-                var enemyLeft = getCoord(enemy.style.left),
-                    enemyTop = getCoord(enemy.style.top);
-                if (
-                    leftPos + FLOORHORTOLERANCE - 2 >= enemyLeft
-                    && leftPos <= enemyLeft + getCoord(enemy.style.width) - 2
-                    && topPos + FLOORVERTTOLERANCE - 2 >= enemyTop
-                    && topPos <= enemyTop + getCoord(enemy.style.height) - 2
-                ) {
-                    touched = true;
-                    return true;
-                }
+            if (isVisible(enemy) && areTouching(charDiv, enemy)) {
+                touched = true;
+                return true;
             }
         });
+
         return touched;
     }
 
-    function hitEnemy(left, top) {
+    function hitEnemy(bullet) {
         var hit = false;
         enemies.forEach(function(enemy) {
-            if (isEnemyVisible(enemy)) {
-                var enemyLeft = getCoord(enemy.style.left),
-                    enemyTop = getCoord(enemy.style.top);
-                if (
-                    left + CHARSHOTWIDTH >= enemyLeft
-                    && left <= enemyLeft + getCoord(enemy.style.width)
-                    && top >= enemyTop
-                    && top <= enemyTop + getCoord(enemy.style.height)
-                ) {
-                    hit = enemy;
-                    return true;
-                }
+            if (isVisible(enemy) && areTouching(bullet, enemy)) {
+                hit = enemy;
+                return true;
             }
         });
         return hit;
-    }
-
-    function hitCharman(left, top) {
-        return left < leftPos + FLOORHORTOLERANCE - 1
-            && left > leftPos - 1
-            && top >= topPos
-            && top < topPos + FLOORVERTTOLERANCE;
     }
 
     function getCoord(coord) {
@@ -81,9 +64,12 @@ function Calculator() {
         if (commands.right && canMoveRight()) {
             leftPos += basicMovRate;
             restrainMovement();
+            return true;
         } else if (commands.left && canMoveLeft()) {
             leftPos -= basicMovRate;
+            return true;
         }
+        return false;
     }
 
     function isSteppingOnHole() {
@@ -192,8 +178,21 @@ function Calculator() {
         return mapArr[floorIndex+1][3] == 'hole';
     }
 
-    function isEnemyVisible(enemy) {
-        return enemy && enemy.style.display == 'block';
+    function isVisible(element) {
+        return element && element.style.display == 'block';
+    }
+
+    function areTouching(elementA, elementB) {
+        var elALeft = getCoord(elementA.style.left),
+            elATop = getCoord(elementA.style.top),
+            elBLeft = getCoord(elementB.style.left),
+            elBTop = getCoord(elementB.style.top);
+        return (
+                elALeft + getCoord(elementA.style.width) - 2 >= elBLeft
+                && elALeft < elBLeft + getCoord(elementB.style.width) - 2
+                && elATop + getCoord(elementA.style.height) - 2 >= elBTop
+                && elATop < elBTop + getCoord(elementB.style.height) - 2
+            );
     }
 
 }

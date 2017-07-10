@@ -6,7 +6,8 @@ function Game() {
     return this;
 
     function init() {
-        events.loadEventHandlers();
+        setup.enableKeyboard();
+        setup.preventDblClick();
         setup.resetGame();
         gameLoop();
         gameClock();
@@ -14,10 +15,12 @@ function Game() {
 
     function gameLoop() {
         if (gameOn) {
+            handleMovement();
+            events.triggers();
+            handleGameEnds();
             handleCrossMargin();
             handleFiring();
             handleJump();
-            handleMovement();
         }
         setTimeout(gameLoop, 15);
     }
@@ -43,38 +46,16 @@ function Game() {
     }
 
     function handleMovement() {
-        charmanMovement();
-    }
-
-    function charmanMovement() {
         calc.setCurrentFloorIndex();
-        handleGameEnds();
         moveCharman();
-        handleTriggers();
         actions.swimming = calc.isUserOnWater();
         display.handleCharmanImg();
     }
 
-    function handleTriggers() {
-        var trigger = levelTriggers[currMap][Math.floor(leftPos)+FLOORHORTOLERANCE];
-        if (commands.right && trigger) {
-            if (!trigger.onlyOnce || !trigger.triggered) {
-                trigger.actions.forEach(function(action, idx) {
-                    if (trigger.params[idx]) {
-                        action(trigger.params[idx]);
-                    } else {
-                        action();
-                    }
-                });
-                trigger.triggered = true;
-            }
-        }
-    }
 
     function moveCharman() {
         calc.setNewCoord();
         if (calc.shouldBeFalling()) display.fall();
-        if (calc.touchedEnemy()) endGame('touched');
         charDiv.style.left = leftPos+'%';
     }
 
@@ -85,14 +66,13 @@ function Game() {
 
     function getEndingCause() {
         if (calc.isSteppingOnHole()) return 'hole';
+        if (calc.touchedEnemy()) return 'touched';
         return false;
     }
 
     function endGame(reason) {
-        var finalTime = +new Date();
-        gameTime = finalTime - time;
         gameOn = false;
-        timer = 0;
+        setGameEndingTime();
         switch (reason) {
             case 'hole':
                 display.fall(display.showResetButton);
@@ -117,29 +97,11 @@ function Game() {
     function handleCrossMargin() {
         if (commands.right || commands.left) {
             if (leftPos >= 98) {
-                handleCrossRight();
+                events.crossRight();
             } else if ((currMap != 0 ) && leftPos <= -3) {
-                handleCrossLeft();
+                events.crossLeft();
             }
         }
-    }
-
-    function handleCrossRight() {
-        actions.cancelShot = true;
-        setup.hideHidables();
-        display.setCharmanLeft();
-        currMap += 1;
-        setup.loadLevelMap();
-        setTimeout(function() { actions.cancelShot = false; }, 20);
-    }
-
-    function handleCrossLeft() {
-        actions.cancelShot = true;
-        setup.hideHidables();
-        display.setCharmanRight();
-        currMap -= 1;
-        setup.loadLevelMap();
-        setTimeout(function() { actions.cancelShot = false; }, 20);
     }
 
     function resetGame() {

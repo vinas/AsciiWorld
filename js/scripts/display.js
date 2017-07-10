@@ -1,7 +1,9 @@
 function Display() {
 
     var ufo = document.getElementById('ufo'),
-        pig = document.getElementById('pig');
+        pig = document.getElementById('pig'),
+        bullet = document.getElementById('charShot'),
+        ufoBullet = document.getElementById('ufoShot');
 
     this.jump = jump;
     this.mirrorObj = mirrorObj;
@@ -64,6 +66,19 @@ function Display() {
     }
 
     function init() {
+        charDiv = document.getElementById('charman');
+        charmanImg = document.getElementById('charmanImg');
+        bkgLayer = document.getElementById('gameBrackground');
+
+        charDiv.style.width = FLOORHORTOLERANCE+'%';
+        charDiv.style.height = FLOORVERTTOLERANCE+'%';
+
+        bullet.style.width = 1.5+'%';
+        bullet.style.height = 1+'%';
+
+        ufoBullet.style.width = 2+'%';
+        ufoBullet.style.height = 1+'%';
+
         ufo.style.width = 20+'%';
         ufo.style.height = 20+'%';
 
@@ -142,40 +157,39 @@ function Display() {
     function charShot() {
         var hit = false;
         if (!actions.shooting) {
-            var shot = document.getElementById('charShot'),
-                direction = actions.lastDirection,
+            var direction = actions.lastDirection,
                 left = (direction == 'right') ? leftPos + FLOORHORTOLERANCE : leftPos - CHARSHOTWIDTH,
                 top = topPos + 6;
 
-            shot.style.left = left+'%';
-            shot.style.top = top+'%';
-            shot.style.display = 'block';
+            bullet.style.left = left+'%';
+            bullet.style.top = top+'%';
+            bullet.style.display = 'block';
             actions.shooting = true;
 
-            moveLeft();
+            moveBullet();
 
-            function moveLeft() {
+            function moveBullet() {
                 if (actions.cancelShot) {
-                    shot.style.display = 'none';
+                    bullet.style.display = 'none';
                     actions.shooting = false;
                     return;
                 }
-                if (hit = calc.hitEnemy(left, top)) {
+                if (hit = calc.hitEnemy(bullet)) {
                     hide(hit.id);
-                    shot.style.display = 'none';
+                    bullet.style.display = 'none';
                     actions.shooting = false;
                     return;
                 }
                 if (direction == 'right' && left <= 100) {
                     left += (basicMovRate * 2);
-                    shot.style.left = left+'%';
-                    setTimeout(moveLeft, 5);
+                    bullet.style.left = left+'%';
+                    setTimeout(moveBullet, 5);
                 } else if (direction == 'left' && left >= -2) {
                     left -= (basicMovRate * 2);
-                    shot.style.left = left+'%';
-                    setTimeout(moveLeft, 5);
+                    bullet.style.left = left+'%';
+                    setTimeout(moveBullet, 5);
                 } else {
-                    shot.style.display = 'none';
+                    bullet.style.display = 'none';
                     actions.shooting = false;
                     return;
                 }
@@ -190,13 +204,12 @@ function Display() {
 
     function ufoShot() {
         if (ufo.style.duisplay = 'block') {
-            var shot = document.getElementById('ufoShot'),
-                left = calc.getCoord(ufo.style.left) - 2,
+            var left = calc.getCoord(ufo.style.left) - 2,
                 top = calc.getCoord(ufo.style.top) + 10;
 
-            shot.style.left = left+'%';
-            shot.style.top = top+'%';
-            shot.style.display = 'block';
+            ufoBullet.style.left = left+'%';
+            ufoBullet.style.top = top+'%';
+            ufoBullet.style.display = 'block';
 
             setTimeout(ufoOut, 300);
 
@@ -204,19 +217,19 @@ function Display() {
 
             function moveLeft() {
                 if (actions.cancelShot) {
-                    shot.style.display = 'none';
+                    ufoBullet.style.display = 'none';
                     return;
                 }
-                if (calc.hitCharman(left, top)) {
+                if (calc.areTouching(ufoBullet, charDiv)) {
                     game.endGame('hit');
                     return;
                 }
                 if (left >= -2) {
                     left -= (basicMovRate *.6);
-                    shot.style.left = left+'%';
+                    ufoBullet.style.left = left+'%';
                     setTimeout(moveLeft, 5);
                 } else {
-                    shot.style.display = 'none';
+                    ufoBullet.style.display = 'none';
                 }
             }
         }

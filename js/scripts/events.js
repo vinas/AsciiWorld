@@ -1,14 +1,50 @@
 function Events()
 {
-    this.loadEventHandlers = loadEventHandlers;
     this.tapJump = tapJump;
     this.tapMoveRight = tapMoveRight;
     this.tapMoveLeft = tapMoveLeft;
     this.tapStop = tapStop;
     this.tapAttack = tapAttack;
     this.reset = reset;
+    this.crossRight = crossRight;
+    this.crossLeft = crossLeft;
+    this.triggers = triggers;
  
     return this;
+
+    function triggers() {
+        var trigger = levelTriggers[currMap][Math.floor(leftPos)+FLOORHORTOLERANCE];
+        if (commands.right && trigger) {
+            if (!trigger.onlyOnce || !trigger.triggered) {
+                trigger.actions.forEach(function(action, idx) {
+                    if (trigger.params[idx]) {
+                        action(trigger.params[idx]);
+                    } else {
+                        action();
+                    }
+                });
+                trigger.triggered = true;
+            }
+        }
+    }
+
+    function crossRight() {
+        actions.cancelShot = true;
+        setup.hideHidables();
+        display.setCharmanLeft();
+        currMap += 1;
+        setup.loadLevelMap();
+        setTimeout(function() { actions.cancelShot = false; }, 20);
+    }
+
+    function crossLeft() {
+        actions.cancelShot = true;
+        setup.hideHidables();
+        display.setCharmanRight();
+        currMap -= 1;
+        setup.loadLevelMap();
+        setTimeout(function() { actions.cancelShot = false; }, 20);
+    }
 
     function reset() {
         setup.resetGame();
@@ -46,40 +82,6 @@ function Events()
                 commands.jump = false;
             }, 150);
         }
-    }
-
-    function loadEventHandlers() {
-
-        document.addEventListener('keydown', function(e) {
-            switch (e.which) {
-                case 39:
-                    tapMoveRight();
-                    break;
-                case 37:
-                    tapMoveLeft();
-                    break;
-                case 32:
-                    tapAttack();
-                    break;
-                case 17:
-                    tapJump();
-            }
-        });
-
-        document.addEventListener('keyup', function(e) {
-            setTimeout(function() {
-                switch (e.which) {
-                    case 39:
-                        commands.right = false;
-                        break;
-                    case 37:
-                        commands.left = false;
-                }
-            }, 50);
-        });
-
-        document.ondblclick = function(e) { e.preventDefault(); };
-
     }
 
 }
