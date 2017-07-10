@@ -325,6 +325,7 @@ function Display() {
     function setCharmanLeft() {
         charDiv.style.left = '-3%';
         leftPos = -3;
+        floorIndex = 0;
     }
 
     function setCharmanRight() {

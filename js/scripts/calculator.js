@@ -13,6 +13,7 @@ function Calculator() {
     this.setGameEndingTime = setGameEndingTime;
     this.areTouching = areTouching;
     this.isVisible = isVisible;
+    this.isOverHole = isOverHole;
 
     return this;
 
@@ -77,6 +78,16 @@ function Calculator() {
         return (
                 mapArr[floorIndex][3] == 'hole'
                 && topPos >= CHARBASEFLOOR
+                && (
+                    isAllInSection()
+                    || mapArr[floorIndex+1][3] == 'hole'
+                )
+            );
+    }
+
+    function isOverHole() {
+        return (
+                mapArr[floorIndex][3] == 'hole'
                 && (
                     isAllInSection()
                     || mapArr[floorIndex+1][3] == 'hole'
@@ -167,7 +178,10 @@ function Calculator() {
 
     function isRightFloorHigherThanCurrent() {
         var currFloorBase = (mapArr[floorIndex]) ? mapArr[floorIndex][2] : 0,
-            nextFloorBase = (leftPos < 95) ? mapArr[floorIndex+1][2] : currFloorBase;
+            nextFloorBase = currFloorBase;
+            if (mapArr[floorIndex+1]) {
+                nextFloorBase = (leftPos < 95) ? mapArr[floorIndex+1][2] : currFloorBase;
+            }
             return currFloorBase < nextFloorBase;
     }
 

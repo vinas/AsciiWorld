@@ -55,7 +55,13 @@ function Game() {
 
     function moveCharman() {
         calc.setNewCoord();
-        if (calc.shouldBeFalling()) display.fall();
+        if (calc.shouldBeFalling()) {
+            if (calc.isOverHole()) {
+                endGame('hole');
+            } else {
+                display.fall();
+            }
+        }
         charDiv.style.left = leftPos+'%';
     }
 
