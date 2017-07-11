@@ -6,7 +6,8 @@ function Display() {
         bullet = document.getElementById('charShot'),
         ufoBullet = document.getElementById('ufoShot'),
         abductionRay = document.getElementById('abduction'),
-        bigBoss = document.getElementById('bigBoss');
+        bigBoss = document.getElementById('bigBoss'),
+        boom = document.getElementById('boom');
 
     this.jump = jump;
     this.mirrorObj = mirrorObj;
@@ -65,7 +66,10 @@ function Display() {
 
         bigBoss.style.width = '20%';
         bigBoss.style.height = '35%';
-        bigBoss.health = 4;
+        bigBoss.health = 5;
+
+        boom.style.width = '10%';
+        boom.style.height = '20%'
     }
 
     function bigBossRoutine() {
@@ -337,6 +341,7 @@ function Display() {
                         hide(hit.id);
                     } else {
                         bigBoss.health -= 1;
+                        explosion(calc.getCoord(bigBoss.style.left), calc.getCoord(bigBoss.style.top));
                         if (bigBoss.health <= 0) {
                             hide(hit.id);
                             bigBossKilled();
@@ -669,6 +674,18 @@ function Display() {
         setTimeout(function() {
             game.endGame('hit');
         }, 1500);
+    }
+
+    async function explosion(left, top) {
+        var boomImg = document.getElementById('boomImg');
+        boom.style.left = (left + 5)+'%';
+        boom.style.top = (top + 10)+'%';
+        boom.style.display = 'block';
+        boomImg.setAttribute('src', 'img/interactions/explosion01.gif');
+        setTimeout(function() {
+            boomImg.setAttribute('src', '');
+            boom.style.display = 'none';
+        }, 300);
     }
 
 }
