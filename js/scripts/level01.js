@@ -11,7 +11,7 @@ function Level() {
     function loadMapArr() {
         return [
             // #1
-            /*[
+            [
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['water-01.gif', 'double', 0, 'liquid'],
@@ -199,7 +199,7 @@ function Level() {
                 ['plataform02.png', 'single', 2, 'solid'],
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
-            ],*/
+            ],
             // #15
             [
                 ['floor01.png', 'double', 0, 'solid'],
@@ -217,7 +217,7 @@ function Level() {
     function loadLevelTriggers() {
         levelTriggers = [
             // #1
-            /*{
+            {
                 25: {
                     onlyOnce: true,
                     triggered: false,
@@ -638,7 +638,7 @@ function Level() {
                         }
                     ]
                 }
-            },*/
+            },
             // #15
             {
                 65: {
