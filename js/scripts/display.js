@@ -65,10 +65,82 @@ function Display() {
 
         bigBoss.style.width = '20%';
         bigBoss.style.height = '35%';
+        bigBoss.health = 4;
     }
 
     function bigBossRoutine() {
-        console.log('display.bigBossRoutine');
+        var count = 0;
+        routine();
+
+        function routine() {
+            var tempLeft = Math.floor(Math.random() * 30),
+                left = (count % 2 == 0) ? tempLeft : tempLeft + 50;
+            bigBossIn({
+                left: left,
+                top: 12,
+                callback: function () {
+                    setTimeout(function () {
+                        if (isAlive()) {
+                            bigBossIn({
+                                left: left,
+                                top: 31,
+                                startAt: 12,
+                                callback: function() {
+                                    setTimeout(function() {
+                                        if (isAlive()) {
+                                            bigBossShoot();
+                                            bigBossOut(function () {
+                                                count++;
+                                                setTimeout(routine, 650);
+                                            });
+                                        }
+                                    }, 130);
+                                }
+                            });
+                        }
+                    }, 100)
+                }
+            });
+        }
+
+        function isAlive() {
+            return calc.isVisible(bigBoss) && bigBoss.health > 0;
+        }
+    }
+
+    function bigBossShoot(callback) {
+        if (calc.isVisible(bigBoss)) {
+            var bigBossLeft = calc.getCoord(bigBoss.style.left),
+                isRight = leftPos > bigBossLeft,
+                left = (isRight) ? bigBossLeft + 20 : bigBossLeft;
+
+            at(ufoBullet, left, calc.getCoord(bigBoss.style.top) + 23);
+
+            moveProjectile();
+
+            function moveProjectile() {
+                if (actions.cancelShot) {
+                    ufoBullet.style.display = 'none';
+                    return;
+                }
+                if (calc.areTouching(ufoBullet, charDiv)) {
+                    game.endGame('hit');
+                    return;
+                }
+                if (!isRight && left >= -2) {
+                    left -= (basicMovRate);
+                    ufoBullet.style.left = left+'%';
+                    setTimeout(moveProjectile, 5);
+                } else if (isRight && left < 100) {
+                    left += (basicMovRate);
+                    ufoBullet.style.left = left+'%';
+                    setTimeout(moveProjectile, 5);
+                } else {
+                    ufoBullet.style.display = 'none';
+                    if (callback) callback();
+                }
+            }
+        }
     }
 
     function alienOut(callback) {
@@ -261,7 +333,15 @@ function Display() {
                     return;
                 }
                 if (hit = calc.hitEnemy(bullet)) {
-                    hide(hit.id);
+                    if (hit.id != 'bigBoss') {
+                        hide(hit.id);
+                    } else {
+                        bigBoss.health -= 1;
+                        if (bigBoss.health <= 0) {
+                            hide(hit.id);
+                            bigBossKilled();
+                        }
+                    }
                     cancelShooting();
                     return;
                 }
@@ -356,7 +436,7 @@ function Display() {
     }
 
     function bigBossIn(params) {
-        var top = -20;
+        var top = (!params.startAt) ? -20 : params.startAt;
 
         at(bigBoss, params.left, top);
 
@@ -393,7 +473,7 @@ function Display() {
         }
     }
 
-    function bigBossOut() {
+    function bigBossOut(callback) {
         var top = calc.getCoord(bigBoss.style.top);
 
         leaving();
@@ -405,6 +485,7 @@ function Display() {
                 setTimeout(leaving, 5);
             } else {
                 hide('bigBoss');
+                if (callback) callback();
             }
         }
     }
@@ -582,6 +663,12 @@ function Display() {
 
     function loadNextLevel() {
         window.location.href = 'level'+addZero(level.current+1)+'.html';
+    }
+
+   function bigBossKilled() {
+        setTimeout(function() {
+            game.endGame('hit');
+        }, 1500);
     }
 
 }

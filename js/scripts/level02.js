@@ -11,7 +11,7 @@ function Level() {
     function loadMapArr() {
         return [
             // #1
-            /*[
+            [
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
@@ -102,7 +102,7 @@ function Level() {
                 ['plataform02.png', 'single', 2, 'solid'],
                 ['floor02.png', 'single', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
-            ],*/
+            ],
             [
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
@@ -119,7 +119,7 @@ function Level() {
     function loadLevelTriggers() {
         levelTriggers = [
             // #1
-            /*{
+            {
                 6: {
                     onlyOnce: true,
                     triggered: false,
@@ -297,7 +297,7 @@ function Level() {
                 }
             },
             // #8
-            {},*/
+            {},
             // #9
             {
                 10: {
@@ -309,7 +309,7 @@ function Level() {
                     params: [
                         {
                             left: 78,
-                            top: 10,
+                            top: 12,
                             callback: function() { setTimeout(display.bigBossOut, 600) }
                         }
                     ]
