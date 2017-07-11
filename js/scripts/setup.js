@@ -90,7 +90,8 @@ function Setup() {
         enemies = [
                 document.getElementById('ufo'),
                 document.getElementById('pig'),
-                document.getElementById('alien')
+                document.getElementById('alien'),
+                document.getElementById('bigBoss')
             ];
     }
 

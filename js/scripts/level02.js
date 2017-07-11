@@ -11,7 +11,7 @@ function Level() {
     function loadMapArr() {
         return [
             // #1
-            [
+            /*[
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
@@ -102,6 +102,16 @@ function Level() {
                 ['plataform02.png', 'single', 2, 'solid'],
                 ['floor02.png', 'single', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
+            ],*/
+            [
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid']
             ]
         ];
     }
@@ -109,7 +119,7 @@ function Level() {
     function loadLevelTriggers() {
         levelTriggers = [
             // #1
-            {
+            /*{
                 6: {
                     onlyOnce: true,
                     triggered: false,
@@ -238,7 +248,7 @@ function Level() {
             },
             // #6
             {
-                20: {
+                25: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [
@@ -287,8 +297,31 @@ function Level() {
                 }
             },
             // #8
+            {},*/
+            // #9
             {
-
+                10: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.bigBossIn
+                    ],
+                    params: [
+                        {
+                            left: 78,
+                            top: 10,
+                            callback: function() { setTimeout(display.bigBossOut, 600) }
+                        }
+                    ]
+                },
+                70: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.bigBossRoutine
+                    ],
+                    params: [{}]
+                }
             }
         ];
     }

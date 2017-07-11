@@ -5,7 +5,8 @@ function Display() {
         pig = document.getElementById('pig'),
         bullet = document.getElementById('charShot'),
         ufoBullet = document.getElementById('ufoShot'),
-        abductionRay = document.getElementById('abduction');
+        abductionRay = document.getElementById('abduction'),
+        bigBoss = document.getElementById('bigBoss');
 
     this.jump = jump;
     this.mirrorObj = mirrorObj;
@@ -31,6 +32,9 @@ function Display() {
     this.alienOut = alienOut;
     this.alienAttack01 = alienAttack01;
     this.alienOutLeft = alienOutLeft;
+    this.bigBossIn = bigBossIn;
+    this.bigBossOut = bigBossOut;
+    this.bigBossRoutine = bigBossRoutine;
 
     init();
 
@@ -44,21 +48,27 @@ function Display() {
         charDiv.style.width = FLOORHORTOLERANCE+'%';
         charDiv.style.height = FLOORVERTTOLERANCE+'%';
 
-        bullet.style.width = 1.5+'%';
-        bullet.style.height = 1+'%';
+        bullet.style.width = '1.5%';
+        bullet.style.height = '1%';
 
-        ufoBullet.style.width = 2+'%';
-        ufoBullet.style.height = 1+'%';
+        ufoBullet.style.width = '2%';
+        ufoBullet.style.height = '1%';
 
-        ufo.style.width = 20+'%';
-        ufo.style.height = 20+'%';
+        ufo.style.width = '20%';
+        ufo.style.height = '20%';
 
-        pig.style.width = 8+'%';
-        pig.style.height = 10+'%';
+        pig.style.width = '8%';
+        pig.style.height = '10%';
 
-        alien.style.width = 4+'%';
-        alien.style.height = 14+'%';
+        alien.style.width = '4%';
+        alien.style.height = '14%';
 
+        bigBoss.style.width = '20%';
+        bigBoss.style.height = '35%';
+    }
+
+    function bigBossRoutine() {
+        console.log('display.bigBossRoutine');
     }
 
     function alienOut(callback) {
@@ -345,6 +355,25 @@ function Display() {
         }
     }
 
+    function bigBossIn(params) {
+        var top = -20;
+
+        at(bigBoss, params.left, top);
+
+        landing();
+
+        function landing() {
+            if (top <= params.top) {
+                top += basicMovRate * 1.5;
+                bigBoss.style.top = top+'%';
+                setTimeout(landing, 5);
+            } else {
+                bigBoss.style.top = params.top+'%';
+                if (params.callback) params.callback();
+            }
+        }
+    }
+
     function ufoIn(pos, callback, args) {
         var top = -20;
 
@@ -360,6 +389,22 @@ function Display() {
             } else {
                 ufo.style.top = pos.top+'%';
                 if (callback) callback(args);
+            }
+        }
+    }
+
+    function bigBossOut() {
+        var top = calc.getCoord(bigBoss.style.top);
+
+        leaving();
+
+        function leaving() {
+            if (top > -20) {
+                top -= basicMovRate * 2;
+                bigBoss.style.top = top+'%';
+                setTimeout(leaving, 5);
+            } else {
+                hide('bigBoss');
             }
         }
     }
