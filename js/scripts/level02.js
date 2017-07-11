@@ -99,10 +99,11 @@ function Level() {
                 ['plataform01.png', 'single', 1, 'solid'],
                 ['water-01.gif', 'double', 0, 'hole'],
                 ['water-01.gif', 'double', 0, 'hole'],
-                ['plataform02.png', 'single', 2, 'solid'],
+                ['plataform01.png', 'single', 1, 'solid'],
                 ['floor02.png', 'single', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
             ],
+            // #9
             [
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
