@@ -180,9 +180,10 @@ function Level() {
                     ],
                     params: [
                         {
-                            left: 100,
+                            left: 50,
                             top: 51,
-                            right: true
+                            right: true,
+                            callback: display.alienOut
                         }
                     ]
                 }
