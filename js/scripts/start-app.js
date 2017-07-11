@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     events = Events();
     calc = Calculator();
     display = Display();
+    level = Level();
     game = Game();
 
     game.init();

@@ -82,7 +82,7 @@ function Display() {
         setTimeout(function() {
             ufoOut();
             el.style.display = 'none';
-            if (el.id == 'charman') setTimeout(showResetButton, 1500);
+            if (el.id == 'charman') setTimeout(loadNextLevel, 1500);
         }, 100);
     }
 
@@ -309,9 +309,9 @@ function Display() {
 
     function setBackgroundImg() {
         if (currMap % 2 == 0) {
-            bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains01.png')";
+            bkgLayer.style.backgroundImage = "url('img/map/"+this.bkgdImage1+"')";
         } else {
-            bkgLayer.style.backgroundImage = "url('img/map/bkg-mointains02.png')";
+            bkgLayer.style.backgroundImage = "url('img/map/"+this.bkgdImage2+"')";
         }
     }    
 
@@ -421,6 +421,10 @@ function Display() {
 
     function moveVertically(el, top) {
         if (el && top) el.style.top = top+'%';
+    }
+
+    function loadNextLevel() {
+        window.location.href = 'level'+addZero(level.current+1)+'.html';
     }
 
 }
