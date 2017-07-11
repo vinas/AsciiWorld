@@ -89,7 +89,8 @@ function Setup() {
     function loadEnemyList() {
         enemies = [
                 document.getElementById('ufo'),
-                document.getElementById('pig')
+                document.getElementById('pig'),
+                document.getElementById('alien')
             ];
     }
 

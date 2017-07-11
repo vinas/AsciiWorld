@@ -1,6 +1,7 @@
 function Display() {
 
     var ufo = document.getElementById('ufo'),
+        alien = document.getElementById('alien'),
         pig = document.getElementById('pig'),
         bullet = document.getElementById('charShot'),
         ufoBullet = document.getElementById('ufoShot'),
@@ -25,6 +26,11 @@ function Display() {
     this.jumpingPig = jumpingPig;
     this.standingPig = standingPig;
     this.abductPig = abductPig;
+    this.standingAlien = standingAlien;
+    this.alienIn = alienIn;
+    this.alienOut = alienOut;
+    this.alienAttack01 = alienAttack01;
+    this.alienOutLeft = alienOutLeft;
 
     init();
 
@@ -49,6 +55,77 @@ function Display() {
 
         pig.style.width = 8+'%';
         pig.style.height = 10+'%';
+
+        alien.style.width = 4+'%';
+        alien.style.height = 14+'%';
+
+    }
+
+    function alienOut(callback) {
+        var left = calc.getCoord(alien.style.left),
+            top = calc.getCoord(alien.style.top);
+
+        moveRight();
+
+        function moveRight() {
+            if (calc.isVisible(alien)) {
+                if (left <= 100) {
+                    left += (basicMovRate *.6);
+                    at(alien, left, top);
+                    setTimeout(moveRight, 5);
+                } else {
+                    alien.style.display = 'none';
+                    if (callback) callback();
+                }
+            }
+        }
+    }
+
+    function alienOutLeft(callback) {
+        var left = calc.getCoord(alien.style.left),
+            top = calc.getCoord(alien.style.top);
+
+        moveLeft();
+
+        function moveLeft() {
+            if (calc.isVisible(alien)) {
+                if (left > -5) {
+                    left -= (basicMovRate *.6);
+                    at(alien, left, top);
+                    setTimeout(moveLeft, 5);
+                } else {
+                    alien.style.display = 'none';
+                    if (callback) callback();
+                }
+            }
+        }
+    }
+
+    function alienIn(params) {
+        var left = (params.right) ? -3 : 100;
+
+        at(alien, left, params.top);
+
+        moveAlien();
+
+        function moveAlien() {
+            if (calc.isVisible(alien)) {
+                if (!params.right && left >= params.left) {
+                    left -= (basicMovRate *.6);
+                } else if (params.right && left < params.left) {
+                    left += (basicMovRate *.6);
+                } else {
+                    if (params.callback) params.callback();
+                    return;
+                }
+                at(alien, left, params.top);
+                setTimeout(moveAlien, 5);
+            }
+        }
+    }
+
+    function standingAlien(pos) {
+        at(alien, pos.left, pos.top);
     }
 
     function abductPig() {
@@ -199,12 +276,47 @@ function Display() {
         actions.shooting = false;
     }
 
+    function alienAttack01(pos) {
+        pos.callback = alienShot;
+        alienIn(pos);
+    }
+
     function ufoAttack01(pos) {
         ufoIn(pos, ufoShot);
     }
 
+    function alienShot() {
+        if (calc.isVisible(alien)) {
+            var left = calc.getCoord(alien.style.left) - 2;
+
+            at(ufoBullet, left, calc.getCoord(alien.style.top) + 10);
+
+            setTimeout(alienOut, 300);
+
+            moveLeft();
+
+            function moveLeft() {
+                if (actions.cancelShot) {
+                    ufoBullet.style.display = 'none';
+                    return;
+                }
+                if (calc.areTouching(ufoBullet, charDiv)) {
+                    game.endGame('hit');
+                    return;
+                }
+                if (left >= -2) {
+                    left -= (basicMovRate);
+                    ufoBullet.style.left = left+'%';
+                    setTimeout(moveLeft, 5);
+                } else {
+                    ufoBullet.style.display = 'none';
+                }
+            }
+        }
+    }
+
     function ufoShot() {
-        if (ufo.style.duisplay = 'block') {
+        if (calc.isVisible(ufo)) {
             var left = calc.getCoord(ufo.style.left) - 2;
 
             at(ufoBullet, left, calc.getCoord(ufo.style.top) + 10);
