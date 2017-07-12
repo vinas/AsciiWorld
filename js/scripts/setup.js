@@ -4,6 +4,7 @@ function Setup() {
     this.hideHidables = hideHidables;
     this.enableKeyboard = enableKeyboard;
     this.preventDblClick = preventDblClick;
+    this.setClassProp = setClassProp;
 
     return this;
 
@@ -112,7 +113,11 @@ function Setup() {
 
         function buildMap(mapItem) {
             floorTopPos = FLOORS[mapItem[2]];
-            bkgLayer.innerHTML += '<img class="floor '+mapItem[1]+'" style="left: '+floorPos+'%; top: '+floorTopPos+'%" src="img/map/floor/'+mapItem[0]+'" />';
+            if (mapItem[0].indexOf('fragile') == -1) {
+                bkgLayer.innerHTML += '<img class="floor '+mapItem[1]+'" style="left: '+floorPos+'%; top: '+floorTopPos+'%" src="img/map/floor/'+mapItem[0]+'" />';
+            } else {
+                bkgLayer.innerHTML += '<img class="floor fragile '+mapItem[1]+'" style="left: '+floorPos+'%; top: '+floorTopPos+'%" src="img/map/floor/'+mapItem[0]+'" />';
+            }
             switch (mapItem[1]) {
                 case 'single':
                     floorPos += SINGLEBLOCK;

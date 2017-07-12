@@ -36,6 +36,10 @@ html, body {
     display: none;
 }
 
+#fragile {
+    opacity: 1;
+}
+
 #alien {
     width: 4%;
     height: 14%;

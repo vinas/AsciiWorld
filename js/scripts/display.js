@@ -36,6 +36,10 @@ function Display() {
     this.bigBossIn = bigBossIn;
     this.bigBossOut = bigBossOut;
     this.bigBossRoutine = bigBossRoutine;
+    this.charAt = charAt;
+    this.turnFragilesToHoles = turnFragilesToHoles;
+    this.unHole = unHole;
+    this.dialogUfo = dialogUfo;
 
     init();
 
@@ -66,14 +70,61 @@ function Display() {
 
         bigBoss.style.width = '20%';
         bigBoss.style.height = '35%';
-        bigBoss.health = 5;
+        bigBoss.health = 0;
 
         boom.style.width = '10%';
-        boom.style.height = '20%'
+        boom.style.height = '20%';
     }
 
-    function bigBossRoutine() {
+    function dialogUfo() {
+        console.log('dialog');
+    }
+
+    function unHole(indexes) {
+        setClassProp('fragile', 'opacity', 0);
+        var els = document.getElementsByClassName('fragile'),
+            i;
+        for (i = 0; i < els.length; i++) {
+            if (hasClass(els[i], 'single')) {
+                els[i].setAttribute('src', 'img/map/floor/floor02.png');
+            } else {
+                els[i].setAttribute('src', 'img/map/floor/floor01.png');
+            }
+            unfade(els[i], setAsSolid);
+        }
+
+        function setAsSolid() {
+            indexes.forEach(function(idx) {
+                mapArr[idx][3] = 'solid';
+            });
+        }
+    }
+
+    function turnFragilesToHoles(params) {
+        setClassProp('fragile', 'opacity', 1);
+        var els = document.getElementsByClassName('fragile'),
+            i;
+        for (i = 0; i < els.length; i++) {
+            fade(els[i], setAsHole);
+        }
+
+        function setAsHole() {
+            params.floorIndexes.forEach(function(idx) {
+                mapArr[idx][3] = 'hole';
+            });
+        }
+    }
+
+    function charAt(params) {
+        leftPos = params.left;
+        topPos = params.top;
+        at(charDiv, leftPos, topPos);
+    }
+
+    function bigBossRoutine(params) {
         var count = 0;
+        bigBoss.health = 4;
+        
         routine();
 
         function routine() {
@@ -84,23 +135,27 @@ function Display() {
                 top: 12,
                 callback: function () {
                     setTimeout(function () {
-                        if (isAlive()) {
+                        if (isAlive() && gameOn) {
                             bigBossIn({
                                 left: left,
                                 top: 31,
                                 startAt: 12,
                                 callback: function() {
                                     setTimeout(function() {
-                                        if (isAlive()) {
+                                        if (isAlive() && gameOn) {
                                             bigBossShoot();
                                             bigBossOut(function () {
                                                 count++;
                                                 setTimeout(routine, 650);
                                             });
+                                        } else if (gameOn) {
+                                            if (params.callback) params.callback((params.args) ? params.args : false);
                                         }
                                     }, 130);
                                 }
                             });
+                        } else if (gameOn) {
+                            if (params.callback) params.callback((params.args) ? params.args : false);
                         }
                     }, 100)
                 }
@@ -210,8 +265,9 @@ function Display() {
         }
     }
 
-    function standingAlien(pos) {
-        at(alien, pos.left, pos.top);
+    function standingAlien(params) {
+        at(alien, params.left, params.top);
+        if (params.callback) params.callback();
     }
 
     function abductPig() {
@@ -231,10 +287,20 @@ function Display() {
     }
 
     function fade(el, callback) {
-        var opacity = el.style.opacity - .02;
+        var opacity = parseFloat(el.style.opacity) - .02;
         if (opacity >= 0) {
             el.style.opacity = opacity;
             setTimeout(function() { fade(el, callback) }, 20);
+            return;
+        }
+        if (callback) callback(el);
+    }
+
+    function unfade(el, callback) {
+        var opacity = parseFloat(el.style.opacity) + .02;
+        if (opacity < 1) {
+            el.style.opacity = opacity;
+            setTimeout(function() { unfade(el, callback) }, 20);
             return;
         }
         if (callback) callback(el);
@@ -249,8 +315,9 @@ function Display() {
         }, 100);
     }
 
-    function standingPig(pos) {
-        at(pig, pos.left, pos.top);
+    function standingPig(params) {
+        at(pig, params.left, params.top);
+        if (params.callback) params.callback();
     }
 
     function jumpingPig(pos) {
@@ -344,7 +411,6 @@ function Display() {
                         explosion(calc.getCoord(bigBoss.style.left), calc.getCoord(bigBoss.style.top));
                         if (bigBoss.health <= 0) {
                             hide(hit.id);
-                            bigBossKilled();
                         }
                     }
                     cancelShooting();
@@ -670,12 +736,6 @@ function Display() {
         window.location.href = 'level'+addZero(level.current+1)+'.html';
     }
 
-   function bigBossKilled() {
-        setTimeout(function() {
-            game.endGame('hit');
-        }, 1500);
-    }
-
     async function explosion(left, top) {
         var boomImg = document.getElementById('boomImg');
         boom.style.left = (left + 5)+'%';
@@ -686,6 +746,10 @@ function Display() {
             boomImg.setAttribute('src', '');
             boom.style.display = 'none';
         }, 300);
+    }
+
+    function hasClass(target, className) {
+        return new RegExp('(\\s|^)' + className + '(\\s|$)').test(target.className);
     }
 
 }

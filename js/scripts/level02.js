@@ -12,9 +12,9 @@ function Level() {
         return [
             // #1
             [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid'],
+                ['floor_fragile.png', 'double', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['hole01.png', 'double', 0, 'hole'],
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
@@ -92,18 +92,31 @@ function Level() {
             ],
             // #8
             [
-                ['floor01.png', 'double', 0, 'solid'],
-                ['plataform02.png', 'single', 2, 'solid'],
-                ['water-01.gif', 'double', 0, 'hole'],
-                ['water-01.gif', 'double', 0, 'hole'],
-                ['plataform01.png', 'single', 1, 'solid'],
-                ['water-01.gif', 'double', 0, 'hole'],
-                ['water-01.gif', 'double', 0, 'hole'],
-                ['plataform01.png', 'single', 1, 'solid'],
                 ['floor02.png', 'single', 0, 'solid'],
-                ['floor01.png', 'double', 0, 'solid']
+                ['hole01.png', 'double', 0, 'hole'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['floor_fragile01.png', 'single', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['floor_fragile01.png', 'single', 0, 'solid'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['hole01.png', 'double', 0, 'hole'],
+                ['floor02.png', 'single', 0, 'solid']
+
             ],
             // #9
+            [
+                ['floor_fragile.png', 'double', 0, 'solid'],
+                ['floor_fragile.png', 'double', 0, 'solid'],
+                ['floor_fragile01.png', 'single', 0, 'solid'],
+                ['floor02.png', 'single', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor02.png', 'single', 0, 'solid'],
+                ['floor_fragile01.png', 'single', 0, 'solid'],
+                ['floor_fragile.png', 'double', 0, 'solid'],
+                ['floor_fragile.png', 'double', 0, 'solid']
+            ],
             [
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
@@ -121,7 +134,19 @@ function Level() {
         levelTriggers = [
             // #1
             {
-                6: {
+                37: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.turnFragilesToHoles
+                    ],
+                    params: [
+                        {
+                            floorIndexes: [0]
+                        }
+                    ]
+                },
+                45: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [
@@ -129,7 +154,7 @@ function Level() {
                     ],
                     params: [
                         {
-                            left: 0,
+                            left: 37,
                             top: 51,
                             callback: display.alienOut
                         }
@@ -298,9 +323,34 @@ function Level() {
                 }
             },
             // #8
-            {},
+            {
+                35: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.turnFragilesToHoles
+                    ],
+                    params: [
+                        {
+                            floorIndexes: [3, 6]
+                        }
+                    ]
+                }
+            },
             // #9
             {
+                5: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        display.turnFragilesToHoles
+                    ],
+                    params: [
+                        {
+                            floorIndexes: [0, 1, 2, 7, 8, 9]
+                        }
+                    ]
+                },
                 10: {
                     onlyOnce: true,
                     triggered: false,
@@ -315,13 +365,35 @@ function Level() {
                         }
                     ]
                 },
-                70: {
+                55: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.bigBossRoutine
                     ],
-                    params: [{}]
+                    params: [
+                        {
+                            callback: display.unHole,
+                            args: [0, 1, 2, 7, 8, 9]
+                        }
+                    ]
+                }
+            },
+            // #10
+            {
+                2: {
+                    onlyOnce: false,
+                    triggered: false,
+                    actions: [
+                        display.standingPig
+                    ],
+                    params: [
+                        {
+                            left: 75,
+                            top: 56,
+                            callback: display.dialogUfo
+                        }
+                    ]
                 }
             }
         ];
