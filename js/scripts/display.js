@@ -306,6 +306,10 @@ function Display() {
         if (callback) callback(el);
     }
 
+    function variateOpacity() {
+        
+    }
+
     function abducted(el) {
         abductionRay.style.display = 'none';
         setTimeout(function() {
