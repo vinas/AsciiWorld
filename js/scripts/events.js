@@ -53,13 +53,14 @@ function Events()
     }
 
     function tapAttack() {
+        if (!actions.soundsLoaded) {
+            setup.prepareSoundsForMobile();
+        }
+
         if (!actions.swimming && !actions.shooting) commands.fire = true;
     }
 
     function tapMoveRight() {
-        if (!actions.soundsLoaded) {
-            setup.prepareSoundsForMobile();
-        }
         actions.lastDirection = 'right';
         display.mirrorObj(charmanImg, 1);
         commands.left = false;
