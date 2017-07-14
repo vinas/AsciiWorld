@@ -299,11 +299,13 @@ function Display() {
             jumpTop = base - 20,
             dir = 'up';
         at(pig, pos.left, pos.top);
+        pigJumpSound.play();
         jumping();
         function jumping() {
             if (top < jumpTop) {
                 dir = 'down';
             } else if (top >= base) {
+                pigJumpSound.play();
                 dir = 'up';
             }
             if (dir == 'up') {
@@ -368,6 +370,7 @@ function Display() {
                 top = topPos + 6;
             at(bullet, left, top);
             actions.shooting = true;
+            charArrowSound.play();
 
             moveBullet();
 
@@ -377,11 +380,12 @@ function Display() {
                     return;
                 }
                 if (hit = calc.hitEnemy(bullet)) {
+                    temp = (direction) ? left : left - 15;
+                    explosion(temp, top);
                     if (hit.id != 'bigBoss') {
                         hide(hit.id);
                     } else {
                         bigBoss.health -= 1;
-                        explosion(calc.getCoord(bigBoss.style.left), calc.getCoord(bigBoss.style.top));
                         if (bigBoss.health <= 0) {
                             hide(hit.id);
                         }
@@ -424,6 +428,7 @@ function Display() {
             var enemyLeft = calc.getCoord(enemy.style.left),
                 isRight = leftPos > enemyLeft,
                 left = (isRight) ? enemyLeft + calc.getCoord(enemy.style.width) : enemyLeft;
+            ufoLaserSound.play();
             at(ufoBullet, left, calc.getCoord(enemy.style.top) + relativeTop);
             if (callback) setTimeout(callback, 300);
             moveProjectile();
@@ -676,10 +681,11 @@ function Display() {
 
     async function explosion(left, top) {
         var boomImg = document.getElementById('boomImg');
-        boom.style.left = (left + 5)+'%';
-        boom.style.top = (top + 10)+'%';
+        boom.style.left = left+'%';
+        boom.style.top = (top-8)+'%';
         boom.style.display = 'block';
         boomImg.setAttribute('src', 'img/interactions/explosion01.gif');
+        explosionSound.play();
         setTimeout(function() {
             boomImg.setAttribute('src', '');
             boom.style.display = 'none';

@@ -8,6 +8,7 @@ function Game() {
     function init() {
         setup.enableKeyboard();
         setup.preventDblClick();
+        setup.loadContent();
         setup.resetGame();
         gameLoop();
         gameClock();
@@ -78,6 +79,9 @@ function Game() {
 
     function endGame(reason) {
         gameOn = false;
+        musicTheme.pause();
+        musicTheme.currentTime = 0;
+        actions.soundsLoaded = false;
         setGameEndingTime();
         switch (reason) {
             case 'hole':

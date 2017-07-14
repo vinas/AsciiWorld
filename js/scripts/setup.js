@@ -5,8 +5,60 @@ function Setup() {
     this.enableKeyboard = enableKeyboard;
     this.preventDblClick = preventDblClick;
     this.setClassProp = setClassProp;
+    this.loadContent = loadContent;
+    this.prepareSoundsForMobile = prepareSoundsForMobile;
 
     return this;
+
+    function prepareSoundsForMobile() {
+        musicTheme.volume = 0;
+        charJumpSound.volume = 0;
+        ufoLaserSound.volume = 0;
+        charArrowSound.volume = 0;
+        pigJumpSound.volume = 0;
+        explosionSound.volume = 0;
+
+        musicTheme.play();
+        charJumpSound.play()
+        charJumpSound.pause();
+        ufoLaserSound.play();
+        ufoLaserSound.pause();
+        charArrowSound.play();
+        charArrowSound.pause();
+        pigJumpSound.play();
+        pigJumpSound.pause();
+        explosionSound.play();
+        explosionSound.pause();
+
+        charJumpSound.currentTime = 0;
+        ufoLaserSound.currentTime = 0;
+        charArrowSound.currentTime = 0;
+        pigJumpSound.currentTime = 0;
+        explosionSound.currentTime = 0;
+
+        musicTheme.volume = .8;
+        charJumpSound.volume = .6;
+        ufoLaserSound.volume = 1;
+        charArrowSound.volume = 1;
+        pigJumpSound.volume = 1;
+        explosionSound.volume = 1;
+
+        actions.soundsLoaded = true;
+    }
+
+    function loadContent()
+    {
+     var ImgsToPreload = new Array(
+            'img/charman/charman-01.png',
+            'img/charman/charman-bow.gif',
+            'img/charman/charman-jump.gif',
+            'img/charman/charman-run.gif',
+            'img/charman/charman-swim.gif',
+            'img/interactions/explosion01.gif'
+        );
+        preloadImages(ImgsToPreload);
+        setSounds();
+    }
 
     function preventDblClick() {
         document.ondblclick = function(e) { e.preventDefault(); };
@@ -78,6 +130,7 @@ function Setup() {
         actions.shooting = false;
         actions.lastDirection = 'right';
         actions.abduction = false;
+        actions.soundsLoaded = false;
     }
 
     function resetCharman() {
@@ -134,13 +187,29 @@ function Setup() {
         setClassProp('hidable', 'display', 'none');
     }
 
-    function setClassProp(className, prop, value)
-    {
+    function setClassProp(className, prop, value) {
         var els = document.getElementsByClassName(className),
             i;
         for (i = 0; i < els.length; i++) {
             els[i].style[prop] = value;
         }
+    }
+
+    function preloadImages(images) {
+        var img;
+        for (i = 0; i < images.length; i++) {
+            img = new Image();
+            img.src = images[i];
+        }
+    }
+
+    function setSounds() {
+        musicTheme = new Audio('audio/Pocketmaster_-_07_-_Ride.mp3');
+        charJumpSound = new Audio('audio/SFX_Jump_31_0.mp3');
+        ufoLaserSound = new Audio('audio/tir.mp3');
+        charArrowSound = new Audio('audio/laserfire01.ogg.mp3');
+        pigJumpSound = new Audio('audio/jumppp22.ogg.mp3');
+        explosionSound = new Audio('audio/8bit_bomb_explosion.wav.mp3');
     }
 
 }

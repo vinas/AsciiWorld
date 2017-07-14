@@ -1,7 +1,14 @@
 var charDiv,
     charmanImg,
-    bkgLayer;
+    bkgLayer,
     gameOn = true;
+
+var musicTheme,
+    charJumpSound,
+    ufoLaserSound,
+    charArrowSound,
+    pigJumpSound,
+    explosionSound;
 
 var basicMovRate = .6,
     commands = {},

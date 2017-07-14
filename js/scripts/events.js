@@ -57,6 +57,9 @@ function Events()
     }
 
     function tapMoveRight() {
+        if (!actions.soundsLoaded) {
+            setup.prepareSoundsForMobile();
+        }
         actions.lastDirection = 'right';
         display.mirrorObj(charmanImg, 1);
         commands.left = false;
@@ -78,6 +81,7 @@ function Events()
     function tapJump() {
         if (!actions.swimming && !actions.falling && !actions.jumping) {
             commands.jump = true;
+            charJumpSound.play();
             setTimeout(function () {
                 commands.jump = false;
             }, 150);
