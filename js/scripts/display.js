@@ -30,7 +30,7 @@ function Display() {
     this.abductPig = abductPig;
     this.standingAlien = standingAlien;
     this.alienIn = alienIn;
-    this.alienOut = alienOut;
+    this.alienOutRight = alienOutRight;
     this.alienAttack01 = alienAttack01;
     this.alienOutLeft = alienOutLeft;
     this.bigBossIn = bigBossIn;
@@ -124,7 +124,7 @@ function Display() {
     function bigBossRoutine(params) {
         var count = 0;
         bigBoss.health = 4;
-        
+
         routine();
 
         function routine() {
@@ -168,41 +168,10 @@ function Display() {
     }
 
     function bigBossShoot(callback) {
-        if (calc.isVisible(bigBoss)) {
-            var bigBossLeft = calc.getCoord(bigBoss.style.left),
-                isRight = leftPos > bigBossLeft,
-                left = (isRight) ? bigBossLeft + 20 : bigBossLeft;
-
-            at(ufoBullet, left, calc.getCoord(bigBoss.style.top) + 23);
-
-            moveProjectile();
-
-            function moveProjectile() {
-                if (actions.cancelShot) {
-                    ufoBullet.style.display = 'none';
-                    return;
-                }
-                if (calc.areTouching(ufoBullet, charDiv)) {
-                    game.endGame('hit');
-                    return;
-                }
-                if (!isRight && left >= -2) {
-                    left -= (basicMovRate);
-                    ufoBullet.style.left = left+'%';
-                    setTimeout(moveProjectile, 5);
-                } else if (isRight && left < 100) {
-                    left += (basicMovRate);
-                    ufoBullet.style.left = left+'%';
-                    setTimeout(moveProjectile, 5);
-                } else {
-                    ufoBullet.style.display = 'none';
-                    if (callback) callback();
-                }
-            }
-        }
+        enemyFire(bigBoss, basicMovRate, 23, callback);
     }
 
-    function alienOut(callback) {
+    function alienOutRight(callback) {
         var left = calc.getCoord(alien.style.left),
             top = calc.getCoord(alien.style.top);
 
@@ -450,17 +419,15 @@ function Display() {
         ufoIn(pos, ufoShot);
     }
 
-    function alienShot() {
-        if (calc.isVisible(alien)) {
-            var left = calc.getCoord(alien.style.left) - 2;
-
-            at(ufoBullet, left, calc.getCoord(alien.style.top) + 10);
-
-            setTimeout(alienOut, 300);
-
-            moveLeft();
-
-            function moveLeft() {
+    function enemyFire(enemy, moveRate, relativeTop, callback) {
+        if (calc.isVisible(enemy)) {
+            var enemyLeft = calc.getCoord(enemy.style.left),
+                isRight = leftPos > enemyLeft,
+                left = (isRight) ? enemyLeft + calc.getCoord(enemy.style.width) : enemyLeft;
+            at(ufoBullet, left, calc.getCoord(enemy.style.top) + relativeTop);
+            if (callback) setTimeout(callback, 300);
+            moveProjectile();
+            function moveProjectile() {
                 if (actions.cancelShot) {
                     ufoBullet.style.display = 'none';
                     return;
@@ -469,116 +436,83 @@ function Display() {
                     game.endGame('hit');
                     return;
                 }
-                if (left >= -2) {
-                    left -= (basicMovRate);
+                if (!isRight && left >= -2) {
+                    left -= moveRate;
                     ufoBullet.style.left = left+'%';
-                    setTimeout(moveLeft, 5);
+                    setTimeout(moveProjectile, 5);
+                } else if (isRight && left < 100) {
+                    left += moveRate;
+                    ufoBullet.style.left = left+'%';
+                    setTimeout(moveProjectile, 5);
                 } else {
                     ufoBullet.style.display = 'none';
+                    if (callback) callback();
                 }
             }
         }
+
+    }
+
+    function alienShot() {
+        enemyFire(alien, basicMovRate, 9, alienOutRight);
     }
 
     function ufoShot() {
-        if (calc.isVisible(ufo)) {
-            var left = calc.getCoord(ufo.style.left) - 2;
-
-            at(ufoBullet, left, calc.getCoord(ufo.style.top) + 10);
-
-            setTimeout(ufoOut, 300);
-
-            moveLeft();
-
-            function moveLeft() {
-                if (actions.cancelShot) {
-                    ufoBullet.style.display = 'none';
-                    return;
-                }
-                if (calc.areTouching(ufoBullet, charDiv)) {
-                    game.endGame('hit');
-                    return;
-                }
-                if (left >= -2) {
-                    left -= (basicMovRate *.6);
-                    ufoBullet.style.left = left+'%';
-                    setTimeout(moveLeft, 5);
-                } else {
-                    ufoBullet.style.display = 'none';
-                }
-            }
-        }
+        enemyFire(ufo, basicMovRate * .6, 10, ufoOut);
     }
 
     function bigBossIn(params) {
-        var top = (!params.startAt) ? -20 : params.startAt;
-
-        at(bigBoss, params.left, top);
-
-        landing();
-
-        function landing() {
-            if (top <= params.top) {
-                top += basicMovRate * 1.5;
-                bigBoss.style.top = top+'%';
-                setTimeout(landing, 5);
-            } else {
-                bigBoss.style.top = params.top+'%';
-                if (params.callback) params.callback();
-            }
-        }
+        elementVertIn(
+            bigBoss,
+            params.left,
+            (!params.startAt) ? -20 : params.startAt,
+            params.top,
+            params.callback, false
+        );
     }
 
     function ufoIn(pos, callback, args) {
-        var top = -20;
+        elementVertIn(ufo, pos.left, -20, pos.top, callback, args);
+    }
 
-        at(ufo, pos.left, top);
-
-        landing();
-
-        function landing() {
-            if (top <= pos.top) {
+    function elementVertIn(el, left, top, target, callback, args) {
+        at(el, left, top);
+        goingDown();
+        function goingDown() {
+            if (top <= target) {
                 top += basicMovRate * 1.5;
-                ufo.style.top = top+'%';
-                setTimeout(landing, 5);
+                el.style.top = top+'%';
+                setTimeout(goingDown, 5);
+                return;
+            }
+            el.style.top = top+'%';
+            if (callback) callback(args);
+        }
+    }
+
+    function elementVertOut(el, callback, args) {
+        var top = calc.getCoord(el.style.top);
+        goinUp();
+        function goinUp() {
+            if (top > -20) {
+                top -= basicMovRate * 2;
+                el.style.top = top+'%';
+                setTimeout(goinUp, 5);
             } else {
-                ufo.style.top = pos.top+'%';
+                hide(el.id);
                 if (callback) callback(args);
             }
         }
+
     }
 
     function bigBossOut(callback) {
-        var top = calc.getCoord(bigBoss.style.top);
+        elementVertOut(bigBoss, callback, false)
 
-        leaving();
-
-        function leaving() {
-            if (top > -20) {
-                top -= basicMovRate * 2;
-                bigBoss.style.top = top+'%';
-                setTimeout(leaving, 5);
-            } else {
-                hide('bigBoss');
-                if (callback) callback();
-            }
-        }
     }
 
     function ufoOut() {
-        var top = calc.getCoord(ufo.style.top);
-
-        leaving();
-
-        function leaving() {
-            if (top > -20) {
-                top -= basicMovRate * 2;
-                ufo.style.top = top+'%';
-                setTimeout(leaving, 5);
-            } else {
-                hide('ufo');
-            }
-        }
+        elementVertOut(ufo, false, false);
     }
 
     function showResetButton() {

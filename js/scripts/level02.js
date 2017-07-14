@@ -11,7 +11,7 @@ function Level() {
     function loadMapArr() {
         return [
             // #1
-            [
+            /*[
                 ['floor_fragile.png', 'double', 0, 'solid'],
                 ['hole01.png', 'double', 0, 'hole'],
                 ['hole01.png', 'double', 0, 'hole'],
@@ -103,7 +103,7 @@ function Level() {
                 ['hole01.png', 'double', 0, 'hole'],
                 ['floor02.png', 'single', 0, 'solid']
 
-            ],
+            ],*/
             // #9
             [
                 ['floor_fragile.png', 'double', 0, 'solid'],
@@ -117,6 +117,7 @@ function Level() {
                 ['floor_fragile.png', 'double', 0, 'solid'],
                 ['floor_fragile.png', 'double', 0, 'solid']
             ],
+            // #10
             [
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
@@ -133,7 +134,7 @@ function Level() {
     function loadLevelTriggers() {
         levelTriggers = [
             // #1
-            {
+            /*{
                 37: {
                     onlyOnce: true,
                     triggered: false,
@@ -156,7 +157,7 @@ function Level() {
                         {
                             left: 37,
                             top: 51,
-                            callback: display.alienOut
+                            callback: display.alienOutRight
                         }
                     ]
                 }
@@ -173,7 +174,7 @@ function Level() {
                         {
                             left: 70,
                             top: 51,
-                            callback: display.alienOut
+                            callback: display.alienOutRight
                         }
                     ]
                 },
@@ -187,7 +188,7 @@ function Level() {
                         {
                             left: 80,
                             top: 51,
-                            callback: display.alienOut
+                            callback: display.alienOutRight
                         }
                     ]
                 }
@@ -204,7 +205,7 @@ function Level() {
                         {
                             left: 70,
                             top: 51,
-                            callback: display.alienOut
+                            callback: display.alienOutRight
                         }
                     ]
                 },
@@ -219,7 +220,7 @@ function Level() {
                             left: 50,
                             top: 51,
                             right: true,
-                            callback: display.alienOut
+                            callback: display.alienOutRight
                         }
                     ]
                 }
@@ -236,7 +237,7 @@ function Level() {
                         {
                             left: 80,
                             top: 51,
-                            callback: display.alienOut
+                            callback: display.alienOutRight
                         }
                     ]
                 }
@@ -253,7 +254,7 @@ function Level() {
                         {
                             left: 88,
                             top: 51,
-                            callback: display.alienOut
+                            callback: display.alienOutRight
                         }
                     ]
                 },
@@ -267,7 +268,7 @@ function Level() {
                         {
                             left: 88,
                             top: 51,
-                            callback: display.alienOut
+                            callback: display.alienOutRight
                         }
                     ]
                 }
@@ -285,7 +286,7 @@ function Level() {
                             left: 50,
                             top: 51,
                             right: true,
-                            callback: display.alienOut
+                            callback: display.alienOutRight
                         }
                     ]
                 }
@@ -317,7 +318,7 @@ function Level() {
                         {
                             left: 85,
                             top: 51,
-                            callback: display.alienOut
+                            callback: display.alienOutRight
                         }
                     ]
                 }
@@ -336,7 +337,7 @@ function Level() {
                         }
                     ]
                 }
-            },
+            },*/
             // #9
             {
                 5: {
