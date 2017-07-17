@@ -19,6 +19,7 @@ function Setup() {
         explosionSound.volume = 0;
 
         musicTheme.play();
+        musicTheme.pause();
         charJumpSound.play()
         charJumpSound.pause();
         ufoLaserSound.play();
@@ -42,8 +43,6 @@ function Setup() {
         charArrowSound.volume = 1;
         pigJumpSound.volume = 1;
         explosionSound.volume = 1;
-
-        actions.soundsLoaded = true;
     }
 
     function loadContent()
@@ -95,6 +94,7 @@ function Setup() {
     }
 
     function resetGame() {
+        musicTheme.play();
         hideHidables();
         resetGameVariables();
         cancelAllActions();
@@ -130,7 +130,6 @@ function Setup() {
         actions.shooting = false;
         actions.lastDirection = 'right';
         actions.abduction = false;
-        actions.soundsLoaded = false;
     }
 
     function resetCharman() {

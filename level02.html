@@ -8,8 +8,8 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
-        <div id="gameBrackground"></div>
         <div id="gameElements">
+            <div id="gameBrackground"></div>
             <div id="timer">
                 <label>Fase: </label>
                 <label id="level"></label><br/>
@@ -27,26 +27,35 @@
             <div class="ufoShot hidable" id="ufoShot"></div>
             <div class="charShot hidable" id="charShot"></div>
             <div id="boom" class="hidable"><img src="" id="boomImg" /></div>
+
+            <div class="controller">
+                <div class="btn forceRight fire" onclick="events.tapAttack()">
+                </div>
+                <div class="btn forceRight jump" ontouchstart="events.tapJump()">
+                </div>
+                <div class="btn forceLeft moveLeft"
+                    ontouchstart="events.tapMoveLeft()"
+                    ontouchend="events.tapStop()">
+                </div>
+                <div class="btn forceLeft moveRight"
+                    ontouchstart="events.tapMoveRight()"
+                    ontouchend="events.tapStop()">
+                </div>
+            </div>
         </div>
-        <div class="controller">
-            <div class="btn forceRight fire" onclick="events.tapAttack()">
-            </div>
-            <div class="btn forceRight jump" ontouchstart="events.tapJump()">
-            </div>
-            <div class="btn forceLeft moveLeft"
-                ontouchstart="events.tapMoveLeft()"
-                ontouchend="events.tapStop()">
-            </div>
-            <div class="btn forceLeft moveRight"
-                ontouchstart="events.tapMoveRight()"
-                ontouchend="events.tapStop()">
-            </div>
-        </div>
+        <div id="startGame" onclick="game.init()"><img src="img/game-start.gif" id="startGameImg" /></div>
         <div id="gameOver" onclick="events.reset()">
+            <!--label>Estágio alcançado: </label>
+            <label id="lastStage"></label><br/>
+            <label>Tempo Total: </label>
+            <label id="gameTime"></label-->
+        </div>
+        <div id="levelScore" onclick="game.nextLevel()">
             <label>Estágio alcançado: </label>
             <label id="lastStage"></label><br/>
             <label>Tempo Total: </label>
             <label id="gameTime"></label>
+            <img src="img/game-start.gif" id="startGameImg" />
         </div>
     </body>
     <!-- game js files begin -->

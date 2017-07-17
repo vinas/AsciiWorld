@@ -2,6 +2,7 @@ function Game() {
 
     this.init = init;
     this.endGame = endGame;
+    this.nextLevel = nextLevel;
 
     return this;
 
@@ -9,9 +10,14 @@ function Game() {
         setup.enableKeyboard();
         setup.preventDblClick();
         setup.loadContent();
+        display.showGame();
         setup.resetGame();
         gameLoop();
         gameClock();
+    }
+
+    function nextLevel() {
+        window.location.href = 'level'+display.addZero(level.current+1)+'.html';
     }
 
     function gameLoop() {
@@ -81,7 +87,6 @@ function Game() {
         gameOn = false;
         musicTheme.pause();
         musicTheme.currentTime = 0;
-        actions.soundsLoaded = false;
         setGameEndingTime();
         switch (reason) {
             case 'hole':
@@ -112,12 +117,6 @@ function Game() {
                 events.crossLeft();
             }
         }
-    }
-
-    function resetGame() {
-        setup.setCharmanElements();
-        setup.loadLevelMap();
-        events.loadEventHandlers();
     }
 
 }

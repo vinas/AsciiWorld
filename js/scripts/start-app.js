@@ -7,6 +7,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     level = Level();
     game = Game();
 
-    game.init();
+    //game.init();
 
 });

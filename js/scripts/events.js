@@ -53,25 +53,25 @@ function Events()
     }
 
     function tapAttack() {
-        if (!actions.soundsLoaded) {
-            setup.prepareSoundsForMobile();
-        }
-
-        if (!actions.swimming && !actions.shooting) commands.fire = true;
+        if (gameOn && !actions.swimming && !actions.shooting) commands.fire = true;
     }
 
     function tapMoveRight() {
-        actions.lastDirection = 'right';
-        display.mirrorObj(charmanImg, 1);
-        commands.left = false;
-        commands.right = true;
+        if (gameOn) {
+            actions.lastDirection = 'right';
+            display.mirrorObj(charmanImg, 1);
+            commands.left = false;
+            commands.right = true;
+        }
     }
 
     function tapMoveLeft() {
-        actions.lastDirection = 'left';
-        display.mirrorObj(charmanImg, -1);
-        commands.right = false;
-        commands.left = true;
+        if (gameOn) {
+            actions.lastDirection = 'left';
+            display.mirrorObj(charmanImg, -1);
+            commands.right = false;
+            commands.left = true;
+        }
     }
 
     function tapStop() {
@@ -80,7 +80,7 @@ function Events()
     }
 
     function tapJump() {
-        if (!actions.swimming && !actions.falling && !actions.jumping) {
+        if (gameOn && !actions.swimming && !actions.falling && !actions.jumping) {
             commands.jump = true;
             charJumpSound.play();
             setTimeout(function () {

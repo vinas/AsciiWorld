@@ -40,6 +40,8 @@ function Display() {
     this.turnFragilesToHoles = turnFragilesToHoles;
     this.unHole = unHole;
     this.dialogUfo = dialogUfo;
+    this.showGame = showGame;
+    this.addZero = addZero;
 
     init();
 
@@ -74,6 +76,12 @@ function Display() {
 
         boom.style.width = '10%';
         boom.style.height = '20%';
+    }
+
+    function showGame() {
+        document.getElementById('gameElements').style.display = 'block';
+        document.getElementById('startGame').style.display = 'none';
+        setup.prepareSoundsForMobile();
     }
 
     function dialogUfo() {
@@ -284,7 +292,7 @@ function Display() {
         setTimeout(function() {
             ufoOut();
             el.style.display = 'none';
-            if (el.id == 'charman') setTimeout(loadNextLevel, 1500);
+            if (el.id == 'charman') setTimeout(displayLevelScore, 1500);
         }, 100);
     }
 
@@ -675,8 +683,11 @@ function Display() {
         if (el && top) el.style.top = top+'%';
     }
 
-    function loadNextLevel() {
-        window.location.href = 'level'+addZero(level.current+1)+'.html';
+    function displayLevelScore() {
+        document.getElementById('gameTime').innerHTML = millisToMinutesAndSeconds(gameTime);
+        document.getElementById('lastStage').innerHTML = currMap+1;
+        document.getElementById('gameElements').style.display = 'none';
+        document.getElementById('levelScore').style.display = 'block';
     }
 
     async function explosion(left, top) {
