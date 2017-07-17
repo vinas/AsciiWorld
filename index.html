@@ -29,7 +29,7 @@
             <div id="boom" class="hidable"><img src="" id="boomImg" /></div>
 
             <div class="controller">
-                <div class="btn forceRight fire" onclick="events.tapAttack()">
+                <div class="btn forceRight fire" ontouchstart="events.tapAttack()">
                 </div>
                 <div class="btn forceRight jump" ontouchstart="events.tapJump()">
                 </div>
@@ -44,13 +44,13 @@
             </div>
         </div>
         <div id="startGame" onclick="game.init()"><img src="img/game-start.gif" id="startGameImg" /></div>
-        <div id="gameOver" onclick="events.reset()">
+        <div id="gameOver" ontouchstart="events.reset()">
             <!--label>Estágio alcançado: </label>
             <label id="lastStage"></label><br/>
             <label>Tempo Total: </label>
             <label id="gameTime"></label-->
         </div>
-        <div id="levelScore" onclick="game.nextLevel()">
+        <div id="levelScore" ontouchstart="game.nextLevel()">
             <label>Estágio alcançado: </label>
             <label id="lastStage"></label><br/>
             <label>Tempo Total: </label>
