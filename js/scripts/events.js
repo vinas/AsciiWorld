@@ -53,11 +53,11 @@ function Events()
     }
 
     function tapAttack() {
-        if (gameOn && !actions.swimming && !actions.shooting) commands.fire = true;
+        if (gameOn && actions.canFire && !actions.swimming && !actions.shooting) commands.fire = true;
     }
 
     function tapMoveRight() {
-        if (gameOn) {
+        if (gameOn && actions.canMove) {
             actions.lastDirection = 'right';
             display.mirrorObj(charmanImg, 1);
             commands.left = false;
@@ -66,7 +66,7 @@ function Events()
     }
 
     function tapMoveLeft() {
-        if (gameOn) {
+        if (gameOn && actions.canMove) {
             actions.lastDirection = 'left';
             display.mirrorObj(charmanImg, -1);
             commands.right = false;
@@ -80,7 +80,7 @@ function Events()
     }
 
     function tapJump() {
-        if (gameOn && !actions.swimming && !actions.falling && !actions.jumping) {
+        if (gameOn && actions.canJump && !actions.swimming && !actions.falling && !actions.jumping) {
             commands.jump = true;
             charJumpSound.play();
             setTimeout(function () {

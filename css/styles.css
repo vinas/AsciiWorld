@@ -40,6 +40,21 @@ html, body {
     text-align: center;
 }
 
+#dialogBalloon {
+    background-image: url('../img/interactions/dialog-balloon-right.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    left: 48%;
+    top: 10%;
+    width: 24%;
+    height: 30%;
+    padding: 3%;
+    text-align: center;
+    align-items: center; /* Vertical center alignment */
+    justify-content: center; /* Horizontal center alignment */
+}
+
 #startGameImg {
     margin-top: 11%;
     width: 40%;

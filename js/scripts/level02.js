@@ -383,7 +383,7 @@ function Level() {
             // #10
             {
                 2: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.standingPig
@@ -395,6 +395,14 @@ function Level() {
                             callback: display.dialogUfo
                         }
                     ]
+                },
+                50: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        dialogs.dialog021007
+                    ],
+                    params: []
                 }
             }
         ];

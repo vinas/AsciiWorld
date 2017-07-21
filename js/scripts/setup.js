@@ -122,6 +122,9 @@ function Setup() {
     }
 
     function cancelAllActions() {
+        actions.canMove = true;
+        actions.canJump = true;
+        actions.canFire = true;
         actions.jumping = false;
         actions.firing = false;
         actions.swimming = false;

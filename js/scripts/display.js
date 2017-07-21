@@ -42,6 +42,9 @@ function Display() {
     this.dialogUfo = dialogUfo;
     this.showGame = showGame;
     this.addZero = addZero;
+    this.freezeChar = freezeChar;
+    this.unfreezeChar = unfreezeChar;
+    this.moveElmRight = moveElmRight;
 
     init();
 
@@ -78,6 +81,19 @@ function Display() {
         boom.style.height = '20%';
     }
 
+    function freezeChar() {
+        events.tapStop();
+        actions.canMove = false;
+        actions.canJump = false;
+        actions.canFire = false;
+    }
+
+    function unfreezeChar() {
+        actions.canMove = true;
+        actions.canJump = true;
+        actions.canFire = true;
+    }
+
     function showGame() {
         document.getElementById('gameElements').style.display = 'block';
         document.getElementById('startGame').style.display = 'none';
@@ -85,7 +101,7 @@ function Display() {
     }
 
     function dialogUfo() {
-        console.log('dialog');
+        dialogs.start(pig, 02, 10);
     }
 
     function unHole(indexes) {
@@ -180,19 +196,25 @@ function Display() {
     }
 
     function alienOutRight(callback) {
-        var left = calc.getCoord(alien.style.left),
-            top = calc.getCoord(alien.style.top);
+        moveElmRight(alien, 100, basicMovRate *.6, callback);
+    }
+
+    function moveElmRight(el, target, moveRate, callback) {
+        console.log('aqwui');
+        var left = calc.getCoord(el.style.left),
+            top = calc.getCoord(el.style.top);
 
         moveRight();
 
         function moveRight() {
-            if (calc.isVisible(alien)) {
-                if (left <= 100) {
-                    left += (basicMovRate *.6);
-                    at(alien, left, top);
+            console.log('left - ', left);
+            if (calc.isVisible(el)) {
+                if (left <= target) {
+                    left += (moveRate);
+                    at(el, left, top);
                     setTimeout(moveRight, 5);
                 } else {
-                    alien.style.display = 'none';
+                    el.style.display = 'none';
                     if (callback) callback();
                 }
             }
