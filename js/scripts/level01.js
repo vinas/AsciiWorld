@@ -140,7 +140,7 @@ function Level() {
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['water-01.gif', 'double', 0, 'liquid'],
                 ['plataform01.png', 'single', 1, 'solid'],
-                ['plataform01.png', 'single', 1, 'solid'],
+                ['plataform02.png', 'single', 2, 'solid'],
                 ['hole01.png', 'double', 0, 'hole'],
                 ['hole01.png', 'double', 0, 'hole'],
                 ['plataform01.png', 'single', 1, 'solid'],
@@ -245,7 +245,7 @@ function Level() {
             // #2
             {
                 2: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.standingPig
@@ -284,7 +284,7 @@ function Level() {
             // #3
             {
                 2: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.jumpingPig
@@ -323,7 +323,7 @@ function Level() {
             // #4
             {
                 2: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.jumpingPig
@@ -352,7 +352,7 @@ function Level() {
             // #5
             {
                 2: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.standingPig
@@ -420,7 +420,7 @@ function Level() {
             // #7
             {
                 2: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.jumpingPig
@@ -477,7 +477,7 @@ function Level() {
             },
             // #9
             {
-                15: {
+                10: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [
@@ -486,11 +486,11 @@ function Level() {
                     params: [
                         {
                             left: 72,
-                            top: 46
+                            top: 36
                         }
                     ]
                 },
-                50: {
+                53: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [
@@ -519,7 +519,7 @@ function Level() {
                         }
                     ]
                 },
-                25: {
+                3: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [
@@ -541,11 +541,11 @@ function Level() {
                     params: [
                         {
                             left: 72,
-                            top: 35
+                            top: 30
                         }
                     ]
                 },
-                40: {
+                55: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [
@@ -577,7 +577,7 @@ function Level() {
                     ]
                 },
                 80: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.ufoOut
@@ -603,7 +603,7 @@ function Level() {
                     ]
                 },
                 15: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.ufoIn
@@ -616,7 +616,7 @@ function Level() {
                     ]
                 },
                 30: {
-                    onlyOnce: false,
+                    onlyOnce: true,
                     triggered: false,
                     actions: [
                         display.ufoOut

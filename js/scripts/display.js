@@ -525,12 +525,12 @@ function Display() {
         }
     }
 
-    function elementVertOut(el, callback, args) {
+    function elementVertOut(el, moveRate, callback, args) {
         var top = calc.getCoord(el.style.top);
         goinUp();
         function goinUp() {
             if (top > -20) {
-                top -= basicMovRate * 2;
+                top -= moveRate;
                 el.style.top = top+'%';
                 setTimeout(goinUp, 5);
             } else {
@@ -542,12 +542,12 @@ function Display() {
     }
 
     function bigBossOut(callback) {
-        elementVertOut(bigBoss, callback, false)
+        elementVertOut(bigBoss, basicMovRate * 2, callback, false)
 
     }
 
     function ufoOut() {
-        elementVertOut(ufo, false, false);
+        elementVertOut(ufo, basicMovRate * 3, false, false);
     }
 
     function showResetButton() {
