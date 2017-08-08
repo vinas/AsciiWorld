@@ -127,6 +127,17 @@ function Level() {
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid'],
                 ['floor01.png', 'double', 0, 'solid']
+            ],
+            // #11
+            [
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid'],
+                ['floor01.png', 'double', 0, 'solid']
             ]
         ];
     }
@@ -401,6 +412,17 @@ function Level() {
                     triggered: false,
                     actions: [
                         dialogs.dialog021007
+                    ],
+                    params: []
+                }
+            },
+            // #11
+            {
+                2: {
+                    onlyOnce: true,
+                    triggered: false,
+                    actions: [
+                        game.passedNextLevel
                     ],
                     params: []
                 }

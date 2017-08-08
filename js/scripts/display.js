@@ -45,6 +45,7 @@ function Display() {
     this.freezeChar = freezeChar;
     this.unfreezeChar = unfreezeChar;
     this.moveElmRight = moveElmRight;
+    this.levelScore = levelScore;
 
     init();
 
@@ -200,14 +201,12 @@ function Display() {
     }
 
     function moveElmRight(el, target, moveRate, callback) {
-        console.log('aqwui');
         var left = calc.getCoord(el.style.left),
             top = calc.getCoord(el.style.top);
 
         moveRight();
 
         function moveRight() {
-            console.log('left - ', left);
             if (calc.isVisible(el)) {
                 if (left <= target) {
                     left += (moveRate);
@@ -314,7 +313,7 @@ function Display() {
         setTimeout(function() {
             ufoOut();
             el.style.display = 'none';
-            if (el.id == 'charman') setTimeout(displayLevelScore, 1500);
+            if (el.id == 'charman') setTimeout(levelScore, 1500);
         }, 100);
     }
 
@@ -705,7 +704,7 @@ function Display() {
         if (el && top) el.style.top = top+'%';
     }
 
-    function displayLevelScore() {
+    function levelScore() {
         document.getElementById('gameTime').innerHTML = millisToMinutesAndSeconds(gameTime);
         document.getElementById('lastStage').innerHTML = currMap+1;
         document.getElementById('gameElements').style.display = 'none';

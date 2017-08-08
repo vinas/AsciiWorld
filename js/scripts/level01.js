@@ -490,7 +490,7 @@ function Level() {
                         }
                     ]
                 },
-                53: {
+                48: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [
@@ -545,7 +545,7 @@ function Level() {
                         }
                     ]
                 },
-                55: {
+                45: {
                     onlyOnce: true,
                     triggered: false,
                     actions: [

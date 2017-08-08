@@ -45,13 +45,13 @@
             </div>
         </div>
         <div id="startGame" onclick="game.init()"><img src="img/game-start.gif" id="startGameImg" /></div>
-        <div id="gameOver" ontouchstart="events.reset()">
+        <div id="gameOver" onclick="events.reset()">
             <!--label>Estágio alcançado: </label>
             <label id="lastStage"></label><br/>
             <label>Tempo Total: </label>
             <label id="gameTime"></label-->
         </div>
-        <div id="levelScore" ontouchstart="game.nextLevel()">
+        <div id="levelScore" onclick="game.nextLevel()">
             <label>Estágio alcançado: </label>
             <label id="lastStage"></label><br/>
             <label>Tempo Total: </label>
@@ -62,7 +62,7 @@
     <!-- game js files begin -->
     <script type="text/javascript" src="js/scripts/globals.js"></script>
     <script type="text/javascript" src="js/scripts/level02.js"></script>
-    <script type="text/javascript" src="js/scripts/dialogs.js"></script>
+    <script type="text/javascript" src="js/scripts/dialogs02.js"></script>
     <script type="text/javascript" src="js/scripts/setup.js"></script>
     <script type="text/javascript" src="js/scripts/display.js"></script>
     <script type="text/javascript" src="js/scripts/calculator.js"></script>

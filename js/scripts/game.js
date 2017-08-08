@@ -3,6 +3,7 @@ function Game() {
     this.init = init;
     this.endGame = endGame;
     this.nextLevel = nextLevel;
+    this.passedNextLevel = passedNextLevel;
 
     return this;
 
@@ -18,6 +19,10 @@ function Game() {
 
     function nextLevel() {
         window.location.href = 'level'+display.addZero(level.current+1)+'.html';
+    }
+
+    function passedNextLevel() {
+        endGame('nextLevel');
     }
 
     function gameLoop() {
@@ -99,6 +104,8 @@ function Game() {
             case 'abducted':
                 display.abduction();
                 break;
+            case 'nextLevel':
+                display.levelScore();
         }
     }
 
