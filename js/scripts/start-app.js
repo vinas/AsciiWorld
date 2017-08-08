@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     calc = Calculator();
     display = Display();
     level = Level();
-    dialogs = Dialogs();
+    dialogs = (typeof Dialogs !== 'undefined') ? Dialogs() : false;
     game = Game();
 
     //game.init();
