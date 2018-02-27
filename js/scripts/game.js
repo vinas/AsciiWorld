@@ -32,7 +32,6 @@ function Game() {
             handleGameEnds();
             handleCrossMargin();
             handleFiring();
-            handleJump();
         }
         setTimeout(gameLoop, 15);
     }
@@ -62,6 +61,7 @@ function Game() {
         moveCharman();
         actions.swimming = calc.isUserOnWater();
         display.handleCharmanImg();
+        handleJump();
     }
 
 

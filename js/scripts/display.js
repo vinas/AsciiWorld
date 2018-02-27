@@ -466,7 +466,7 @@ function Display() {
                     ufoBullet.style.display = 'none';
                     return;
                 }
-                if (calc.areTouching(ufoBullet, charDiv)) {
+                if (calc.areTouching(ufoBullet, charDiv) && !actions.swimming) {
                     game.endGame('hit');
                     return;
                 }
