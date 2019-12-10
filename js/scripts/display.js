@@ -322,12 +322,12 @@ function Display() {
         if (params.callback) params.callback();
     }
 
-    function jumpingPig(pos) {
-        var base = pos.top,
+    function jumpingPig(jumpInfo) {
+        var base = jumpInfo.top,
             top = base,
-            jumpTop = base - 20,
+            jumpTop = (jumpInfo.forceTop !== undefined && Number.isInteger(jumpInfo.forceTop)) ? jumpInfo.forceTop : base - 20,
             dir = 'up';
-        at(pig, pos.left, pos.top);
+        at(pig, jumpInfo.left, jumpInfo.top);
         pigJumpSound.play();
         jumping();
         function jumping() {
@@ -506,7 +506,8 @@ function Display() {
     }
 
     function ufoIn(pos, callback, args) {
-        elementVertIn(ufo, pos.left, -20, pos.top, callback, args);
+        if (ufo.style.display == 'none')
+            elementVertIn(ufo, pos.left, -20, pos.top, callback, args);
     }
 
     function elementVertIn(el, left, top, target, callback, args) {
@@ -546,7 +547,8 @@ function Display() {
     }
 
     function ufoOut() {
-        elementVertOut(ufo, basicMovRate * 3, false, false);
+        if (ufo.style.display == 'block')
+            elementVertOut(ufo, basicMovRate * 3, false, false);
     }
 
     function showResetButton() {
