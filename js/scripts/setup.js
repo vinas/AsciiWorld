@@ -18,6 +18,7 @@ function Setup() {
         pigJumpSound.volume = 0;
         explosionSound.volume = 0;
         gameOverTheme.volume = 0;
+        nextLevelTheme.volume = 0;
 
         musicTheme.play();
         musicTheme.pause();
@@ -33,6 +34,8 @@ function Setup() {
         explosionSound.pause();
         gameOverTheme.play();
         gameOverTheme.pause();
+        nextLevelTheme.play();
+        nextLevelTheme.pause();
 
         charJumpSound.currentTime = 0;
         ufoLaserSound.currentTime = 0;
@@ -47,6 +50,7 @@ function Setup() {
         pigJumpSound.volume = 1;
         explosionSound.volume = 1;
         gameOverTheme.volume = 1;
+        nextLevelTheme.volume = 1;
     }
 
     function loadContent()
@@ -99,6 +103,7 @@ function Setup() {
 
     function resetGame() {
         gameOverTheme.pause();
+        nextLevelTheme.pause();
         musicTheme.currentTime = 0;
         musicTheme.play();
         hideHidables();
@@ -212,14 +217,17 @@ function Setup() {
     }
 
     function setSounds() {
-        musicTheme = new Audio('audio/Pocketmaster_-_07_-_Ride.mp3');
-        charJumpSound = new Audio('audio/jumpe.mp3');
+        musicTheme = new Audio('audio/alien-cat.mp3');
+        levelEndTheme = new Audio('audio/alien-cat.mp3');
+        nextLevelTheme = new Audio('audio/level-end-autumn-leaves.mp3');
+        charJumpSound = new Audio('audio/jump.mp3');
         ufoLaserSound = new Audio('audio/tir.mp3');
         charArrowSound = new Audio('audio/sling-shot.mp3');
         pigJumpSound = new Audio('audio/jumppp22.ogg.mp3');
         explosionSound = new Audio('audio/8bit_bomb_explosion.wav.mp3');
         gameOverTheme = new Audio('audio/star-floor.mp3');
-        musicTheme.loop -true;
+        musicTheme.loop = true;
+        nextLevelTheme.loop = true;
         gameOverTheme.loop = true;
     }
 

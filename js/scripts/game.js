@@ -91,21 +91,27 @@ function Game() {
         gameOn = false;
         musicTheme.pause();
         pigJumpSound.pause();
-        gameOverTheme.currentTime = 0;
-        gameOverTheme.play();
         setGameEndingTime();
         switch (reason) {
             case 'hole':
+                gameOverTheme.currentTime = 0;
+                gameOverTheme.play();
                 display.fall(display.showResetButton);
                 break;
             case 'hit':
             case 'touched':
+                gameOverTheme.currentTime = 0;
+                gameOverTheme.play();
                 display.showResetButton();
                 break;
             case 'abducted':
+                nextLevelTheme.currentTime = 0;
+                nextLevelTheme.play();
                 display.abduction();
                 break;
             case 'nextLevel':
+                nextLevelTheme.currentTime = 0;
+                nextLevelTheme.play();
                 display.levelScore();
         }
     }
