@@ -53,11 +53,15 @@ function Events()
     }
 
     function tapAttack() {
-        if (gameOn && actions.canFire && !actions.swimming && !actions.shooting) commands.fire = true;
+        if (gameOn && actions.canFire && !actions.swimming && !actions.shooting) {
+            display.imgColorOver('btnAttack');
+            commands.fire = true;
+        }
     }
 
     function tapMoveRight() {
         if (gameOn && actions.canMove) {
+            display.imgColorOver('btnRight');
             actions.lastDirection = 'right';
             display.mirrorObj(charmanImg, 1);
             commands.left = false;
@@ -67,6 +71,7 @@ function Events()
 
     function tapMoveLeft() {
         if (gameOn && actions.canMove) {
+            display.imgColorOver('btnLeft');
             actions.lastDirection = 'left';
             display.mirrorObj(charmanImg, -1);
             commands.right = false;
@@ -74,13 +79,15 @@ function Events()
         }
     }
 
-    function tapStop() {
+    function tapStop(elmId) {
+        display.imgColorOut(elmId);
         commands.left = false;
         commands.right = false;
     }
 
     function tapJump() {
         if (gameOn && actions.canJump && !actions.swimming && !actions.falling && !actions.jumping) {
+            display.imgColorOver('btnJump');
             commands.jump = true;
             charJumpSound.play();
             setTimeout(function () {

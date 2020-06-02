@@ -29,15 +29,21 @@
             <div class="charShot hidable" id="charShot"></div>
             <div id="boom" class="hidable"><img src="" id="boomImg" /></div>
             <div class="controller">
-                <div class="btn forceRight fire" ontouchstart="events.tapAttack()"></div>
-                <div class="btn forceRight jump" ontouchstart="events.tapJump()"></div>
-                <div class="btn forceLeft moveLeft"
-                    ontouchstart="events.tapMoveLeft()"
-                    ontouchend="events.tapStop()">
+                <div id="btnAttack" class="btn forceRight fire"
+                    ontouchstart="events.tapAttack()"
+                    ontouchend="events.tapStop('btnAttack')">
                 </div>
-                <div class="btn forceLeft moveRight"
+                <div id="btnJump" class="btn forceRight jump"
+                    ontouchstart="events.tapJump()"
+                    ontouchend="events.tapStop('btnJump')">
+                </div>
+                <div id="btnLeft" class="btn forceLeft moveLeft"
+                    ontouchstart="events.tapMoveLeft()"
+                    ontouchend="events.tapStop('btnLeft')">
+                </div>
+                <div id="btnRight" class="btn forceLeft moveRight"
                     ontouchstart="events.tapMoveRight()"
-                    ontouchend="events.tapStop()">
+                    ontouchend="events.tapStop('btnRight')">
                 </div>
             </div>
         </div>

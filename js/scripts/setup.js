@@ -92,10 +92,16 @@ function Setup() {
             setTimeout(function() {
                 switch (e.which) {
                     case 39:
-                        commands.right = false;
+                        events.tapStop('btnRight');
                         break;
                     case 37:
-                        commands.left = false;
+                        events.tapStop('btnLeft');
+                        break;
+                    case 32:
+                        events.tapStop('btnAttack');
+                        break;
+                    case 17:
+                        events.tapStop('btnJump');
                 }
             }, 50);
         });

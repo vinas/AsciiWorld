@@ -46,6 +46,8 @@ function Display() {
     this.unfreezeChar = unfreezeChar;
     this.moveElmRight = moveElmRight;
     this.levelScore = levelScore;
+    this.imgColorOver = imgColorOver;
+    this.imgColorOut = imgColorOut;
 
     init();
 
@@ -80,6 +82,14 @@ function Display() {
 
         boom.style.width = '10%';
         boom.style.height = '20%';
+    }
+
+    function imgColorOver(elmId) {
+        document.getElementById(elmId).style.filter = 'invert(1)';
+    }
+
+    function imgColorOut(elmId) {
+        document.getElementById(elmId).style.filter = 'invert(0)';
     }
 
     function freezeChar() {
