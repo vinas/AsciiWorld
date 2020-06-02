@@ -81,8 +81,13 @@ function Events()
 
     function tapStop(elmId) {
         display.imgColorOut(elmId);
-        commands.left = false;
-        commands.right = false;
+        switch (elmId) {
+            case 'btnRight':
+                commands.right = false;
+                break;
+            case 'btnLeft':
+                commands.left = false;
+        }
     }
 
     function tapJump() {
