@@ -17,6 +17,7 @@ function Setup() {
         charArrowSound.volume = 0;
         pigJumpSound.volume = 0;
         explosionSound.volume = 0;
+        gameOverTheme.volume = 0;
 
         musicTheme.play();
         musicTheme.pause();
@@ -30,6 +31,8 @@ function Setup() {
         pigJumpSound.pause();
         explosionSound.play();
         explosionSound.pause();
+        gameOverTheme.play();
+        gameOverTheme.pause();
 
         charJumpSound.currentTime = 0;
         ufoLaserSound.currentTime = 0;
@@ -37,12 +40,13 @@ function Setup() {
         pigJumpSound.currentTime = 0;
         explosionSound.currentTime = 0;
 
-        musicTheme.volume = .8;
-        charJumpSound.volume = .6;
+        musicTheme.volume = .7;
+        charJumpSound.volume = 1;
         ufoLaserSound.volume = 1;
         charArrowSound.volume = 1;
         pigJumpSound.volume = 1;
         explosionSound.volume = 1;
+        gameOverTheme.volume = 1;
     }
 
     function loadContent()
@@ -94,6 +98,8 @@ function Setup() {
     }
 
     function resetGame() {
+        gameOverTheme.pause();
+        musicTheme.currentTime = 0;
         musicTheme.play();
         hideHidables();
         resetGameVariables();
@@ -207,11 +213,14 @@ function Setup() {
 
     function setSounds() {
         musicTheme = new Audio('audio/Pocketmaster_-_07_-_Ride.mp3');
-        charJumpSound = new Audio('audio/SFX_Jump_31_0.mp3');
+        charJumpSound = new Audio('audio/jumpe.mp3');
         ufoLaserSound = new Audio('audio/tir.mp3');
-        charArrowSound = new Audio('audio/laserfire01.ogg.mp3');
+        charArrowSound = new Audio('audio/sling-shot.mp3');
         pigJumpSound = new Audio('audio/jumppp22.ogg.mp3');
         explosionSound = new Audio('audio/8bit_bomb_explosion.wav.mp3');
+        gameOverTheme = new Audio('audio/star-floor.mp3');
+        musicTheme.loop -true;
+        gameOverTheme.loop = true;
     }
 
 }

@@ -64,7 +64,6 @@ function Game() {
         handleJump();
     }
 
-
     function moveCharman() {
         calc.setNewCoord();
         if (calc.shouldBeFalling()) {
@@ -91,7 +90,9 @@ function Game() {
     function endGame(reason) {
         gameOn = false;
         musicTheme.pause();
-        musicTheme.currentTime = 0;
+        pigJumpSound.pause();
+        gameOverTheme.currentTime = 0;
+        gameOverTheme.play();
         setGameEndingTime();
         switch (reason) {
             case 'hole':

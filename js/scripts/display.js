@@ -328,7 +328,6 @@ function Display() {
             jumpTop = (jumpInfo.forceTop !== undefined && Number.isInteger(jumpInfo.forceTop)) ? jumpInfo.forceTop : base - 20,
             dir = 'up';
         at(pig, jumpInfo.left, jumpInfo.top);
-        pigJumpSound.play();
         jumping();
         function jumping() {
             if (top < jumpTop) {
