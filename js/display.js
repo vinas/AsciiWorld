@@ -93,7 +93,7 @@ function Display() {
     }
 
     function freezeChar() {
-        events.tapStop();
+        events.tapStop('btnRight');
         actions.canMove = false;
         actions.canJump = false;
         actions.canFire = false;
